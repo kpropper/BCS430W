@@ -1,0 +1,72 @@
+table.text {
+        font-family: Arial, sans-serif; 		
+		font-size: 13px; 
+		font-weight: Normal; 
+		text-decoration: none; 
+		color: #000000;
+		text-align: left
+		}
+
+tr.text {
+		font-family: Tahoma, Arial, Helvetica, san-serif; 
+		font-size: 13px; 
+		font-weight: Normal; 
+		text-decoration: none; 
+		color: #404040;
+		}
+
+td.text {
+        font-family: Tahoma, Arial, Helvetica, san-serif; 
+		color: #404040;
+		font-size: 13px; 
+		font-weight: Normal; 
+		text-decoration: none; 
+		}
+
+tr.redtext {
+        font-family: Tahoma, Arial, Helvetica, san-serif; 
+		color: #FF0000;
+		font-size: 13px; 
+		font-weight: Normal; 
+		text-decoration: none; 
+		}
+
+td.redtext {
+        font-family: Tahoma, Arial, Helvetica, san-serif; 
+		color: #FF0000;
+		font-size: 13px; 
+		font-weight: Normal; 
+		text-decoration: none; 
+		}
+		
+td.caption {
+        font-family: Arial, sans-serif; 
+		color: black;
+		font-size: 15px; 
+		font-weight: Normal; 
+		text-decoration: none;
+		text-align: center;
+		}
+		
+a:link {
+		color: #1e1eb1;
+		text-decoration: none
+		}     /* unvisited link */
+		
+a:visited {
+		color: #1e1eb1;
+		text-decoration: none
+		}  /* visited link */
+		
+a:hover {
+		color: red;
+		text-decoration: underline
+		}   /* mouse over link */
+
+a:active {
+		color: #0000FF
+		}   /* selected link */
+
+.unique a:link, .unique a:visited, .unique a:hover, .unique a:active  {
+text-decoration: underline;
+}

@@ -1,0 +1,46 @@
+<?php
+function findAverageArray($input){
+	$sum = 0;
+	foreach($input as $key => $value){
+		$sum += $value; 
+		
+	}
+	
+	return $sum/10;
+}
+
+ $student = array("Peter"=>"95", "Ben"=>"50", "Joe"=>"92", "Mike"=>"85", "Jessica"
+ =>"70", "Stephen"=>"75", "Daniel"=>"86", "Carlos"=>"98", "Alex"=>"65", "Jon"=>"77");
+ 
+ 
+
+$average = findAverageArray($student);//finds average of Associative Array value 
+
+echo"Average is $average<br>\n";
+echo"Scores above the average<br>\n";
+arsort($student); // sort associative arrays in descending order, according to the value
+foreach($student as  $key => $value){
+if($value > $average){//finds testscores greater than average 
+	
+	echo"$key has a score of <span style='color:green'>".$value."</span><br>\n";
+	}//ends if 
+	else{
+	echo"$key has a score of ".$value."<br>\n";
+	}//ends else
+}//ends foreach 
+echo"<p></p>\n";
+echo"Average is $average<br>\n";
+echo"Scores below the average<br>\n";
+
+asort($student);//sort associative arrays in ascending order, according to the value
+foreach($student as  $key => $value){
+if($value < $average){//Finds test scores lower than average 
+	
+	echo"$key has a score of <span style='color:red'>".$value."</span><br>\n";
+	}//ends if 
+	else{
+	echo"$key has a score of ".$value."<br>\n";
+	}//ends else
+}//ends foreach  
+
+?>
