@@ -1,0 +1,34 @@
+<?php
+function emphasize($string,$format){
+	
+	$lowercase = strtolower($format); //changes BIU to biu
+	$stringlength = strlen($lowercase); // returns 3
+	
+	for($i = 0; $i < $stringlength; $i++){
+		
+		if ($lowercase[$i] == 'b'){
+			$string = "<b>$string</b>";
+		}
+		if($lowercase[$i] == 'i'){
+			
+			$string = "<i>$string</i>";
+		}
+		if($lowercase[$i] == 'u'){
+			
+			$string = "<u>$string</u>";
+		}
+	}//ends for loop for setting tags 
+	return $string; 
+}
+
+
+
+
+
+$string = "Carlos";//example of a string 
+$format = "iub";//can be changeable in any order. 
+$string = emphasize($string, $format);
+echo "$string";
+
+
+?>
