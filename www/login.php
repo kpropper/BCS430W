@@ -1,4 +1,5 @@
-<!doctype html>
+<?php include("siteLogon.php");
+?>
 <html>
   <head>
     <meta charset="utf-8">
@@ -62,7 +63,7 @@
 		<div class="glass">
 		<img src ="images/placeholder.png" class="user">
 		<h3>User Login</h3>
-		<form>
+		<form action="" method="post" >
 			<!--Email Box-->
 			<div class="inputBox">
 				<input type="email" name="email" id="email" placeholder="Email">
@@ -73,7 +74,7 @@
 				<input type="password" name="password" id="password" placeholder="Password">
 				<br></br>
 			</div>
-				<input type="submit" name="submit" value="Login">
+				<input type="submit" name="logon" value="Login">
 		</form>
 		<br></br>
 		<a href="#">Don't Have an Account?</a>
