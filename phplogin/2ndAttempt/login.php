@@ -63,7 +63,7 @@
 		<div class="glass">
 		<img src ="images/placeholder.png" class="user">
 		<h3><?php echo $pword; ?></h3>
-		<form>
+		<form action="" method="post" >
 			<!--Email Box-->
 			<div class="inputBox">
 				<input type="email" name="email" id="email" placeholder="Email">
