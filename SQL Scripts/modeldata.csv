@@ -1,0 +1,37 @@
+ModelID,CategoryID,ManufacturerID,ModelName,PartNumber
+1,1,1,MacBookPro (5.4),A1286-MC118LL/A
+2,1,1,MacBookPro (10.2),A1398-ME698LL/A
+3,1,1,MacBookAir (5.2),A1466-MD231LL/A
+4,1,2,ThinkPad T420S,417132U
+5,1,2,ThinkPad T440S,20AQ005TUS
+6,1,2,ThinkPad x1 carbon,34442GU
+7,1,4,Latitude E7470,
+8,1,4,Latitude E6440,
+9,1,4,Latitude E6700,
+10,1,4,Latitude D630,
+11,2,4,OptiPlex 745,
+12,2,4,OptiPlex 790,
+13,2,4,OptiPlex 7010,
+14,2,4,OptiPlex 9010,
+15,2,4,OptiPlex 9020,
+16,2,5,Compaq 8200 Elite,xz793ut#aba
+17,2,5,Compaq 6000 Pro,a2w58ut#
+18,2,5,Compaq 8000 Elite,la012ut#aba
+19,2,4,OptiPlex 755,
+20,2,2,ThinkCentre M52,8215-D1U
+21,3,1,iPad 4,A1460-MD522LL/A
+22,3,1,iPad 3,A1430-MD366LL/A*
+23,3,1,iPad Air,A1474-MD785LL/A*
+24,3,1,iPad,A1337-MC349LL/A*
+25,3,1,iPad 2,A1395-MC769LL/A*
+26,4,4,PowerEdge 1850,
+27,4,4,PowerEdge 2950,
+28,4,4,500P,
+29,4,6,Superserver 6015V-MRLP,
+30,4,6,M2200-1,ymis05a
+31,4,6,CSE-836,CSE-836
+32,3,9,T217A,
+33,3,9,SM-T210R,
+34,3,9,SM-P600,
+35,3,9,SGH-I467,
+36,5,8,9608,
