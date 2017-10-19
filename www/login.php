@@ -75,6 +75,7 @@
 				<br></br>
 			</div>
 				<input type="submit" name="logon" value="Login">
+        <?php echo $msg; ?>
 		</form>
 		<br></br>
 		<a href="#">Don't Have an Account?</a>
