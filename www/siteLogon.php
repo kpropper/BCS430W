@@ -12,12 +12,12 @@
 
      // include('sqlConnect.php');
 
-	$mysqli = new mysqli('localhost', 'root', '', 'itamg');
+	$mysqli = new mysqli('localhost', 'root', '', 'test1');
 	if ($mysqli->connect_error)
 		die('Connect Error: ' . $mysqli->connect_error);
 
     $email = $mysqli->escape_string($_POST['email']);
-    $result = $mysqli->query("SELECT * FROM test WHERE Email='$email'");
+    $result = $mysqli->query("SELECT * FROM user WHERE Email='$email'");
 
     if ( $result->num_rows == 0 ){ // User doesn't exist
         $msg = "User with that email doesn't exist!";

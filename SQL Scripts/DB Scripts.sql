@@ -89,7 +89,7 @@ FOREIGN KEY (AssetID) REFERENCES Asset(AssetID)
 );
 
 
-load data infile 'c:/wamp/tmp/userdata.csv' into table user fields terminated by ',' ignore 1 lines;
-load data infile 'c:/wamp/tmp/categorydata.csv' into table AssetCategory fields terminated by ',' ignore 1 lines;
-load data infile 'c:/wamp/tmp/manufacturerdata.csv' into table Manufacturer fields terminated by ',' ignore 1 lines;
-load data infile 'c:/wamp/tmp/modeldata.csv' into table AssetModel fields terminated by ',' ignore 1 lines;
+load data infile 'c:/wamp64/tmp/userdata.csv' into table user fields terminated by ',' ignore 1 lines;
+load data infile 'c:/wamp64/tmp/categorydata.csv' into table AssetCategory fields terminated by ',' ignore 1 lines;
+load data infile 'c:/wamp64/tmp/manufacturerdata.csv' into table Manufacturer fields terminated by ',' ignore 1 lines;
+load data infile 'c:/wamp64/tmp/modeldata.csv' into table AssetModel fields terminated by ',' ignore 1 lines;

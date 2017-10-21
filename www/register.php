@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<?php include("registerUser.php");
+?>
 <html>
 <head>
 <link rel="stylesheet" href="css/main.css" />
@@ -54,7 +55,7 @@
 </div><!--end row-wrapper -->
   <div >
   <h1 style="text-align: center">Register Here!</h1>
-  <form class="container" action="php/registration.php">
+  <form class="container" action="register.php" method="post">
     E-Mail:<br>
     <input type="email" name="email" value="">
     <br>
@@ -77,7 +78,8 @@
     Phone:<br>
     <input type="text" name="phone">
     <br>
-    <input type="submit" value="Submit" style="cursor: pointer">
+    <input type="submit" name="register" value="Register" style="cursor: pointer">
+	<?php echo $msg; ?>
   </form>
 </div>
 
