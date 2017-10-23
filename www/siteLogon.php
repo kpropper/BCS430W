@@ -12,9 +12,7 @@
 
      // include('sqlConnect.php');
 
-	$mysqli = new mysqli('localhost', 'root', '', 'test1');
-	if ($mysqli->connect_error)
-		die('Connect Error: ' . $mysqli->connect_error);
+	include("sqlConnect.php");
 
     $email = $mysqli->escape_string($_POST['email']);
     $result = $mysqli->query("SELECT * FROM user WHERE Email='$email'");
