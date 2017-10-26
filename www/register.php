@@ -53,33 +53,35 @@
 </div><!--end widget-span -->
 </div><!--end row-->
 </div><!--end row-wrapper -->
-  <div >
+  <div>
   <h1 style="text-align: center">Register Here!</h1>
   <form class="container" action="register.php" method="post">
-    E-Mail:<br>
+    <div class="names">
+    <label>Name:</label>
+      <input type="text" name="firstname" value="" placeholder="First">
+      <input type="text" name="lastname" value="" placeholder="Last">
+    </div>
+    <div class="input_fields">
+    <label>E-Mail:</label>
     <input type="email" name="email" value="">
     <br>
-    Password:<br>
+    <label>Password:</label>
     <input type="password" name="password" value="">
     <br>
-    Verify Password:<br>
+    <label>Verify Password:</label>
     <input type="password" name="verifypassword" value="">
     <br>
-    First name:<br>
-    <input type="text" name="firstname" value="">
-    <br>
-    Last name:<br>
-    <input type="text" name="lastname" value="">
-
-    <br>
-    Company Name:<br>
+    <label>Company Name:</label>
     <input type="text" name="companyname">
     <br>
-    Phone:<br>
+    <label>Phone:</label>
     <input type="text" name="phone">
     <br>
+    <div class="reg_submit">
     <input type="submit" name="register" value="Register" style="cursor: pointer">
-	<?php echo $msg; ?>
+    </div>
+    </div>
+  <?php echo $msg; ?>
   </form>
 </div>
 
