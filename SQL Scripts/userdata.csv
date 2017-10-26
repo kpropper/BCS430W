@@ -1,6 +1,6 @@
-UserID,First_Name,Last_Name,Email,Password,Company_Name,Telephone
-1,Charles,Veprek,veprcv@farmingdale.edu,kajais#1!,ITAMG,516-669-5608
-2,Chris,Sayers,sayect@farmingdale.edu,123454,FSC,631-413-0058
-3,David,Lewis,lewid83@farmingdale.edu,A510514B,Conde Nast,631-991-1092
-4,Karl,Propper,propka@farmingdale.edu,IROCKIT,NASA,631-838-4943
-5,Solomon,Muratov,maras@farmingdale.edu,ET4oneHm,House Stark,516-368-6996
+UserID,First_Name,Last_Name,Email,Password,Company_Name,Telephone,UserType
+1,Charles,Veprek,veprcv@farmingdale.edu,kajais#1!,ITAMG,516-669-5608,Employee
+2,Chris,Sayers,sayect@farmingdale.edu,123454,FSC,631-413-0058,Client
+3,David,Lewis,lewid83@farmingdale.edu,A510514B,Conde Nast,631-991-1092,Client
+4,Karl,Propper,propka@farmingdale.edu,IROCKIT,NASA,631-838-4943,Employee
+5,Solomon,Muratov,maras@farmingdale.edu,ET4oneHm,House Stark,516-368-6996,Employee
