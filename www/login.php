@@ -63,7 +63,7 @@
 		<div class="glass">
 		<img src ="images/placeholder.png" class="user">
 		<h3>User Login</h3>
-		<form action="" method="post" >
+		<form action="login.php" method="post" >
 			<!--Email Box-->
 			<div class="inputBox">
 				<input type="email" name="email" id="email" placeholder="Email">
@@ -75,11 +75,12 @@
 				<br></br>
 			</div>
 				<input type="submit" name="logon" value="Login">
+        <?php echo $msg; ?>
 		</form>
 		<br></br>
-		<a href="#">Don't Have an Account?</a>
+		<a href="register.php">Don't Have an Account?</a>
 		<br></br>
-		<a href="register.html">Forgot Password</a>
+		<a href="#">Forgot Password</a>
 		</div>
 		</div>
 		<br></br>

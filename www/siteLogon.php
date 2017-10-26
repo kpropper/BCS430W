@@ -1,46 +1,50 @@
 <?PHP
-  
-// Variables  
+
+// Variables
   $msg = NULL;			// Error Message
-  
-// Get Form Input  
+
+// Get Form Input
   if(isset($_POST['logon'])) {
-    $userid = trim($_POST['email']);
-    $pword = trim($_POST['password']);
-	if ($userid == NULL) 			$msg = "EMail is missing";
-    if ($pword == NULL) 			$msg = "PASSWORD is missing";
-    if (($userid == NULL) AND ($pword == NULL)) $msg = "EMail & PASSWORD are missing";
+	if ($_POST['email'] == NULL) 			$msg = "Email field is empty";
+    if ($_POST['password'] == NULL) 			$msg = "Password field is missing";
+    if (($_POST['email'] == NULL) AND ($_POST['password'] == NULL)) $msg = "Email and Password fields are empty";
 	if ($msg == NULL) {
+
      // include('sqlConnect.php');
-	  
-	$mysqli = new mysqli('localhost', 'root', '', 'test1');
-	if ($mysqli->connect_error)
-		die('Connect Error: ' . $mysqli->connect_error);	
-	  
-	  
-	  
-	  $query = "SELECT UserID, FName, LName, Email, Password, CompanyName FROM users WHERE Email='$userid'";
-      $result = $mysqli->query($query);
-	  if (!$result) $msg = "Error accessing User Table " . mysql_error;
-	  if ($result->num_rows > 0) {
-	    list($student, $firstname, $lastname, $role, $password, $status) = $result->fetch_row();
-	    if ($pword == $password)
-	      if ($status) {
-		    $_SESSION['userid'] = $userid;
-		    //$_SESSION['role'] = $role;
-		    //$_SESSION['name'] = $name = "$firstname $lastname";
-			//$_SESSION['student'] = $student;
-		    $logon = TRUE;
-			//$location = "location: bcs350.php";
-			$msg = "<font color='green'><b>$name Logon Successful</b></font>"; 
-			header($location);
-			exit; 
-		    }
-		  else $msg = "Your LOGON ID is inactive";
-		else $msg = "Invalid Password";
-	    }
-	  else $msg = "EMail is invalid";
-	  }
-	}
-	
+
+	include("sqlConnect.php");
+
+    $email = $mysqli->escape_string($_POST['email']);
+    $result = $mysqli->query("SELECT * FROM user WHERE Email='$email'");
+
+    if ( $result->num_rows == 0 ){ // User doesn't exist
+        $msg = "User with that email doesn't exist!";
+      //  header("location: error.php");
+    }
+    else { // User exists
+        $user = $result->fetch_assoc();
+
+        if ($_POST['password'] == $user['Password'])  {
+
+            $_SESSION['email'] = $user['Email'];
+            $_SESSION['first_name'] = $user['FName'];
+            $_SESSION['last_name'] = $user['LName'];
+
+            // This is how we'll know the user is logged in
+            //$_SESSION['logged_in'] = true;
+
+            $msg = "Logged in";
+        }
+        else {
+
+            $msg = "You have entered wrong password, try again!";
+            //header("location: error.php");
+        }
+
+
+
+}
+}
+}
+
 ?>
