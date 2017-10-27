@@ -63,19 +63,19 @@
     </div>
     <div class="input_fields">
     <label>E-Mail:</label>
-    <input type="email" name="email" value="">
+    <input type="email" name="email" value="" placeholder="E-Mail">
     <br>
     <label>Password:</label>
-    <input type="password" name="password" value="">
+    <input type="password" name="password" value="" placeholder="Password">
     <br>
     <label>Verify Password:</label>
-    <input type="password" name="verifypassword" value="">
+    <input type="password" name="verifypassword" value="" placeholder="Verify Password">
     <br>
     <label>Company Name:</label>
-    <input type="text" name="companyname">
+    <input type="text" name="companyname" placeholder="Company Name">
     <br>
     <label>Phone:</label>
-    <input type="text" name="phone">
+    <input type="text" name="phone" placeholder="Phone">
     <br>
     <div class="reg_submit">
     <input type="submit" name="register" value="Register" style="cursor: pointer">

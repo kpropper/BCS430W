@@ -4,10 +4,14 @@
   $msg = NULL;			// Error Message
 
 // Get Form Input
+if (isset($_POST['message'])) 			$msg = $_POST['message'];
+
   if(isset($_POST['logon'])) {
+    if (isset($_POST['message'])) 			$msg = $_POST['message'];  else $msg = "Why am I here?";
 	if ($_POST['email'] == NULL) 			$msg = "Email field is empty";
     if ($_POST['password'] == NULL) 			$msg = "Password field is missing";
     if (($_POST['email'] == NULL) AND ($_POST['password'] == NULL)) $msg = "Email and Password fields are empty";
+
 	if ($msg == NULL) {
 
      // include('sqlConnect.php');

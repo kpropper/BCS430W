@@ -2,6 +2,7 @@
 
 // Variables
   $msg = NULL;			// Error Message
+  $loginpage = "login.php";
 
 // Get Form Input
   if(isset($_POST['register'])) {
@@ -37,6 +38,13 @@
 			if($result)
 			{
 				$msg = "$email has been registered";
+				echo "<form id='registration_success' action='$loginpage' method='post'>
+					  <input type='hidden' name='message' value='$msg'>
+					  </form>
+					  
+					  <script type='text/javascript'>
+						document.getElementById('registration_success').submit();
+					  </script>";
 			}
 			else
 			{
