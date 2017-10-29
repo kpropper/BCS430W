@@ -75,12 +75,7 @@
 				<br></br>
 			</div>
 				<input type="submit" name="logon" value="Login">
-        <?php echo $msg;
-        if($msg == "Why am I here?"){
-          //Temporary redirect to inventory page.
-          echo "<script> location.href='inventory.php'; </script>";
-          exit;
-        }?>
+        <?php echo $msg;?>
 		</form>
 		<br></br>
 		<a href="register.php">Don't Have an Account?</a>

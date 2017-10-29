@@ -7,12 +7,12 @@
 if (isset($_POST['message'])) 			$msg = $_POST['message'];
 
   if(isset($_POST['logon'])) {
-    if (isset($_POST['message'])) {
-      			$msg = $_POST['message'];
-    }
-    else{
-      $msg = "Why am I here?";
-    }
+ //   if (isset($_POST['message'])) {
+ //     			$msg = $_POST['message'];
+ //   }
+ //   else{
+ //     $msg = "Why am I here?";
+ //   }
 	if ($_POST['email'] == NULL) 			$msg = "Email field is empty";
     if ($_POST['password'] == NULL) 			$msg = "Password field is missing";
     if (($_POST['email'] == NULL) AND ($_POST['password'] == NULL)) $msg = "Email and Password fields are empty";
@@ -34,15 +34,23 @@ if (isset($_POST['message'])) 			$msg = $_POST['message'];
         $user = $result->fetch_assoc();
 
         if ($_POST['password'] == $user['Password'])  {
-
+			
+			//Ok, we're logged in so lets start the session
+			session_start();
+			
+			// This is how we'll know the user is logged in
+            $_SESSION['logged_in'] = true;
+			
+			//Here is some Additional Session Info
+			$_SESSION['userid'] = $user['UserId'];
             $_SESSION['email'] = $user['Email'];
             $_SESSION['first_name'] = $user['FName'];
             $_SESSION['last_name'] = $user['LName'];
+			$_SESSION['user_type'] = $user['UserType'];
 
-            // This is how we'll know the user is logged in
-            //$_SESSION['logged_in'] = true;
 
             $msg = "Logged in";
+			echo "<script> location.href='selectLanding.php'; </script>";
         }
         else {
 

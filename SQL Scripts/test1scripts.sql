@@ -100,35 +100,35 @@ FOREIGN KEY (AssetID) REFERENCES Asset(AssetID)
 
 /*input data for the tab;es */
 
-load data infile 'c:/wamp/tmp/userdata.csv' into table user fields terminated by ',' ignore 1 lines;
-load data infile 'c:/wamp/tmp/categorydata.csv' into table AssetCategory fields terminated by ',' ignore 1 lines;
-load data infile 'c:/wamp/tmp/manufacturerdata.csv' into table Manufacturer fields terminated by ',' ignore 1 lines;
-load data infile 'c:/wamp/tmp/modeldata.csv' into table AssetModel fields terminated by ',' ignore 1 lines;
+load data infile 'c:/wamp64/tmp/userdata.csv' into table user fields terminated by ',' ignore 1 lines;
+load data infile 'c:/wamp64/tmp/categorydata.csv' into table AssetCategory fields terminated by ',' ignore 1 lines;
+load data infile 'c:/wamp64/tmp/manufacturerdata.csv' into table Manufacturer fields terminated by ',' ignore 1 lines;
+load data infile 'c:/wamp64/tmp/modeldata.csv' into table AssetModel fields terminated by ',' ignore 1 lines;
 
 /*Category Query for Dropdown
 NOTE: Their selection should be stored as a PHP variable that
 references categoryID */
-select * from AssetCategory;
+/*select * from AssetCategory;*/
 
 /* Manufacturer Query Based on Selection of Category
 NOTE: Will need to change = 4 to the PHP stored variable
 NOTE: The PHP variable needs to reference the categoryID */
 
-select distinct ManufacturerName from manufacturer m
+/*select distinct ManufacturerName from manufacturer m
 join assetmodel a on m.manufacturerid = a.manufacturerid
-where a.categoryid = 4;
+where a.categoryid = 4;*/
 
 /*Model Query Based on Selection of Category and Manufacturer
 NOTE: Will need to change = 4 and = 4 to the PHP stored variable
 NOTE: PHP variables needs to reference the manufacturerID and the categoryID */
 
-select distinct ModelName from assetmodel am
-where am.manufacturerid = 4 and am.categoryid =4;
+/*select distinct ModelName from assetmodel am
+where am.manufacturerid = 4 and am.categoryid =4;*/
 
 /*Part Number Query Based on Selection of Model
 NOTE: Will need to change = "MacBookPro (5.4)" to the PHP stored variable
 Note: PHP variable need to reference the ModelName choosen */
 
-select distinct PartNumber from assetmodel am
-where ModelName = "MacBookPro (5.4)";
+/*select distinct PartNumber from assetmodel am
+where ModelName = "MacBookPro (5.4)";*/
 
