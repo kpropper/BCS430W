@@ -42,7 +42,7 @@ if (isset($_POST['message'])) 			$msg = $_POST['message'];
             $_SESSION['logged_in'] = true;
 			
 			//Here is some Additional Session Info
-			$_SESSION['userid'] = $user['UserId'];
+			$_SESSION['userid'] = $user['UserID'];
             $_SESSION['email'] = $user['Email'];
             $_SESSION['first_name'] = $user['FName'];
             $_SESSION['last_name'] = $user['LName'];
