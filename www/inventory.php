@@ -4,17 +4,23 @@ include("sqlConnect.php");
 <!DOCTYPE html>
 <html>
 <head>
-<!--  <script>
-    function getId(val){
-      $.ajax({
-        type: "POST",
-        url:
-      }
-    }
-  </script>
--->
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
   <link rel="stylesheet" href="css/main.css" />
   <title>Inventory Page</title>
+  <script>
+      function getId(val){
+        //alert(val);
+        $.ajax({
+          type: "POST",
+          url: "getdata.php",
+          data: "CategoryID="+val,
+          success: function(data){
+            $("#mList").html(data);
+              //alert(data);
+          }
+        });
+      }
+    </script>
 </head>
 <body>
 
@@ -23,7 +29,7 @@ include("sqlConnect.php");
   <div class= "row">
     <div class="category col col-sm-3 col-md-2 col-lg-2">
       <label>Category</label>
-      <select name="category" onChange="getId(this.value);">
+      <select name="category" onchange="getId(this.value);">
           <option value="">Select Category</option>
           <!-- populate dropdownlist using php -->
           <?php
@@ -37,18 +43,19 @@ include("sqlConnect.php");
               }
            ?>
       </select>
+
     </div>
 
     <div class="manufacturer col col-sm-3 col-md-2 col-lg-2">
       <label>Manufacturer</label>
-      <select name="manufacturer">
+      <select name="manufacturer" id="mList">
           <option value="">Select Manufacturer</option>
       </select>
     </div>
 
     <div class="model col col-sm-3 col-md-2 col-lg-2">
       <label>Model</label>
-      <select name="model">
+      <select name="model" id="modList">
           <option value="">Select Model</option>
       </select>
 
@@ -56,7 +63,7 @@ include("sqlConnect.php");
 
     <div class="service_tag col col-sm-3 col-md-2 col-lg-2">
       <label>Service Tag</label>
-      <select name="service_tag">
+      <select name="service_tag" id="sTagList">
           <option value="">Select Service Tag</option>
       </select>
 
@@ -64,7 +71,7 @@ include("sqlConnect.php");
 
     <div class="hard_drives col col-sm-3 col-md-2 col-lg-2">
       <label>Hard Drives</label>
-      <select name="hard_drives">
+      <select name="hard_drives" id="hdList">
           <option value="">Select Hard Drives</option>
       </select>
 
@@ -72,7 +79,7 @@ include("sqlConnect.php");
 
     <div class="processors col col-sm-3 col-md-2 col-lg-2">
       <label>Processors</label>
-      <select name="processors">
+      <select name="processors" id="pList">
           <option value="">Select a Processor</option>
       </select>
 
@@ -80,7 +87,7 @@ include("sqlConnect.php");
 
     <div class="ram col col-sm-3 col-md-2 col-lg-2">
       <label>Ram</label>
-      <select name="ram">
+      <select name="ram" id="ramList">
           <option value="">Select Ram</option>
       </select>
 
