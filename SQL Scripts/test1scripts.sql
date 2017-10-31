@@ -1,4 +1,4 @@
-/*5RS Create MySQL Script */
+/*5RS MySQL Script/Code */
 
 /*create and set database */
 create database test1;
@@ -78,6 +78,7 @@ ModelID INT NOT NULL,
 HardDriveID INT NOT NULL,
 ProcessorID INT NOT NULL,
 MemoryID INT NOT NULL,
+InventoryID INT NOT NULL,
 SerialNumber varchar (100) NULL,
 ProductNumber varchar (100) NULL,
 Quantity INT NOT NULL,
@@ -86,19 +87,18 @@ FOREIGN KEY (UserID) REFERENCES User(UserID),
 FOREIGN KEY (ModelID) REFERENCES AssetModel(ModelID),
 FOREIGN KEY (HardDriveID) REFERENCES HardDrive(HardDriveID),
 FOREIGN KEY (ProcessorID) REFERENCES Processor(ProcessorID),
-FOREIGN KEY (MemoryID) REFERENCES Memory(MemoryID)
+FOREIGN KEY (MemoryID) REFERENCES Memory(MemoryID),
+FOREIGN KEY (InventoryID) REFERENCES Inventory(InventoryID)
 );
 
 CREATE TABLE Inventory (
-InventoryID INT NOT NULL,
+InventoryID INT unsigned NOT NULL AUTO_INCREMENT,
 UserID INT NOT NULL,
-AssetID INT NOT NULL,
-PRIMARY KEY (InventoryID, UserID, AssetID),
+PRIMARY KEY (InventoryID, UserID),
 FOREIGN KEY (UserID) REFERENCES User(UserID),
-FOREIGN KEY (AssetID) REFERENCES Asset(AssetID)
 );
 
-/*input data for the tab;es */
+/*input data for the tables */
 
 load data infile 'c:/wamp/tmp/userdata.csv' into table user fields terminated by ',' ignore 1 lines;
 load data infile 'c:/wamp/tmp/categorydata.csv' into table AssetCategory fields terminated by ',' ignore 1 lines;
@@ -131,4 +131,6 @@ Note: PHP variable need to reference the ModelName choosen */
 
 select distinct PartNumber from assetmodel am
 where ModelName = "MacBookPro (5.4)";
+
+
 
