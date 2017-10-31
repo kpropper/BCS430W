@@ -4,6 +4,15 @@ include("sqlConnect.php");
 <!DOCTYPE html>
 <html>
 <head>
+<!--  <script>
+    function getId(val){
+      $.ajax({
+        type: "POST",
+        url:
+      }
+    }
+  </script>
+-->
   <link rel="stylesheet" href="css/main.css" />
   <title>Inventory Page</title>
 </head>
@@ -14,18 +23,18 @@ include("sqlConnect.php");
   <div class= "row">
     <div class="category col col-sm-3 col-md-2 col-lg-2">
       <label>Category</label>
-      <select name="category">
+      <select name="category" onChange="getId(this.value);">
           <option value="">Select Category</option>
           <!-- populate dropdownlist using php -->
           <?php
-            $query = "SELECT * FROM Category";
-              $result = mysqli_query($mysqli, $query);
+            $query = "SELECT * FROM assetcategory";
+            $result = mysqli_query($mysqli, $query);
               //loop
-              foreach ($result as $category) {
-           ?>
-           <option value="<?php echo $category["$cid"];  ?>"><?php echo $category["category"]  ?> </option>
+            foreach ($result as $category) {
+          ?>
+           <option value="<?php echo $category["CategoryID"];?>"><?php echo $category['CategoryName']?> </option>
            <?php
-         }
+              }
            ?>
       </select>
     </div>

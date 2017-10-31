@@ -42,7 +42,7 @@
    <li class="hs-menu-item hs-menu-depth-1"><a href="#">CREDENTIALS</a></li>
    <li class="hs-menu-item hs-menu-depth-1"><a href="#">RESOURCES</a></li>
    <li class="hs-menu-item hs-menu-depth-1"><a href="#">CONTACT</a></li>
-   <li class="hs-menu-item hs-menu-depth-1"><a href="#">GET A QUOTE</a></li>
+   <li class="hs-menu-item hs-menu-depth-1"><a href="inventory.php">GET A QUOTE</a></li>
    </ul>
    </div></span></div><!--end layout-widget-wrapper -->
    </div><!--end widget-span -->
@@ -75,12 +75,12 @@
 				<br></br>
 			</div>
 				<input type="submit" name="logon" value="Login">
-        <?php echo $msg; ?>
+        <?php echo $msg;?>
 		</form>
 		<br></br>
 		<a href="register.php">Don't Have an Account?</a>
 		<br></br>
-		<a href="#">Forgot Password</a>
+		<a href="recover.php">Forgot Password</a>
 		</div>
 		</div>
 		<br></br>
