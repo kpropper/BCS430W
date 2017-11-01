@@ -23,7 +23,7 @@
 
 
 
-    <link rel="canonical" href="http://www.itamg.com">
+    <link rel="canonical" href="http://www.itamg.tk">
 
 
     <!--[if lt IE 9]>
@@ -206,8 +206,6 @@ background-position:top center;
 <div class="row-fluid-wrapper row-depth-1 row-number-7 ">
 <div class="row-fluid ">
 <div class="span12 widget-span widget-type-cta " style="" data-widget-type="cta" data-x="0" data-w="12">
-<div class="cell-wrapper layout-widget-wrapper">
-<span id="hs_cos_wrapper_module_1488877616204778" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_cta" style="" data-hs-cos-general-type="widget" data-hs-cos-type="cta"><!--HubSpot Call-to-Action Code --><span class="hs-cta-wrapper" id="hs-cta-wrapper-d6d8ff28-ed7c-41b0-aa29-d7defe4a6e48"><span class="hs-cta-node hs-cta-d6d8ff28-ed7c-41b0-aa29-d7defe4a6e48" id="hs-cta-d6d8ff28-ed7c-41b0-aa29-d7defe4a6e48"><!--[if lte IE 8]><div id="hs-cta-ie-element"></div><![endif]--><a href="https://cta-redirect.hubspot.com/cta/redirect/287385/d6d8ff28-ed7c-41b0-aa29-d7defe4a6e48"><img class="hs-cta-img" id="hs-cta-img-d6d8ff28-ed7c-41b0-aa29-d7defe4a6e48" style="border-width:0px;" src="https://no-cache.hubspot.com/cta/default/287385/d6d8ff28-ed7c-41b0-aa29-d7defe4a6e48.png" alt="Get Started Now"></a></span><script charset="utf-8" src="https://js.hscta.net/cta/current.js"></script><script type="text/javascript"> hbspt.cta.load(287385, 'd6d8ff28-ed7c-41b0-aa29-d7defe4a6e48', {}); </script></span><!-- end HubSpot Call-to-Action Code --></span></div><!--end layout-widget-wrapper -->
 </div><!--end widget-span -->
 </div><!--end row-->
 </div><!--end row-wrapper -->
@@ -271,11 +269,11 @@ background-position:top center;
 <div class="cell-wrapper layout-widget-wrapper">
 <span id="hs_cos_wrapper_module_1488607971042951" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><ul>
 <li><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/cert-01.png?t=1507222056603"></li>
-<li><a href="http://www.itamg.com/policies"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/cert-02.png?t=1507222056603"></a></li>
-<li><a href="http://www.itamg.com/policies"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/cert-03.png?t=1507222056603"></a></li>
-<li><a href="http://www.itamg.com/policies"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/cert-04.png?t=1507222056603"></a></li>
-<li><a href="http://www.itamg.com/policies"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/cert-05.png?t=1507222056603"></a></li>
-<li><a href="http://www.itamg.com/policies"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/cert-06.png?t=1507222056603"></a></li>
+<li><a href="#"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/cert-02.png?t=1507222056603"></a></li>
+<li><a href="#"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/cert-03.png?t=1507222056603"></a></li>
+<li><a href="#"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/cert-04.png?t=1507222056603"></a></li>
+<li><a href="#"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/cert-05.png?t=1507222056603"></a></li>
+<li><a href="#"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/cert-06.png?t=1507222056603"></a></li>
 </ul></span>
 </div><!--end layout-widget-wrapper -->
 </div><!--end widget-span -->
@@ -480,7 +478,7 @@ $('.testimonial-slider').css("opacity", "1");
                 <p>Efficient disposition, liquidation, and data destruction services will ensure your privacy and maximize your returns.</p>
                 <div class="learn-more-cta">
                     <div class="cta">
-                        <a href="http://www.itamg.com/services/computer-liquidation">Learn More</a>
+                        <a href="#">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -500,7 +498,7 @@ $('.testimonial-slider').css("opacity", "1");
                 <p>Secure erasure and destruction services that meet or exceed NIST 800-88 and Department of Defense 5220.22-M guidelines.&nbsp;</p>
                 <div class="learn-more-cta">
                     <div class="cta">
-                        <a href="http://www.itamg.com/services/data-destruction">Learn More</a>
+                        <a href="#">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -520,7 +518,7 @@ $('.testimonial-slider').css("opacity", "1");
                 <p>Collection, dismantling, and Responsible Recycling (R2) of eWaste. Maintain a meticulously clean downstream and never illegally export or landfill focus materials.</p>
                 <div class="learn-more-cta">
                     <div class="cta">
-                        <a href="http://www.itamg.com/services/computer-recycling">Learn More</a>
+                        <a href="#">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -540,7 +538,7 @@ $('.testimonial-slider').css("opacity", "1");
                 <p>Plant based or client site destruction of electronic media that is certified, insured, and guaranteed with detailed certificates of destruction.&nbsp;</p>
                 <div class="learn-more-cta">
                     <div class="cta">
-                        <a href="http://www.itamg.com/services/hard-drive-shredding">Learn More</a>
+                        <a href="#">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -560,7 +558,7 @@ $('.testimonial-slider').css("opacity", "1");
                 <p>Workforce and project management solutions for removal and transport of data center, telecommunications, and power systems. Shipping and moving services for all types of IT assets.</p>
                 <div class="learn-more-cta">
                     <div class="cta">
-                        <a href="http://www.itamg.com/services/it-relocation">Learn More</a>
+                        <a href="#">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -580,7 +578,7 @@ $('.testimonial-slider').css("opacity", "1");
                 <p>Customized&nbsp;and consistent ITAD solutions for national and global companies in need of a single point of contact to meet the disposal needs of a complex enterprise. &nbsp;</p>
                 <div class="learn-more-cta">
                     <div class="cta">
-                        <a href="http://www.itamg.com/services/it-asset-disposition">Learn More</a>
+                        <a href="#">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -1266,7 +1264,7 @@ $('.testimonial-slider').css("opacity", "1");
 <div class="row-fluid ">
 <div class="span12 widget-span widget-type-linked_image logo" style="" data-widget-type="linked_image" data-x="0" data-w="12">
 <div class="cell-wrapper layout-widget-wrapper">
-<span id="hs_cos_wrapper_module_1488603713498467" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" style="" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image"><a href="http://www.itamg.com/" id="hs-link-module_1488603713498467" style="border-width:0px;border:0px;"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/i-t-a-m-g-logo-footer.svg?t=1507222056603" class="hs-image-widget " style="width:88px;border-width:0px;border:0px;" width="88" alt="ITAMG" title="ITAMG"></a></span></div><!--end layout-widget-wrapper -->
+<span id="hs_cos_wrapper_module_1488603713498467" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" style="" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image"><a href="http://www.itamg.tk/" id="hs-link-module_1488603713498467" style="border-width:0px;border:0px;"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/i-t-a-m-g-logo-footer.svg?t=1507222056603" class="hs-image-widget " style="width:88px;border-width:0px;border:0px;" width="88" alt="ITAMG" title="ITAMG"></a></span></div><!--end layout-widget-wrapper -->
 </div><!--end widget-span -->
 </div><!--end row-->
 </div><!--end row-wrapper -->
@@ -1286,10 +1284,10 @@ $('.testimonial-slider').css("opacity", "1");
 <div class="cell-wrapper layout-widget-wrapper">
 <span id="hs_cos_wrapper_module_1488603745443475" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_1488603745443475" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-vertical" role="navigation" data-sitemap-name="">
  <ul>
-  <li class="hs-menu-item hs-menu-depth-1"><a href="http://www.itamg.com/services" target="_self">SOLUTIONS</a></li>
-  <li class="hs-menu-item hs-menu-depth-1"><a href="http://www.itamg.com/policies" target="_self">CREDENTIALS</a></li>
-  <li class="hs-menu-item hs-menu-depth-1"><a href="http://www.itamg.com/resources" target="_self">RESOURCES</a></li>
-  <li class="hs-menu-item hs-menu-depth-1"><a href="http://www.itamg.com/about" target="_self">ABOUT US</a></li>
+  <li class="hs-menu-item hs-menu-depth-1"><a href="#" target="_self">SOLUTIONS</a></li>
+  <li class="hs-menu-item hs-menu-depth-1"><a href="#" target="_self">CREDENTIALS</a></li>
+  <li class="hs-menu-item hs-menu-depth-1"><a href="#" target="_self">RESOURCES</a></li>
+  <li class="hs-menu-item hs-menu-depth-1"><a href="#" target="_self">ABOUT US</a></li>
  </ul>
 </div></span>
 </div><!--end layout-widget-wrapper -->
@@ -1298,10 +1296,10 @@ $('.testimonial-slider').css("opacity", "1");
 <div class="cell-wrapper layout-widget-wrapper">
 <span id="hs_cos_wrapper_module_1488603743123473" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_1488603743123473" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-vertical" role="navigation" data-sitemap-name="">
  <ul>
-  <li class="hs-menu-item hs-menu-depth-1"><a href="http://www.itamg.com/nist-800-88" target="_self">NIST 800-88 COMPLIANT</a></li>
-  <li class="hs-menu-item hs-menu-depth-1"><a href="http://www.itamg.com/policies/environmental-policy" target="_self">ENVIRONMENTAL POLICY</a></li>
-  <li class="hs-menu-item hs-menu-depth-1"><a href="http://www.itamg.com/how-it-works" target="_self">HOW IT WORKS</a></li>
-  <li class="hs-menu-item hs-menu-depth-1"><a href="http://www.itamg.com/start" target="_self">GET STARTED</a></li>
+  <li class="hs-menu-item hs-menu-depth-1"><a href="#" target="_self">NIST 800-88 COMPLIANT</a></li>
+  <li class="hs-menu-item hs-menu-depth-1"><a href="#" target="_self">ENVIRONMENTAL POLICY</a></li>
+  <li class="hs-menu-item hs-menu-depth-1"><a href="#" target="_self">HOW IT WORKS</a></li>
+  <li class="hs-menu-item hs-menu-depth-1"><a href="#" target="_self">GET STARTED</a></li>
  </ul>
 </div></span>
 </div><!--end layout-widget-wrapper -->
@@ -1310,10 +1308,10 @@ $('.testimonial-slider').css("opacity", "1");
 <div class="cell-wrapper layout-widget-wrapper">
 <span id="hs_cos_wrapper_module_1488603744314474" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_simple_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="simple_menu"><div id="hs_menu_wrapper_module_1488603744314474" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-vertical" role="navigation" data-sitemap-name="">
  <ul>
-  <li class="hs-menu-item hs-menu-depth-1"><a href="http://itamg.com/services/it-asset-disposition" target="_self">GLOBAL IT SERVICES</a></li>
-  <li class="hs-menu-item hs-menu-depth-1"><a href="http://www.itamg.com/get-quote" target="_self">SEND RFP</a></li>
-  <li class="hs-menu-item hs-menu-depth-1"><a href="http://itamg.com/blog" target="_self">NEWS AND ADVICE</a></li>
-  <li class="hs-menu-item hs-menu-depth-1"><a href="http://www.itamg.com/contact" target="_self">CONTACT</a></li>
+  <li class="hs-menu-item hs-menu-depth-1"><a href="#" target="_self">GLOBAL IT SERVICES</a></li>
+  <li class="hs-menu-item hs-menu-depth-1"><a href="#" target="_self">SEND RFP</a></li>
+  <li class="hs-menu-item hs-menu-depth-1"><a href="#" target="_self">NEWS AND ADVICE</a></li>
+  <li class="hs-menu-item hs-menu-depth-1"><a href="#" target="_self">CONTACT</a></li>
  </ul>
 </div></span>
 </div><!--end layout-widget-wrapper -->
