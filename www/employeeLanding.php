@@ -1,8 +1,9 @@
 <?php
-	session_start();
+	include('siteInit.php');
+	include('menu.php');
 	
 	echo "You made it to the Employee Landing Page";
-	
+
 	//Temporary Form/Button to go to inventory page
 	echo"
 		<form id='inventorypage' action='inventory.php' method='post'>

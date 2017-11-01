@@ -1,5 +1,6 @@
 <?php
-	session_start();
+	include('siteInit.php');
+	include('menu.php');
 	
 	echo "You made it to the Client Landing Page";
 	

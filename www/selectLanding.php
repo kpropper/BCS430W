@@ -1,5 +1,5 @@
 <?php
-	session_start();
+	include('siteInit.php');
 
 	//Remove any whitepace from the user_type session variable and assign it to $userType
 	$userType=trim($_SESSION['user_type']);
@@ -17,6 +17,8 @@
 		}
 		else
 		{
+			//The user will actually see this, so throw up the banner
+			include('menu.php');
 			echo "Something went wrong, Please consult with an ITAMG representative.";
 		}
 	}

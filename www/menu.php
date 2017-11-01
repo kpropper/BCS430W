@@ -1,5 +1,7 @@
 <?php
 ?>
+<div class="header-container-wrapper">
+<div class="header-container container-fluid">
 <div class="row-fluid-wrapper row-depth-1 row-number-1 ">
 <div class="row-fluid ">
 <div class="span12 widget-span widget-type-global_group " style="" data-widget-type="global_group" data-x="0" data-w="12">
@@ -38,7 +40,16 @@
   <li class="hs-menu-item hs-menu-depth-1"><a href="#">CREDENTIALS</a></li>
   <li class="hs-menu-item hs-menu-depth-1"><a href="#">RESOURCES</a></li>
   <li class="hs-menu-item hs-menu-depth-1"><a href="#">CONTACT</a></li>
-  <li class="hs-menu-item hs-menu-depth-1"><a href="#">GET A QUOTE</a></li>
+ <?php
+	if($loggedIn)
+	{
+		echo"<li class='hs-menu-item hs-menu-depth-1'><a href='logout.php' >Logout</a></li>";
+	}
+	else
+	{
+		echo"<li class='hs-menu-item hs-menu-depth-1'><a href='register.php' >GET A QUOTE</a></li>";
+	}
+?>
  </ul>
 </div></span></div><!--end layout-widget-wrapper -->
 </div><!--end widget-span -->
