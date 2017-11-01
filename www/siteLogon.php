@@ -35,9 +35,6 @@ if (isset($_POST['message'])) 			$msg = $_POST['message'];
 
         if ($_POST['password'] == $user['Password'])  {
 			
-			//Ok, we're logged in so lets start the session
-			session_start();
-			
 			// This is how we'll know the user is logged in
             $_SESSION['logged_in'] = true;
 			
