@@ -16,6 +16,7 @@ Password varchar (150) NOT NULL,
 Company_Name VARCHAR (150) Null,
 Telephone varchar (25),
 UserType varchar (10),
+Value_Multiplier double Null,
 PRIMARY KEY (UserID)
 );
 
@@ -41,6 +42,7 @@ CategoryID INT NOT NULL,
 ManufacturerID INT NOT NULL,
 ModelName varchar (100) NOT NULL,
 PartNumber VARCHAR (100) NULL,
+AssetModelValue double null,
 PRIMARY KEY (ModelID),
 FOREIGN KEY (CategoryID) REFERENCES AssetCategory(CategoryID),
 FOREIGN KEY (ManufacturerID) REFERENCES Manufacturer(ManufacturerID)
@@ -51,6 +53,7 @@ ProcessorID INT NOT NULL,
 ProcessorType varchar (50) NOT NULL,
 ProcessorSpeed double NOT NULL,
 ProcessorQty INT NOT NULL,
+ProcessorValue double Null,
 PRIMARY KEY (ProcessorID)
 );
 
@@ -60,6 +63,7 @@ MemoryID INT NOT NULL,
 MemoryType varchar (25) NOT NULL,
 MemorySize varchar (10) NOT NULL,
 MemoryQty INT NOT NULL,
+MemoryValue double NULL,
 PRIMARY KEY (MemoryID)
 );
 
@@ -68,6 +72,7 @@ HardDriveID INT NOT NULL,
 HardDriveType varchar (25) NOT NULL,
 HardDriveSize varchar (25) NULL,
 HardDriveQty INT NULL,
+HardDriveValue double NULL,
 PRIMARY KEY (HardDriveID)
 );
 
@@ -82,6 +87,7 @@ InventoryID INT NOT NULL,
 SerialNumber varchar (100) NULL,
 ProductNumber varchar (100) NULL,
 Quantity INT NOT NULL,
+AssetValue double NULL,
 PRIMARY KEY (AssetID),
 FOREIGN KEY (UserID) REFERENCES User(UserID),
 FOREIGN KEY (ModelID) REFERENCES AssetModel(ModelID),
@@ -94,17 +100,18 @@ FOREIGN KEY (InventoryID) REFERENCES Inventory(InventoryID)
 CREATE TABLE Inventory (
 InventoryID INT unsigned NOT NULL AUTO_INCREMENT,
 UserID INT NOT NULL,
+Inventory_Value double Null,
 PRIMARY KEY (InventoryID, UserID),
 FOREIGN KEY (UserID) REFERENCES User(UserID)
 );
 
 /*input data for the tables */
 
-load data infile 'c:/wamp64/tmp/userdata.csv' into table user fields terminated by ',' ignore 1 lines;
+load data infile 'c:/wamp64/tmp/userdata.csv' into table user fields terminated by ',' lines terminated by '\r\n' ignore 1 lines;
 load data infile 'c:/wamp64/tmp/categorydata.csv' into table AssetCategory fields terminated by ',' ignore 1 lines;
 load data infile 'c:/wamp64/tmp/manufacturerdata.csv' into table Manufacturer fields terminated by ',' ignore 1 lines;
-load data infile 'c:/wamp64/tmp/modeldata.csv' into table AssetModel fields terminated by ',' ignore 1 lines;
-load data infile 'c:/wamp64/tmp/harddrivedata.csv' into table HardDrive fields terminated by ',' ignore 1 lines;
+load data infile 'c:/wamp64/tmp/modeldata.csv' into table AssetModel fields terminated by ',' lines terminated by '\r\n' ignore 1 lines;
+load data infile 'c:/wamp64/tmp/harddrivedata.csv' into table HardDrive fields terminated by ',' lines terminated by '\r\n' ignore 1 lines;
 
 /*Category Query for Dropdown
 NOTE: Their selection should be stored as a PHP variable that
