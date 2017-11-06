@@ -1,5 +1,8 @@
 <?php
 ?>
+<head>
+  <link rel="stylesheet" href="css/main.css">
+</head>
 <div class="header-container-wrapper">
 <div class="header-container container-fluid">
 <div class="row-fluid-wrapper row-depth-1 row-number-1 ">
@@ -40,6 +43,7 @@
   <li class="hs-menu-item hs-menu-depth-1"><a href="#">CREDENTIALS</a></li>
   <li class="hs-menu-item hs-menu-depth-1"><a href="#">RESOURCES</a></li>
   <li class="hs-menu-item hs-menu-depth-1"><a href="#">CONTACT</a></li>
+  <li class="hs-menu-item hs-menu-depth-1"><a href="inventory.php">GET A QUOTE</a></li>
  <?php
 	if($loggedIn)
 	{
