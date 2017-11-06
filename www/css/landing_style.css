@@ -1,0 +1,57 @@
+body {
+	
+    font-family: 'sans-serif';
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+	
+	
+}
+a{
+	text-align: center;
+	
+	left: 50%;
+	font-size: 80%;
+	padding: 10px 30px;
+	border: 2px solid #262626;
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 4px;
+
+}
+
+.container1 {
+	padding: 0px;
+	margin: 0%;
+	text-align: center;
+	margin-bottom: 50px
+	
+}
+
+.inventory-button{
+	padding: 7px 4px;
+	background-color: blue;
+	color: #ffffff;
+}
+
+.new-quote{
+	padding: 7px 4px;
+	background-color: blue;
+	color: #ffffff;
+}
+
+.inventory-lookup{
+	padding: 7px 4px;
+	background-color: blue;
+	color: #ffffff;
+}
+
+.manage-account{
+	padding: 7px 4px;
+	background-color: blue;
+	color: #ffffff;
+	margin-left: 0%;
+	white-space: nowrap;
+
+}
+

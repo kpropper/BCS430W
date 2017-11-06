@@ -8,7 +8,7 @@ include("sqlConnect.php");
   <link rel="stylesheet" href="css/main.css" />
   <title>Inventory Page</title>
   <script>
-      function getCId(val){
+      function getId(val){
         //alert(val);
         $.ajax({
           type: "POST",
@@ -16,43 +16,6 @@ include("sqlConnect.php");
           data: "CategoryID="+val,
           success: function(data){
             $("#mList").html(data);
-              //alert(data);
-          }
-        });
-      }
-
-      function getManId(val){
-        //alert(val);
-        $.ajax({
-          type: "POST",
-          url: "getmoddata.php",
-          data: "ManufacturerName="+val,
-          success: function(data){
-            $("#modList").html(data);
-              //alert(data);
-          }
-        });
-      }
-      function getModId(val){
-        //alert(val);
-        $.ajax({
-          type: "POST",
-          url: "getstagdata.php",
-          data: "ModelName="+val,
-          success: function(data){
-            $("#sTagList").html(data);
-              //alert(data);
-          }
-        });
-      }
-      function getSTagId(val){
-        //alert(val);
-        $.ajax({
-          type: "POST",
-          url: "gethddata.php",
-          data: "PartNumber="+val,
-          success: function(data){
-            $("#hdList").html(data);
               //alert(data);
           }
         });
@@ -66,7 +29,7 @@ include("sqlConnect.php");
   <div class= "row">
     <div class="category col col-sm-3 col-md-2 col-lg-2">
       <label>Category</label>
-      <select name="category" onchange="getCId(this.value);">
+      <select name="category" onchange="getId(this.value);">
           <option value="">Select Category</option>
           <!-- populate dropdownlist using php -->
           <?php
@@ -85,23 +48,23 @@ include("sqlConnect.php");
 
     <div class="manufacturer col col-sm-3 col-md-2 col-lg-2">
       <label>Manufacturer</label>
-      <select name="manufacturer" id="mList" onchange="getManId(this.value);">
+      <select name="manufacturer" id="mList">
           <option value="">Select Manufacturer</option>
       </select>
     </div>
 
     <div class="model col col-sm-3 col-md-2 col-lg-2">
       <label>Model</label>
-      <select name="model" id="modList" onchange="getModId(this.value);">
+      <select name="model" id="modList">
           <option value="">Select Model</option>
       </select>
 
     </div>
 
     <div class="service_tag col col-sm-3 col-md-2 col-lg-2">
-      <label>Service Tag/Part Number</label>
-      <select name="service_tag" id="sTagList" onchange="getSTagId(this.value);">
-          <option value="">Select Service Tag/Part Number</option>
+      <label>Service Tag</label>
+      <select name="service_tag" id="sTagList">
+          <option value="">Select Service Tag</option>
       </select>
 
     </div>

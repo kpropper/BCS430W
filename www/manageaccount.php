@@ -1,10 +1,10 @@
 <?php
 	include('siteInit.php');
-	include("accountManagement.php");
-	//If a user is logged in they shouldn't be here, kick them out
-	if($loggedIn)
+	include("accountmanagement.php");
+	//If a user is not logged in they shouldn't be here, kick them out
+	if(!$loggedIn)
 	{
-		echo "<script> location.href='selectLanding.php'; </script>";
+		echo "<script> location.href='index.php'; </script>";
 	}
 ?>
 <html>
@@ -21,32 +21,28 @@
 
   <div>
   <h1 style="text-align: center">Update Your Information</h1>
-  <form class="container" action="register.php" method="post">
+  <form class="container" action="manageaccount.php" method="post">
     <div class="names">
     <label>Name:</label>
-      <input type="text" name="firstname" value="" placeholder="First">
-      <input type="text" name="lastname" value="" placeholder="Last">
+		<?php echo "<input type='text' name='firstname' value='$firstname'>" ?>
+		<?php echo "<input type='text' name='lastname' value='$lastname'>" ?>
     </div>
     <div class="input_fields">
     <label>E-Mail:</label>
-    <?php echo "<input type='email' name='email' value='$firstname'>" ?>
-    <br>
-    <label>Password:</label>
-    <input type="password" name="password" value="" placeholder="Password">
-    <br>
-    <label>Verify Password:</label>
-    <input type="password" name="verifypassword" value="" placeholder="Verify Password">
+		<?php echo "<input type='email' name='email' value='$email'>" ?>
     <br>
     <label>Company Name:</label>
-    <input type="text" name="companyname" placeholder="Company Name">
+		<?php echo "<input type='text' name='companyname' value='$companyname'>" ?>
     <br>
     <label>Phone:</label>
-    <input type="text" name="phone" placeholder="Phone">
+	<?php echo "<input type='phone' name='phone' value='$telephone'>" ?>
     <br>
-    <div class="reg_submit">
-    <input type="submit" name="register" value="Register" style="cursor: pointer">
+    <div class="update_submit">
+    <input type="submit" name="update" value="Update" style="cursor: pointer">
     </div>
     </div>
+	<a href="changepassword.php">Reset Password</a>
+	<br>
   <?php echo $msg; ?>
   </form>
 </div>
