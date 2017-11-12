@@ -1,5 +1,7 @@
 <?php
 include("sqlConnect.php");
+include("siteInit.php");
+//include('menu.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,7 +47,8 @@ include("sqlConnect.php");
           }
         });
       }
-      function getSTagId(val){
+  /*   \Service tag function
+        function getSTagId(val){
         //alert(val);
         $.ajax({
           type: "POST",
@@ -57,16 +60,27 @@ include("sqlConnect.php");
           }
         });
       }
+      */
+
     </script>
 </head>
 <body>
+<header>
+  <a href="index.php" id="hs-link-logo" style="border-width:0px;border:0px;"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/i-t-a-m-g-main-logo-1.svg?t=1507222056603" class="hs-image-widget " style="width:122px;border-width:0px;border:0px;" width="122" alt="ITAMG" title="ITAMG"></a>
+  <h1>
+    Welcome
+    <?php echo $fullName;
+    echo ", " . $userEmail;
+    ?>
+  </h1>
+</header>
 
 <div class="inv_box content-area group section">
 
   <div class= "row">
-    <div class="category col col-sm-3 col-md-2 col-lg-2">
+    <div class="category col col-sm-3 col-md-2" style="width:188px;">
       <label>Category</label>
-      <select name="category" onchange="getCId(this.value);">
+      <select name="category" onchange="getCId(this.value);" >
           <option value="">Select Category</option>
           <!-- populate dropdownlist using php -->
           <?php
@@ -83,30 +97,35 @@ include("sqlConnect.php");
 
     </div>
 
-    <div class="manufacturer col col-sm-3 col-md-2 col-lg-2">
+    <div class="manufacturer col col-sm-3 col-md-2" style="width:188px;">
       <label>Manufacturer</label>
       <select name="manufacturer" id="mList" onchange="getManId(this.value);">
           <option value="">Select Manufacturer</option>
       </select>
     </div>
 
-    <div class="model col col-sm-3 col-md-2 col-lg-2">
+    <div class="model col col-sm-3 col-md-2" style="width:188px;">
       <label>Model</label>
       <select name="model" id="modList" onchange="getModId(this.value);">
           <option value="">Select Model</option>
       </select>
 
     </div>
-
+<!--
     <div class="service_tag col col-sm-3 col-md-2 col-lg-2">
       <label>Service Tag/Part Number</label>
       <select name="service_tag" id="sTagList" onchange="getSTagId(this.value);">
           <option value="">Select Service Tag/Part Number</option>
       </select>
-
+    </div>
+-->
+    <div class="service_tag col col-sm-3 col-md-2 " style="width:188px;">
+      <label>Service Tag</label>
+      <input class="service_tag_txt" type="text" style="width:85%; height:35px;	color:white;background-color: black;	opacity: 0.8; 	line-height: 40px;	font-size: 20px;margin-right: .1%;">
+     </input>
     </div>
 
-    <div class="hard_drives col col-sm-3 col-md-2 col-lg-2">
+    <div class="hard_drives col col-sm-3 col-md-2 " style="width:188px;">
       <label>Hard Drives</label>
       <select name="hard_drives" id="hdList">
           <option value="">Select Hard Drives</option>
@@ -114,7 +133,7 @@ include("sqlConnect.php");
 
     </div>
 
-    <div class="processors col col-sm-3 col-md-2 col-lg-2">
+    <div class="processors col col-sm-3 col-md-2 " style="width:188px;">
       <label>Processors</label>
       <select name="processors" id="pList">
           <option value="">Select a Processor</option>
@@ -122,15 +141,26 @@ include("sqlConnect.php");
 
     </div>
 
-    <div class="ram col col-sm-3 col-md-2 col-lg-2">
+    <div class="ram col col-sm-3 col-md-2 " style="width:188px;">
       <label>Ram</label>
       <select name="ram" id="ramList">
           <option value="">Select Ram</option>
       </select>
-
     </div>
   </div>
 </div>
+<!--Php table  -->
+<div id="asset_list">
 
+</div>
+
+<!--Button to add current asset to php table, submit button to submmit current asset to table, and save button to save current assets -->
+<div class="btn_asset content-area group section" >
+  <div class="row">
+    <button class="add_asset col col-md-1" type="button" style="width:188px;" >ADD ITEM</button>
+    <button class="save_assets col col-md-2" type="button" style="width:188px;">SAVE</button>
+    <button class="submit_btn col col-md-2" type="submit" style="width:188px;">SUBMIT</button>
+  </div>
+</div>
 </body>
 </html>
