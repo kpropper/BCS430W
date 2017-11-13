@@ -28,7 +28,7 @@ include("siteInit.php");
         $.ajax({
           type: "POST",
           url: "getmoddata.php",
-          data: "ManufacturerName="+val,
+          data: "ManufacturerID="+val,
           success: function(data){
             $("#modList").html(data);
               //alert(data);
@@ -76,9 +76,9 @@ include("siteInit.php");
 </header>
 
 <div class="inv_box content-area group section">
-
   <div class= "row">
-    <div class="category col col-sm-3 col-md-2" style="width:188px;">
+
+    <div class="category col col-sm-3 col-md-2" style="width:225px;">
       <label>Category</label>
       <select name="category" onchange="getCId(this.value);" >
           <option value="">Select Category</option>
@@ -97,17 +97,18 @@ include("siteInit.php");
 
     </div>
 
-    <div class="manufacturer col col-sm-3 col-md-2" style="width:188px;">
+    <div class="manufacturer col col-sm-3 col-md-2" style="width:225px;">
       <label>Manufacturer</label>
-      <select name="manufacturer" id="mList" onchange="getManId(this.value);">
+      <select name="manufacturer" id="mList" onchange="getManId(this.value);" >
           <option value="">Select Manufacturer</option>
       </select>
     </div>
 
-    <div class="model col col-sm-3 col-md-2" style="width:188px;">
+    <div class="model col col-sm-3 col-md-2" style="width:225px;">
       <label>Model</label>
       <select name="model" id="modList" onchange="getModId(this.value);">
           <option value="">Select Model</option>
+
       </select>
 
     </div>
@@ -119,34 +120,79 @@ include("siteInit.php");
       </select>
     </div>
 -->
-    <div class="service_tag col col-sm-3 col-md-2 " style="width:188px;">
+    <div class="service_tag col col-sm-3 col-md-2 " style="width:225px;">
       <label>Service Tag</label>
       <input class="service_tag_txt" type="text" style="width:85%; height:35px;	color:white;background-color: black;	opacity: 0.8; 	line-height: 40px;	font-size: 20px;margin-right: .1%;">
      </input>
     </div>
 
-    <div class="hard_drives col col-sm-3 col-md-2 " style="width:188px;">
+    <div class="hard_drives col col-sm-3 col-md-2 " style="width:225px;">
       <label>Hard Drives</label>
       <select name="hard_drives" id="hdList">
           <option value="">Select Hard Drives</option>
+          <!-- populate dropdownlist using php -->
+          <?php
+            $query = "SELECT DISTINCT HardDriveType from harddrive where HardDriveType != 'None' and HardDriveType != 'N/A' ORDER BY HardDriveType";
+            $result = mysqli_query($mysqli, $query);
+              //loop
+            foreach ($result as $hd) {
+          ?>
+           <option value="<?php echo $hd["HardDriveType"];?>"><?php echo $hd['HardDriveType']?> </option>
+           <?php
+              }
+           ?>
       </select>
 
     </div>
 
-    <div class="processors col col-sm-3 col-md-2 " style="width:188px;">
+    <div class="processors col col-sm-3 col-md-2 " style="width:225px;">
       <label>Processors</label>
       <select name="processors" id="pList">
           <option value="">Select a Processor</option>
+          <!-- populate dropdownlist using php -->
+          <?php
+            $query = "SELECT DISTINCT ProcessorType from Processor WHERE ProcessorType != 'None' and ProcessorSpeed != 'N/A'";
+            $result = mysqli_query($mysqli, $query);
+              //loop
+            foreach ($result as $processor) {
+          ?>
+           <option value="<?php echo $processor["ProcessorType"];?>"><?php echo $processor['ProcessorType']?> </option>
+           <?php
+              }
+           ?>
       </select>
 
     </div>
 
-    <div class="ram col col-sm-3 col-md-2 " style="width:188px;">
-      <label>Ram</label>
-      <select name="ram" id="ramList">
-          <option value="">Select Ram</option>
+    <div class="memory col col-sm-3 col-md-2 " style="width:225px;">
+      <label>Memory</label>
+      <select name="memory" id="ramList">
+          <option value="">Select Memory</option>
+          <!-- populate dropdownlist using php -->
+          <?php
+            $query = "SELECT DISTINCT MemoryType FROM Memory WHERE MemoryType != 'None' and MemoryType != 'N/A'";
+            $result = mysqli_query($mysqli, $query);
+              //loop
+            foreach ($result as $memory) {
+          ?>
+           <option value="<?php echo $memory["MemoryType"];?>"><?php echo $memory['MemoryType']?> </option>
+           <?php
+              }
+           ?>
       </select>
     </div>
+
+    <div class="condition col col-sm-3 col-md-2 " style="width:225px;">
+      <label>Condition</label>
+      <select name="condition">
+          <option value="">Select Condition</option>
+          <option value="">Excellent</option>
+          <option value="">Good</option>
+          <option value="">Fair</option>
+
+      </select>
+    </div>
+
   </div>
 </div>
 <!--Php table  -->
