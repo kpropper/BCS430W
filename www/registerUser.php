@@ -33,7 +33,8 @@
 					  Email = '$email',
 					  Password = '$password',
 					  Company_Name = '$companyname',
-					  Telephone = '$phone'";
+					  Telephone = '$phone',
+					  UserType = 'Client'";
 			$result = $mysqli->query($query);
 			if($result)
 			{
