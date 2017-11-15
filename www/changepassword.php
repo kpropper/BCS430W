@@ -1,11 +1,13 @@
 <?php
 	include('siteInit.php');
-	include('passwordupdate.php');
+	
 	//If a user is not logged in they shouldn't be here, kick them out
 	if(!$loggedIn)
 	{
 		echo "<script> location.href='index.php'; </script>";
 	}
+	
+	include('passwordupdate.php');
 ?>
 <html>
 <head>
