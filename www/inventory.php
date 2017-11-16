@@ -578,7 +578,7 @@ echo"<form action='$pgm' method='post'>
 	<input type='hidden' name='inventoryID' value='$invID'>
 	<input type='submit' name='task' value='Add Item'>
 	<input type='submit' name='task' value='Submit'>
-=======
+"
 
 //Button to add current asset to php table, submit button to submmit current asset to table, and save button to save current assets
 
