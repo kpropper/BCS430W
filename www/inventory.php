@@ -2,6 +2,66 @@
 include("sqlConnect.php");
 include("siteInit.php");
 //include('menu.php');
+//If a user is not logged in they shouldn't be here, kick them out
+if(!$loggedIn)
+{
+	echo "<script> location.href='index.php'; </script>";
+}
+var_dump($_POST);
+var_dump($_SESSION);
+//Variables
+$pgm = 'inventory.php';
+
+if (isset($_POST['task']))
+{
+	$task = $_POST['task'];	
+	
+	if($task == "Add Item")
+	{
+		$modid = $_SESSION['modelid'];
+		$hdtype = $_SESSION['hdtype'];
+		$hdsize = $_SESSION['hdsize'];
+		$hdqty = $_SESSION['hdqty'];
+		$proctype = $_SESSION['proctype'];
+		$procspeed = $_SESSION['procspeed'];
+		$procqty = $_SESSION['procqty'];
+		$memtype = $_SESSION['memtype'];
+		$memsize = $_SESSION['memsize'];
+		$memqty = $_SESSION['memqty'];
+
+		$allset = true;
+		
+		$query = "SELECT HardDriveID 
+				 FROM HardDrive
+				 WHERE
+				 HardDriveType = '$hdtype'
+				 AND HardDriveSize = '$hdsize'
+				 AND HardDriveQty = '$hdqty'";
+				 
+		$result = $mysqli->query($query);
+		if($result->num_rows == 1)
+		{
+			list($hdID) = $result->fetch_row();
+			echo "Hard Drive ID = $hdID";
+		}
+
+//		$query = "SELECT MemoryID
+//				FROM Memory
+//				 WHERE
+//				 MemoryType = '$memtype'
+//				 AND MemorySize = '$memsize'
+//				 AND MemoryQty = '$memqty'";
+				 
+//		$result = $mysqli->query($query);
+//		if($result->num_rows == 1)
+//		{
+//			list($memID) = $result->fetch_row();
+//		}
+
+	}
+
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -402,20 +462,48 @@ function getcondId(val){
 
 <?php
 
-echo "<br /><h1>THE FOLLOWING ARE THE STORED VAR'S </h1>";
+//$query = "SELECT HardDriveID 
+//				 FROM HardDrive
+//				 WHERE
+//				 HardDriveType = '$_SESSION['hdtype']'
+//				 AND HardDriveSize = '$_SESSION['hdsize']'
+//				 AND HardDriveQty = '$_SESSION['hdqty']'";
+				 
+//$result = $mysqli->query($query);
+//if($result->num_rows == 1)
+//{
+//	list($hdID) = result->fetch_row();
+//}
 
-$modid = $_SESSION['modelid'];
-$hdtype = $_SESSION['hdtype'];
-$hdsize = $_SESSION['hdsize'];
-$hdqty = $_SESSION['hdqty'];
-$proctype = $_SESSION['proctype'];
-$procspeed = $_SESSION['procspeed'];
-$procqty = $_SESSION['procqty'];
-$memtype = $_SESSION['memtype'];
-$memsize = $_SESSION['memsize'];
-$memqty = $_SESSION['memqty'];
-echo $modid .$hdtype . $hdsize .$hdqty.$proctype. $procspeed. $procqty. $memtype. $memsize. $memqty. $memqty ;
+//$query = "SELECT MemoryID
+//				 FROM Memory
+//				 WHERE
+//				 MemoryType = '$_SESSION['memtype']'
+//				 AND MemorySize = '$_SESSION['memsize']'
+//				 AND MemoryQty = '$_SESSION['memqty']'";
+				 
+//$result = $mysqli->query($query);
+//if($result->num_rows == 1)
+//{
+//	list($memID) = result->fetch_row();
+//}
+//echo "<br /><h1>THE FOLLOWING ARE THE STORED VAR'S </h1>";
 
+//$modid = $_SESSION['modelid'];
+//$hdtype = $_SESSION['hdtype'];
+//$hdsize = $_SESSION['hdsize'];
+//$hdqty = $_SESSION['hdqty'];
+//$proctype = $_SESSION['proctype'];
+//$procspeed = $_SESSION['procspeed'];
+//$procqty = $_SESSION['procqty'];
+//$memtype = $_SESSION['memtype'];
+//$memsize = $_SESSION['memsize'];
+//$memqty = $_SESSION['memqty'];
+//echo $modid .$hdtype . $hdsize .$hdqty.$proctype. $procspeed. $procqty. $memtype. $memsize. $memqty. $memqty ;
+echo"<form action='$pgm' method='post'>
+	<input type='submit' name='task' value='Add Item'>
+	<input type='submit' name='task' value='Submit'>
+</form>";
 ?>
 
 </div>
