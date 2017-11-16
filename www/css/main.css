@@ -206,14 +206,15 @@ Inventory Page
 }
 
 .btn_asset{
+  background: #f2f2f2;
+  margin-top: 25px;
   float: right;
-  width:50%;
+  width:30%;
   height:70px;
 }
 
-.btn_asset button{
+.btn_asset input{
 	width: 100%;
-
 	height: 40px;
 	color:white;
 	background-color: black;
@@ -222,9 +223,9 @@ Inventory Page
 	font-size: 20px;
 	margin-right: .1%;
   cursor:pointer;
-  
+
 }
-.btn_asset button:hover{
+.btn_asset input:hover{
   background-color: white;
   color: black;
 }

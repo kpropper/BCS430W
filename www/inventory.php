@@ -573,22 +573,25 @@ function getcondId(val){
 //$memsize = $_SESSION['memsize'];
 //$memqty = $_SESSION['memqty'];
 //echo $modid .$hdtype . $hdsize .$hdqty.$proctype. $procspeed. $procqty. $memtype. $memsize. $memqty. $memqty ;
+<<<<<<< HEAD
 echo"<form action='$pgm' method='post'>
 	<input type='hidden' name='inventoryID' value='$invID'>
 	<input type='submit' name='task' value='Add Item'>
 	<input type='submit' name='task' value='Submit'>
+=======
+
+//Button to add current asset to php table, submit button to submmit current asset to table, and save button to save current assets
+echo"<form class='btn_asset content-area group section' action='$pgm' method='post'>
+<div class='row'>
+	<input class= 'add_asset col col-md-1' type='submit' name='task' value='Add Item' style='width:188px;'></input>
+	<input class= 'submit_btn col col-md-2' type='submit' name='task' value='Submit' style='width:188px;'></input>
+	</div>
+>>>>>>> 21cf3815f7fd3a84f86a1c84b90e17598f722c71
 </form>";
 ?>
 
 </div>
 
-<!--Button to add current asset to php table, submit button to submmit current asset to table, and save button to save current assets -->
-<div class="btn_asset content-area group section" >
-  <div class="row">
-    <button class="add_asset col col-md-1" type="button" style="width:188px;" >ADD ITEM</button>
-    <button class="save_assets col col-md-2" type="button" style="width:188px;">SAVE</button>
-    <button class="submit_btn col col-md-2" type="submit" style="width:188px;">SUBMIT</button>
-  </div>
-</div>
+
 </body>
 </html>
