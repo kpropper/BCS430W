@@ -574,20 +574,19 @@ function getcondId(val){
 //$memqty = $_SESSION['memqty'];
 //echo $modid .$hdtype . $hdsize .$hdqty.$proctype. $procspeed. $procqty. $memtype. $memsize. $memqty. $memqty ;
 
-echo"<form action='$pgm' method='post'>
-	<input type='hidden' name='inventoryID' value='$invID'>
-	<input type='submit' name='task' value='Add Item'>
-	<input type='submit' name='task' value='Submit'>
-"
 
-//Button to add current asset to php table, submit button to submmit current asset to table, and save button to save current assets
-
+//Button to add current asset to php table, submit button to submmit current asset to table
 echo"<form class='btn_asset content-area group section' action='$pgm' method='post'>
 <div class='row'>
+	<input type='hidden' name='inventoryID' value='$invID'></input>
 	<input class= 'add_asset col col-md-1' type='submit' name='task' value='Add Item' style='width:188px;'></input>
 	<input class= 'submit_btn col col-md-2' type='submit' name='task' value='Submit' style='width:188px;'></input>
 	</div>
-</form>";
+	</form>
+";
+
+
+
 ?>
 
 </div>
