@@ -14,8 +14,8 @@ $pgm = 'inventory.php';
 
 if (isset($_POST['task']))
 {
-	$task = $_POST['task'];	
-	
+	$task = $_POST['task'];
+
 	if($task == "Add Item")
 	{
 		$modid = $_SESSION['modelid'];
@@ -28,16 +28,16 @@ if (isset($_POST['task']))
 		$memtype = $_SESSION['memtype'];
 		$memsize = $_SESSION['memsize'];
 		$memqty = $_SESSION['memqty'];
-
+		$condition = $_SESSION['condition'];
 		$allset = true;
-		
-		$query = "SELECT HardDriveID 
+
+		$query = "SELECT HardDriveID
 				 FROM HardDrive
 				 WHERE
 				 HardDriveType = '$hdtype'
 				 AND HardDriveSize = '$hdsize'
 				 AND HardDriveQty = '$hdqty'";
-				 
+
 		$result = $mysqli->query($query);
 		if($result->num_rows == 1)
 		{
@@ -51,7 +51,7 @@ if (isset($_POST['task']))
 //				 MemoryType = '$memtype'
 //				 AND MemorySize = '$memsize'
 //				 AND MemoryQty = '$memqty'";
-				 
+
 //		$result = $mysqli->query($query);
 //		if($result->num_rows == 1)
 //		{
@@ -394,7 +394,7 @@ function getcondId(val){
     <div class="memory col col-sm-3 col-md-2 " style="width:225px;">
       <!-- Memory Type Select option field--->
       <label>Memory Type</label>
-      <select name="MemoryType" id="memtype" onchange="getmemtypeId">
+      <select name="MemoryType" id="memtype" onchange='getmemtypeId(this.value);'>
           <option value="">Select Memory Type</option>
           <!-- populate dropdownlist using php -->
           <?php
@@ -411,7 +411,7 @@ function getcondId(val){
 
       <!-- Memory Size Select option field--->
       <label>Memory Size</label>
-      <select name='memory_size' id='memsize' onchange="getmemsizeId">
+      <select name='memory_size' id='memsize' onchange='getmemsizeId(this.value);'>
       <option value=''>Select Memory Size</option>
       <!-- populate dropdownlist using php -->
       <?php
@@ -428,7 +428,7 @@ function getcondId(val){
 
       <!-- Memory Quantity Select option field--->
       <label>Memory Quantity</label>
-      <select name='memory_quantity' id='memqty' onchange="getmemqtyId">
+      <select name='memory_quantity' id='memqty' onchange='getmemqtyId(this.value);'>
         <option value=''>Select Memory Quantity</option>
         <!-- populate dropdownlist using php -->
         <?php
@@ -446,7 +446,7 @@ function getcondId(val){
 
     <div class="condition col col-sm-3 col-md-2 " style="width:225px;">
       <label>Condition</label>
-      <select name="condition" onchange="getcondId" id="condid">
+      <select name="condition" onchange='getcondId(this.value);' id="condid">
           <option value="">Select Condition</option>
           <option value="Excellent">Excellent</option>
           <option value="Good">Good</option>
@@ -462,13 +462,13 @@ function getcondId(val){
 
 <?php
 
-//$query = "SELECT HardDriveID 
+//$query = "SELECT HardDriveID
 //				 FROM HardDrive
 //				 WHERE
 //				 HardDriveType = '$_SESSION['hdtype']'
 //				 AND HardDriveSize = '$_SESSION['hdsize']'
 //				 AND HardDriveQty = '$_SESSION['hdqty']'";
-				 
+
 //$result = $mysqli->query($query);
 //if($result->num_rows == 1)
 //{
@@ -481,7 +481,7 @@ function getcondId(val){
 //				 MemoryType = '$_SESSION['memtype']'
 //				 AND MemorySize = '$_SESSION['memsize']'
 //				 AND MemoryQty = '$_SESSION['memqty']'";
-				 
+
 //$result = $mysqli->query($query);
 //if($result->num_rows == 1)
 //{
