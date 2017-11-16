@@ -32,7 +32,7 @@ if (isset($_POST['task']))
 		$memqty = $_SESSION['memqty'];
 		$condition = $_SESSION['condition'];
 
-		
+
 		//Get the hard drive id
 		$query = "SELECT HardDriveID
 				 FROM HardDrive
@@ -62,7 +62,7 @@ if (isset($_POST['task']))
 			list($memID) = $result->fetch_row();
 			echo "Memory ID = $memID";
 		}
-		
+
 		//Get the processor id
 		$query = "SELECT ProcessorID
 				FROM Processor
@@ -77,7 +77,7 @@ if (isset($_POST['task']))
 			list($procID) = $result->fetch_row();
 			echo "Processor ID = $procID";
 		}
-		
+
 		//Get the Asset model id
 		$query = "SELECT ModelID
 				FROM AssetModel
@@ -90,7 +90,7 @@ if (isset($_POST['task']))
 			list($modID) = $result->fetch_row();
 			echo "Model ID = $modID";
 		}
-		
+
 
 		//Create the the asset
 		$query = "INSERT INTO Asset SET
@@ -100,13 +100,13 @@ if (isset($_POST['task']))
 				   MemoryID = '$memID'";
 		$result = $mysqli->query($query);
 		if ($result) {
-						$assetID = $mysqli->insert_id; 
+						$assetID = $mysqli->insert_id;
 					}
 						else {
 						$msg = "Asset NOT Added" . mysqli_error($mysqli);
 						echo $msg;
 						}
-		
+
 		//Insert the asset into the inventory
 		if($invID == NULL)
 		{
@@ -114,15 +114,15 @@ if (isset($_POST['task']))
 				   UserID = '$userID'";
 		$result = $mysqli->query($query);
 		if ($result) {
-						$invID = $mysqli->insert_id; 
+						$invID = $mysqli->insert_id;
 					}
 						else {
 						$msg = "Inventory NOT Created " . mysqli_error($mysqli);
 						echo $msg;
 						}
 		}
-		
-		$query = "UPDATE Asset 
+
+		$query = "UPDATE Asset
 				  InventoryID = '$invID'
 				  WHERE AssetID = '$assetID'";
 		$result = $mysqli->query($query);
@@ -573,7 +573,7 @@ function getcondId(val){
 //$memsize = $_SESSION['memsize'];
 //$memqty = $_SESSION['memqty'];
 //echo $modid .$hdtype . $hdsize .$hdqty.$proctype. $procspeed. $procqty. $memtype. $memsize. $memqty. $memqty ;
-<<<<<<< HEAD
+
 echo"<form action='$pgm' method='post'>
 	<input type='hidden' name='inventoryID' value='$invID'>
 	<input type='submit' name='task' value='Add Item'>
@@ -581,12 +581,12 @@ echo"<form action='$pgm' method='post'>
 =======
 
 //Button to add current asset to php table, submit button to submmit current asset to table, and save button to save current assets
+
 echo"<form class='btn_asset content-area group section' action='$pgm' method='post'>
 <div class='row'>
 	<input class= 'add_asset col col-md-1' type='submit' name='task' value='Add Item' style='width:188px;'></input>
 	<input class= 'submit_btn col col-md-2' type='submit' name='task' value='Submit' style='width:188px;'></input>
 	</div>
->>>>>>> 21cf3815f7fd3a84f86a1c84b90e17598f722c71
 </form>";
 ?>
 
