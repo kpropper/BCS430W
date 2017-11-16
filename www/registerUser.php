@@ -17,9 +17,6 @@
 
 	if ($msg == NULL) 
 	{
-		//$mysqli = new mysqli('localhost', 'root', '', 'test1');
-		//if ($mysqli->connect_error)
-		//	die('Connect Error: ' . $mysqli->connect_error);
 		include("sqlConnect.php");
 		
 		$email = $mysqli->escape_string($_POST['email']);
@@ -33,7 +30,8 @@
 					  Email = '$email',
 					  Password = '$password',
 					  Company_Name = '$companyname',
-					  Telephone = '$phone'";
+					  Telephone = '$phone',
+					  UserType = 'Client'";
 			$result = $mysqli->query($query);
 			if($result)
 			{

@@ -14,6 +14,45 @@
 /* Start your style declarations here    */
 /*****************************************/
 
+/**************EMPLOYEE LANDING PAGE*****************
+
+.container1 {
+	padding: 0px;
+	margin: 0%;
+	text-align: center;
+	margin-bottom: 50px;
+
+}
+
+.inventory-button{
+	padding: 7px 4px;
+	background-color: #00757b;
+	color: #ffffff;
+}
+
+.new-quote{
+	padding: 7px 4px;
+	background-color: #00757b;
+	color: #ffffff;
+}
+
+.inventory-lookup{
+	padding: 7px 4px;
+	background-color: #00757b;
+	color: #ffffff;
+}
+
+.manage-account{
+	padding: 7px 4px;
+	background-color: #00757b;
+	color: #ffffff;
+	margin-left: 0%;
+	white-space: nowrap;
+
+}
+*******/
+
+/**************************************/
 /************ FONTS *******************/
 
 
@@ -151,7 +190,7 @@
 Inventory Page
 ************************************/
 .inv_box select{
-	width: 100%;
+	width: 85%;
 	height: 40px;
 	color:white;
 	background-color: black;
@@ -159,6 +198,35 @@ Inventory Page
 	line-height: 40px;
 	font-size: 20px;
 	margin-right: .1%;
+}
+
+#asset_list{
+  width:100%;
+  height:600px;
+}
+
+.btn_asset{
+  float: right;
+  width:50%;
+  height:70px;
+}
+
+.btn_asset button{
+	width: 100%;
+
+	height: 40px;
+	color:white;
+	background-color: black;
+	opacity: 0.8;
+	line-height: 40px;
+	font-size: 20px;
+	margin-right: .1%;
+  cursor:pointer;
+  
+}
+.btn_asset button:hover{
+  background-color: white;
+  color: black;
 }
 
 /****************************
@@ -329,11 +397,11 @@ Login Page
 @media screen and (min-width: 768px) {
 
 	.row {
-		margin-right: -25px;
+		margin-right: -15px;
 	}
 
 	.col {
-		padding-right: 25px;
+		padding-right: 15px;
 	}
 
 	.col-sm-11 {width: 91.662%}
@@ -347,6 +415,7 @@ Login Page
 	.col-sm-3 {width: 25%;}
 	.col-sm-2 {width: 16.662%;}
 	.col-sm-1 {width: 8.332%;}
+
 
 }
 
@@ -364,6 +433,7 @@ Login Page
 	.col-md-2 {width: 16.662%;}
 	.col-md-1 {width: 8.332%;}
 
+
 }
 
 @media screen and (min-width: 1280px) {
@@ -379,6 +449,8 @@ Login Page
 	.col-lg-3 {width: 25%;}
 	.col-lg-2 {width: 16.662%;}
 	.col-lg-1 {width: 8.332%;}
+
+
 
 }
 
@@ -1783,6 +1855,7 @@ body .row-fluid .four-col-adjust span>.hs_cos_wrapper {
     letter-spacing: 1.9px;
     text-align: right;
     color: #0d6368;
+    border-radius: 5px;
 }
 
 .header-container-wrapper .nav-menu ul li.hs-menu-item.hs-menu-depth-1:last-child a{
