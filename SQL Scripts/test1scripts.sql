@@ -79,12 +79,12 @@ PRIMARY KEY (HardDriveID)
 CREATE TABLE Inventory (
 InventoryID INT unsigned NOT NULL AUTO_INCREMENT,
 UserID INT NOT NULL,
-StatusID INT NOT NULL,
+StatusID INT NULL,
 Inventory_Value double Null,
 InitQuoteMin double NULL,
 InitQuoteMax double NULL,
 FinalQuote double NULL,
-PRIMARY KEY (InventoryID, UserID, StatusID),
+PRIMARY KEY (InventoryID),
 FOREIGN KEY (UserID) REFERENCES User(UserID),
 FOREIGN KEY (StatusID) REFERENCES Status(StatusID)
 );
@@ -102,15 +102,14 @@ FOREIGN KEY (InventoryID) REFERENCES Inventory(InventoryID)
 
 CREATE TABLE Asset (
 AssetID INT unsigned NOT NULL AUTO_INCREMENT,
-InventoryID INT NOT NULL,
-UserID INT NOT NULL,
-ModelID INT NOT NULL,
-HardDriveID INT NOT NULL,
-ProcessorID INT NOT NULL,
-MemoryID INT NOT NULL,
+InventoryID INT NULL,
+ModelID INT NULL,
+HardDriveID INT NULL,
+ProcessorID INT NULL,
+MemoryID INT NULL,
 SerialNumber varchar (100) NULL,
 ProductNumber varchar (100) NULL,
-Quantity INT NOT NULL,
+Quantity INT NULL,
 CustomerConditionMod double null,
 ActualConditionMiod double null,
 AssetValue double NULL,
@@ -121,8 +120,6 @@ FOREIGN KEY (HardDriveID) REFERENCES HardDrive(HardDriveID),
 FOREIGN KEY (ProcessorID) REFERENCES Processor(ProcessorID),
 FOREIGN KEY (MemoryID) REFERENCES Memory(MemoryID)
 );
-
-
 
 /*input data for the tables */
 

@@ -1,7 +1,7 @@
 <?php
 include("sqlConnect.php");
 include("siteInit.php");
-//include('menu.php');
+
 //If a user is not logged in they shouldn't be here, kick them out
 if(!$loggedIn)
 {
@@ -110,8 +110,7 @@ if (isset($_POST['task']))
 		//Insert the asset into the inventory
 		if($invID == NULL)
 		{
-			$query = "INSERT INTO Inventory SET
-				   UserID = '$userID'";
+			$query = "INSERT INTO Inventory SET UserID = '$userID'";
 		$result = $mysqli->query($query);
 		if ($result) {
 						$invID = $mysqli->insert_id;
@@ -122,13 +121,13 @@ if (isset($_POST['task']))
 						}
 		}
 
-		$query = "UPDATE Asset
+		$query = "UPDATE Asset SET
 				  InventoryID = '$invID'
 				  WHERE AssetID = '$assetID'";
 		$result = $mysqli->query($query);
 		if(!$result)
 		{
-			$msg = "Inventory NOT Created " . mysqli_error($mysqli);
+			$msg = "Asset NOT Updated " . mysqli_error($mysqli);
 			echo $msg;
 		}
 	}
@@ -534,49 +533,40 @@ function getcondId(val){
 <div id="asset_list">
 
 <?php
-
-//$query = "SELECT HardDriveID
-//				 FROM HardDrive
-//				 WHERE
-//				 HardDriveType = '$_SESSION['hdtype']'
-//				 AND HardDriveSize = '$_SESSION['hdsize']'
-//				 AND HardDriveQty = '$_SESSION['hdqty']'";
-
-//$result = $mysqli->query($query);
-//if($result->num_rows == 1)
-//{
-//	list($hdID) = result->fetch_row();
-//}
-
-//$query = "SELECT MemoryID
-//				 FROM Memory
-//				 WHERE
-//				 MemoryType = '$_SESSION['memtype']'
-//				 AND MemorySize = '$_SESSION['memsize']'
-//				 AND MemoryQty = '$_SESSION['memqty']'";
-
-//$result = $mysqli->query($query);
-//if($result->num_rows == 1)
-//{
-//	list($memID) = result->fetch_row();
-//}
-//echo "<br /><h1>THE FOLLOWING ARE THE STORED VAR'S </h1>";
-
-//$modid = $_SESSION['modelid'];
-//$hdtype = $_SESSION['hdtype'];
-//$hdsize = $_SESSION['hdsize'];
-//$hdqty = $_SESSION['hdqty'];
-//$proctype = $_SESSION['proctype'];
-//$procspeed = $_SESSION['procspeed'];
-//$procqty = $_SESSION['procqty'];
-//$memtype = $_SESSION['memtype'];
-//$memsize = $_SESSION['memsize'];
-//$memqty = $_SESSION['memqty'];
-//echo $modid .$hdtype . $hdsize .$hdqty.$proctype. $procspeed. $procqty. $memtype. $memsize. $memqty. $memqty ;
-
+if($invID != NULL)
+{
+	$query = "SELECT AssetCategory.CategoryName, Manufacturer.ManufacturerName, AssetModel.ModelName, HardDrive.HardDriveType,
+                    HardDrive.HardDriveSize, HardDrive.HardDriveQty, Processor.ProcessorType, Processor.ProcessorSpeed, Processor.ProcessorQty,
+                    Memory.MemoryType, Memory.MemorySize, Memory.MemoryQty
+					FROM Asset JOIN AssetModel ON Asset.ModelID = AssetModel.ModelID
+					JOIN AssetCategory ON AssetModel.CategoryID = AssetCategory.CategoryID
+					JOIN Manufacturer ON AssetModel.ManufacturerID = Manufacturer.ManufacturerID
+					JOIN HardDrive ON Asset.HardDriveID = HardDrive.HardDriveID
+					JOIN Memory ON Asset.MemoryID = Memory.MemoryID
+					JOIN Processor ON Asset.ProcessorID = Processor.ProcessorID
+					WHERE Asset.InventoryID = '$invID'
+					ORDER BY Asset.AssetID";
+					
+	$result = $mysqli->query($query);
+	if (!$result) echo mysqli_error($mysqli);
+	echo"<table width='1024' align='center'>";
+	while(list($category, $manufacturer, $model, $hdtype, $hdsize, $hdqty, $proctype, $procspeed, $procqty, $memtype, $memsize, $memqty) = $result->fetch_row())
+	{
+		$harddrive = "$hdqty - $hdtype $hdsize";
+		$processor = "$procqty - $proctype $procspeed";
+		$memory = "$memqty - $memsize $memtype";
+		
+		echo"<tr><td>$category</td>
+		  <td>$manufacturer</td>
+		  <td>$model</td>
+		  <td>$harddrive</td>
+		  <td>$processor</td>
+		  <td>$memory</td></tr>";
+	}
+}
 
 //Button to add current asset to php table, submit button to submmit current asset to table
-echo"<form class='btn_asset content-area group section' action='$pgm' method='post'>
+echo"</table><br><br><form class='btn_asset content-area group section' action='$pgm' method='post'>
 <div class='row'>
 	<input type='hidden' name='inventoryID' value='$invID'></input>
 	<input class= 'add_asset col col-md-1' type='submit' name='task' value='Add Item' style='width:188px;'></input>
@@ -584,8 +574,6 @@ echo"<form class='btn_asset content-area group section' action='$pgm' method='po
 	</div>
 	</form>
 ";
-
-
 
 ?>
 
