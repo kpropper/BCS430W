@@ -1,12 +1,15 @@
 CategoryID,CategoryName
 1,Laptop
-2,Desktop
-3,Tablet
-4,Server
-5,IP_Phone
-6,SmartPhone
-7,Network
-8,LCD Monitor
-9,Printer
-10,UPS/POWER
-11,Other
+2,Computer
+3,All In One
+4,Tablet & E-Reader
+5,Server
+6,Storage
+7,Telecom
+8,Cell Phone
+9,Networking
+10,LCD Monitor
+11,Projector
+12,Printer
+13,UPS/POWER
+14,Audio Video
