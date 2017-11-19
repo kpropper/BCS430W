@@ -1,0 +1,60 @@
+body {
+	padding: 0;
+	margin: 0;
+	font-family: sans-serif;
+}
+
+.header {
+	position: absolute;
+	left: 40%;
+	top: 20%;
+}
+
+/* buttons grouped*/
+.buttons {
+	position: absolute;
+	left: 40%;
+	top: 60%;
+	
+	
+	
+}
+.b1:hover {background-color: grey}
+.b2:hover {background-color: grey}
+
+/* Buttons */
+.b1 {
+ border:1px solid #660000;
+ border-radius:5px;
+ margin-right:10px;
+ padding:10px 10px 10px 10px;
+ text-decoration: none;
+ background-color: green;
+ color: white;
+ font-weight: bold;
+}
+.b2 {
+ border:1px solid #660000;
+ border-radius:5px;
+ margin-right:10px;
+ padding:10px 10px 10px 10px;
+ text-decoration: none;
+ background-color: red;
+ color: white;
+ font-weight: bold;
+}
+/* Buttons */
+
+/* Input Fields */
+.input {
+	position: absolute;
+	left: 40%;
+	top: 50%;
+	
+ border:1px solid #660000;
+ border-radius:5px;
+ margin-right:10px;
+ padding:10px 10px 10px 10px;
+}
+
+/* Input Fields */
