@@ -39,22 +39,22 @@ if (isset($_POST['task']))
 		{
 			$query = "INSERT INTO Inventory SET UserID = '$userID'";
 			$result = $mysqli->query($query);
-			
-			if($result)	
+
+			if($result)
 			{
 				$invID = $mysqli->insert_id;
-				$query = "INSERT INTO Status SET 
+				$query = "INSERT INTO Status SET
 						  InventoryID = '$invID',
 						  StatusName = 'Started',
 						  StatusMessage = 'Inventory Created'";
-						  
+
 				$result = $mysqli->query($query);
 				if(!$result) $errmsg = "Inventory Status NOT created " . mysqli_error($mysqli);
 			}
 			else $errmsg = "Inventory NOT created " . mysqli_error($mysqli);
-			
+
 		}
-		
+
 		if ($errmsg == NULL)
 		{
 			//Find the Hard drive ID
@@ -87,7 +87,7 @@ if (isset($_POST['task']))
 				}
 				else $errmsg = "Hard Drive NOT Found " . mysqli_error($mysqli);
 			}
-			
+
 			//Find the memory ID
 			if ($errmsg == NULL)
 			{
@@ -124,7 +124,7 @@ if (isset($_POST['task']))
 			if ($errmsg == NULL)
 			{
 				if($proctype == NULL || $procqty == 0)
-				{	
+				{
 					$procID = 1;
 				}
 				elseif ($proctype != NULL && ($procspeed == NULL || $procqty == NULL))
@@ -186,7 +186,7 @@ if (isset($_POST['task']))
 				   ProcessorID = '$procID',
 				   MemoryID = '$memID'";
 			$result = $mysqli->query($query);
-			if ($result) 
+			if ($result)
 			{
 				$assetID = $mysqli->insert_id;
 				$msg = "Asset Added";
@@ -377,8 +377,8 @@ function getcondId(val){
 </head>
 <body>
 <header>
-  <a href="index.php" id="hs-link-logo" style="border-width:0px;border:0px;"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/i-t-a-m-g-main-logo-1.svg?t=1507222056603" class="hs-image-widget " style="width:122px;border-width:0px;border:0px;" width="122" alt="ITAMG" title="ITAMG"></a>
-  <h1>
+  <a href="index.php" id="hs-link-logo" style="border-width:0px;border:0px;margin-left:20px;"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/i-t-a-m-g-main-logo-1.svg?t=1507222056603" class="hs-image-widget " style="width:122px;border-width:0px;border:0px;" width="122" alt="ITAMG" title="ITAMG"></a>
+  <h1 style="margin-left:20px;">
     Welcome
     <?php echo $fullName;
     echo ", " . $userEmail;
@@ -610,6 +610,15 @@ function getcondId(val){
 <div id="asset_list">
 
 <?php
+echo"<table width='1024' id='assets'>
+<tr>
+<th>Category</th>
+<th>Manufacturer</th>
+<th>Model</th>
+<th>Hard Drive</th>
+<th>Processor</th>
+<th>Memory</th>
+</tr>";
 if($invID != NULL)
 {
 	$query = "SELECT AssetCategory.CategoryName, Manufacturer.ManufacturerName, AssetModel.ModelName, HardDrive.HardDriveType,
@@ -623,16 +632,16 @@ if($invID != NULL)
 					JOIN Processor ON Asset.ProcessorID = Processor.ProcessorID
 					WHERE Asset.InventoryID = '$invID'
 					ORDER BY Asset.AssetID";
-					
+
 	$result = $mysqli->query($query);
 	if (!$result) echo mysqli_error($mysqli);
-	echo"<table width='1024' align='center'>";
+	//echo"<table width='1024' align='center'>";
 	while(list($category, $manufacturer, $model, $hdtype, $hdsize, $hdqty, $proctype, $procspeed, $procqty, $memtype, $memsize, $memqty) = $result->fetch_row())
 	{
 		$harddrive = "$hdqty - $hdtype $hdsize";
 		$processor = "$procqty - $proctype $procspeed";
 		$memory = "$memqty - $memsize $memtype";
-		
+
 		echo"<tr><td>$category</td>
 		  <td>$manufacturer</td>
 		  <td>$model</td>

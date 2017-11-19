@@ -189,22 +189,42 @@
 /****************************
 Inventory Page
 ************************************/
+.inv_box{
+  margin: auto 20px;
+}
 .inv_box select{
 	width: 85%;
 	height: 40px;
 	color:white;
 	background-color: black;
-	opacity: 0.8;
+	opacity: 0.75;
 	line-height: 40px;
 	font-size: 20px;
 	margin-right: .1%;
 }
-
-#asset_list{
-  width:100%;
-  height:600px;
+#assets {
+  margin:20px auto 20px 20px;
+    border-collapse: collapse;
+    width: 90%;
 }
 
+#assets td, #assets th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#assets tr:nth-child(even){background-color: lightgray;}
+
+#assets tr:hover {background-color: #ddd;}
+
+#assets th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #00757b;
+    opacity: 0.8;
+    color: white;
+  }
 .btn_asset{
   background: #f2f2f2;
   margin-top: 25px;
