@@ -20,7 +20,7 @@ if (isset($_POST['task']))
 {
 	$task = $_POST['task'];
 
-	if($task == "Add Item")
+	if($task == "Add Item" || $task == "Submit")
 	{
 		$modname = $_SESSION['modelid'];
 		$hdtype = $_SESSION['hdtype'];
@@ -33,168 +33,279 @@ if (isset($_POST['task']))
 		$memsize = $_SESSION['memsize'];
 		$memqty = $_SESSION['memqty'];
 		$condition = $_SESSION['condition'];
-
-		//If no inventory exists, create an inventory
-		if($invID == NULL)
+		$assetValue = 0;
+		
+		if($invID != NULL)
 		{
-			$query = "INSERT INTO Inventory SET UserID = '$userID'";
+			$query = "SELECT Status.StatusName
+				      FROM Inventory JOIN Status ON Inventory.StatusID = Status.StatusID
+				      WHERE
+			          Inventory.InventoryID = '$invID'";
 			$result = $mysqli->query($query);
-
 			if($result)
 			{
-				$invID = $mysqli->insert_id;
-				$query = "INSERT INTO Status SET
+				list($statusName) = $result->fetch_row();
+				echo "$statusName";
+				if(!($statusName == 'Started' || $statusName == 'Open'))
+				{
+					$errmsg = "This inventory is not available to be updated, please contact a $company representative.";
+					echo "This inventory is not available to be updated, please contact a $company representative.";
+				}
+			}
+				
+		}
+		if($errmsg == NULL)
+		{
+			
+			//If no inventory exists, create an inventory
+			if($invID == NULL)
+			{
+				$query = "INSERT INTO Inventory SET UserID = '$userID'";
+				$result = $mysqli->query($query);
+
+				if($result)
+				{
+					$invID = $mysqli->insert_id;
+					$query = "INSERT INTO Status SET
 						  InventoryID = '$invID',
 						  StatusName = 'Started',
 						  StatusMessage = 'Inventory Created'";
 
-				$result = $mysqli->query($query);
-				if(!$result) $errmsg = "Inventory Status NOT created " . mysqli_error($mysqli);
-			}
-			else $errmsg = "Inventory NOT created " . mysqli_error($mysqli);
+					$result = $mysqli->query($query);
+					if($result)
+					{
+						$statID = $mysqli->insert_id;
+						$query = "Update Inventory SET
+							 StatusID = '$statID'
+							 WHERE
+							 InventoryID = '$invID'";
+						$result = $mysqli->query($query);
+						if(!$result) $errmsg = "Unable to update inventory status " . mysqli_error($mysqli);
+					}
+					else $errmsg = "Inventory Status NOT created " . mysqli_error($mysqli);
+				}
+				else $errmsg = "Inventory NOT created " . mysqli_error($mysqli);
 
-		}
+			}
 
-		if ($errmsg == NULL)
-		{
-			//Find the Hard drive ID
-			if($hdtype == NULL || $hdqty == 0)
+			if ($errmsg == NULL)
 			{
-				$hdID = 1;
-			}
-			elseif ($hdtype != NULL && ($hdsize == NULL || $hdqty == NULL))
-			{
-				$errmsg = "Invalid Hard Drive Configuration";
-			}
-			else
-			{
-				//Get the hard drive id
-				$query = "SELECT HardDriveID
+				//Find the Hard drive ID
+				if($hdtype == NULL || $hdqty == 0)
+				{
+					$hdID = 1;
+				}
+				elseif ($hdtype != NULL && ($hdsize == NULL || $hdqty == NULL))
+				{
+					$errmsg = "Invalid Hard Drive Configuration";
+				}
+				else
+				{
+					//Get the hard drive id
+					$query = "SELECT HardDriveID, HardDriveValue
 					      FROM HardDrive
 						  WHERE
 						  HardDriveType = '$hdtype'
 						  AND HardDriveSize = '$hdsize'
 						  AND HardDriveQty = '$hdqty'";
 
-				$result = $mysqli->query($query);
-				if($result)
-				{
-					if($result->num_rows == 1)
+					$result = $mysqli->query($query);
+					if($result)
 					{
-						list($hdID) = $result->fetch_row();
+						if($result->num_rows == 1)
+						{
+							list($hdID, $hdValue) = $result->fetch_row();
+							$assetValue += $hdValue;
+						}
+						else $errmsg = "Hard Drive NOT found, Please consult $company staff for assistance.";
 					}
-					else $errmsg = "Hard Drive NOT found, Please consult $company staff for assistance.";
+					else $errmsg = "Hard Drive NOT Found " . mysqli_error($mysqli);
 				}
-				else $errmsg = "Hard Drive NOT Found " . mysqli_error($mysqli);
-			}
 
-			//Find the memory ID
-			if ($errmsg == NULL)
-			{
-				if($memtype == NULL || $memqty == 0)
+				//Find the memory ID
+				if ($errmsg == NULL)
 				{
-					$memID = 1;
-				}
-				elseif ($memtype != NULL && ($memsize == NULL || $memqty == NULL))
-				{
-					$errmsg = "Invalid Memory Configuration";
-				}
-				else
-				{
-					$query = "SELECT MemoryID
+					if($memtype == NULL || $memqty == 0)
+					{
+						$memID = 1;
+					}
+					elseif ($memtype != NULL && ($memsize == NULL || $memqty == NULL))
+					{
+						$errmsg = "Invalid Memory Configuration";
+					}
+					else
+					{
+						$query = "SELECT MemoryID, MemoryValue
 							  FROM Memory
 							  WHERE
 							  MemoryType = '$memtype'
 						      AND MemorySize = '$memsize'
 							  AND MemoryQty = '$memqty'";
 
-					$result = $mysqli->query($query);
-					if($result)
-					{
-						if($result->num_rows == 1)
+						$result = $mysqli->query($query);
+						if($result)
 						{
-							list($memID) = $result->fetch_row();
+							if($result->num_rows == 1)
+							{
+								list($memID, $memValue) = $result->fetch_row();
+								$assetValue += $hdValue;
+							}
+							else $errmsg = "Memory NOT found, Please consult $company staff for assistance.";
 						}
-						else $errmsg = "Memory NOT found, Please consult $company staff for assistance.";
+						else $errmsg = "Memory NOT Found " . mysqli_error($mysqli);
 					}
-					else $errmsg = "Memory NOT Found " . mysqli_error($mysqli);
 				}
-			}
-			//Find the processor ID
-			if ($errmsg == NULL)
-			{
-				if($proctype == NULL || $procqty == 0)
+				//Find the processor ID
+				if ($errmsg == NULL)
 				{
-					$procID = 1;
-				}
-				elseif ($proctype != NULL && ($procspeed == NULL || $procqty == NULL))
-				{
-					$errmsg = "Invalid Processor Configuration";
-				}
-				else
-				{
-					$query = "SELECT ProcessorID
+					if($proctype == NULL || $procqty == 0)
+					{
+						$procID = 1;
+					}
+					elseif ($proctype != NULL && ($procspeed == NULL || $procqty == NULL))
+					{
+						$errmsg = "Invalid Processor Configuration";
+					}
+					else
+					{
+						$query = "SELECT ProcessorID, ProcessorValue
 							  FROM Processor
 							  WHERE
 							  ProcessorType = '$proctype'
 							  AND ProcessorSpeed = '$procspeed'
 							  AND ProcessorQty = '$procqty'";
 
-					$result = $mysqli->query($query);
-					if($result)
-					{
-						if($result->num_rows == 1)
+						$result = $mysqli->query($query);
+						if($result)
 						{
-							list($procID) = $result->fetch_row();
+							if($result->num_rows == 1)
+							{
+								list($procID, $procValue) = $result->fetch_row();
+								$assetValue += $procValue;
+							}
+							else $errmsg = "Processor NOT found, Please consult $company staff for assistance.";
 						}
-						else $errmsg = "Processor NOT found, Please consult $company staff for assistance.";
+						else $errmsg = "Processor NOT Found " . mysqli_error($mysqli);
 					}
-					else $errmsg = "Processor NOT Found " . mysqli_error($mysqli);
+				}
+				//Find the Asset ID
+				if ($errmsg == NULL)
+				{
+					if($modname != NULL)
+					{
+						$query = "SELECT ModelID, AssetModelValue
+						FROM AssetModel
+						WHERE
+						ModelName = '$modname'";
+
+						$result = $mysqli->query($query);
+						if($result)
+						{
+							if($result->num_rows == 1)
+							{
+								list($modID, $assetModelValue) = $result->fetch_row();
+								$assetValue += $assetModelValue;
+							}
+						}
+						else $errmsg = "Model NOT Found " . mysqli_error($mysqli);
+					}
+					else $errmsg = "Invalid Model, Please consult $company staff for assistance.";
 				}
 			}
-			//Find the Asset ID
+
 			if ($errmsg == NULL)
 			{
-				if($modname != NULL)
+				if($_SESSION['condition'] != NULL)
 				{
-					$query = "SELECT ModelID
-					FROM AssetModel
-					WHERE
-					ModelName = '$modname'";
-
-					$result = $mysqli->query($query);
-					if($result)
+					$condition = $_SESSION['condition'];
+					switch($condition)
 					{
-						if($result->num_rows == 1)
-						{
-							list($modID) = $result->fetch_row();
-						}
+						case 'Excellent':
+							$valuemultiplier = 1;
+							break;
+						case 'Good':
+							$valuemultiplier = .8;
+							break;
+						case 'Fair':
+							$valuemultiplier = .5;
+							break;
+						default:
+							$errmsg = "Item NOT added, invalid item condition.";
 					}
-					else $errmsg = "Model NOT Found " . mysqli_error($mysqli);
 				}
-				else $errmsg = "Invalid Model, Please consult $company staff for assistance.";
+				else $errmsg = "Item NOT added, no item condition specified.";
+			
+				if($errmsg == NULL)
+				{
+					//Create the the asset
+					$query = "INSERT INTO Asset SET
+						  ModelID = '$modID',
+						  InventoryID = '$invID',
+						  HardDriveID = '$hdID',
+						  ProcessorID = '$procID',
+						  MemoryID = '$memID',
+						  AssetValue = '$assetValue',
+						  CustomerConditionMod = '$valuemultiplier'";
+					$result = $mysqli->query($query);
+					if ($result)
+					{
+						$assetID = $mysqli->insert_id;
+						$msg = "Asset Added";
+					}
+					else
+					{
+						$errmsg = "Asset NOT Added" . mysqli_error($mysqli);
+					}
+				}
 			}
 		}
-
-		if ($errmsg == NULL)
+	}
+	
+	if($errmsg == NULL)
+	{
+		if($task == "Submit")
 		{
-			//Create the the asset
-			$query = "INSERT INTO Asset SET
-				   ModelID = '$modID',
-				   InventoryID = '$invID',
-				   HardDriveID = '$hdID',
-				   ProcessorID = '$procID',
-				   MemoryID = '$memID'";
+			$invValue = 0;
+			//Get the value of all of the assets
+			$query = "SELECT AssetValue, CustomerConditionMod
+				      FROM Asset
+				      WHERE
+			          InventoryID = '$invID'";
+
 			$result = $mysqli->query($query);
-			if ($result)
+			if($result)
 			{
-				$assetID = $mysqli->insert_id;
-				$msg = "Asset Added";
+				while(list($assetValue) = $result->fetch_row())
+				{
+					$invValue += ($assetValue * $valuemultiplier);
+					$initMax = ($invValue * .5);
+					$initMin = ($invValue * .35);
+				}
+				
+				$query = "INSERT INTO Status SET
+						  InventoryID = '$invID',
+						  StatusName = 'Submitted',
+						  StatusMessage = 'Inventory Submitted by $userFName $userLName'";
+
+				$result = $mysqli->query($query);
+				if($result) $statID = $mysqli->insert_id;
+				else $errmsg = "Inventory Status NOT updated " . mysqli_error($mysqli);
+				
+				if($errmsg == NULL)
+				{
+					$query = "Update Inventory SET
+							 StatusID = '$statID',
+							 Inventory_Value = '$invValue',
+							 InitQuoteMin = '$initMin',
+							 InitQuoteMax = '$initMax'
+							 WHERE
+							 InventoryID = '$invID'";
+					$result = $mysqli->query($query);
+					if($result) $msg = "Inventory Submitted Sucessfully.";
+					else $errmsg = "Unable to submit inventory $invID " . mysqli_error($mysqli);
+				}
 			}
-			else
-			{
-				$errmsg = "Asset NOT Added" . mysqli_error($mysqli);
-			}
+			else $errmsg = "Unable to submit inventory, asset values not identified " . mysqli_error($mysqli);
 		}
 	}
 }
