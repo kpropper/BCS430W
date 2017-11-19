@@ -7,10 +7,12 @@ if(!$loggedIn)
 {
 	echo "<script> location.href='index.php'; </script>";
 }
-var_dump($_POST);
-var_dump($_SESSION);
+
 //Variables
 $pgm = 'inventory.php';
+$msg = NULL;
+$errmsg = NULL;
+$company = "ITAMG";
 
 if (isset($_POST['inventoryID']))   $invID = $_POST['inventoryID'];	else $invID = NULL;
 
@@ -32,107 +34,182 @@ if (isset($_POST['task']))
 		$memqty = $_SESSION['memqty'];
 		$condition = $_SESSION['condition'];
 
-
-		//Get the hard drive id
-		$query = "SELECT HardDriveID
-				 FROM HardDrive
-				 WHERE
-				 HardDriveType = '$hdtype'
-				 AND HardDriveSize = '$hdsize'
-				 AND HardDriveQty = '$hdqty'";
-
-		$result = $mysqli->query($query);
-		if($result->num_rows == 1)
-		{
-			list($hdID) = $result->fetch_row();
-			echo "Hard Drive ID = $hdID";
-		}
-
-		//Get the memory id
-		$query = "SELECT MemoryID
-				FROM Memory
-				 WHERE
-				 MemoryType = '$memtype'
-				 AND MemorySize = '$memsize'
-				 AND MemoryQty = '$memqty'";
-
-		$result = $mysqli->query($query);
-		if($result->num_rows == 1)
-		{
-			list($memID) = $result->fetch_row();
-			echo "Memory ID = $memID";
-		}
-
-		//Get the processor id
-		$query = "SELECT ProcessorID
-				FROM Processor
-				 WHERE
-				 ProcessorType = '$proctype'
-				 AND ProcessorSpeed = '$procspeed'
-				 AND ProcessorQty = '$procqty'";
-
-		$result = $mysqli->query($query);
-		if($result->num_rows == 1)
-		{
-			list($procID) = $result->fetch_row();
-			echo "Processor ID = $procID";
-		}
-
-		//Get the Asset model id
-		$query = "SELECT ModelID
-				FROM AssetModel
-				 WHERE
-				 ModelName = '$modname'";
-
-		$result = $mysqli->query($query);
-		if($result->num_rows == 1)
-		{
-			list($modID) = $result->fetch_row();
-			echo "Model ID = $modID";
-		}
-
-
-		//Create the the asset
-		$query = "INSERT INTO Asset SET
-				   ModelID = '$modID',
-				   HardDriveID = '$hdID',
-				   ProcessorID = '$procID',
-				   MemoryID = '$memID'";
-		$result = $mysqli->query($query);
-		if ($result) {
-						$assetID = $mysqli->insert_id;
-					}
-						else {
-						$msg = "Asset NOT Added" . mysqli_error($mysqli);
-						echo $msg;
-						}
-
-		//Insert the asset into the inventory
+		//If no inventory exists, create an inventory
 		if($invID == NULL)
 		{
 			$query = "INSERT INTO Inventory SET UserID = '$userID'";
-		$result = $mysqli->query($query);
-		if ($result) {
-						$invID = $mysqli->insert_id;
+			$result = $mysqli->query($query);
+			
+			if($result)	
+			{
+				$invID = $mysqli->insert_id;
+				$query = "INSERT INTO Status SET 
+						  InventoryID = '$invID',
+						  StatusName = 'Started',
+						  StatusMessage = 'Inventory Created'";
+						  
+				$result = $mysqli->query($query);
+				if(!$result) $errmsg = "Inventory Status NOT created " . mysqli_error($mysqli);
+			}
+			else $errmsg = "Inventory NOT created " . mysqli_error($mysqli);
+			
+		}
+		
+		if ($errmsg == NULL)
+		{
+			//Find the Hard drive ID
+			if($hdtype == NULL || $hdqty == 0)
+			{
+				$hdID = 1;
+			}
+			elseif ($hdtype != NULL && ($hdsize == NULL || $hdqty == NULL))
+			{
+				$errmsg = "Invalid Hard Drive Configuration";
+			}
+			else
+			{
+				//Get the hard drive id
+				$query = "SELECT HardDriveID
+					      FROM HardDrive
+						  WHERE
+						  HardDriveType = '$hdtype'
+						  AND HardDriveSize = '$hdsize'
+						  AND HardDriveQty = '$hdqty'";
+
+				$result = $mysqli->query($query);
+				if($result)
+				{
+					if($result->num_rows == 1)
+					{
+						list($hdID) = $result->fetch_row();
 					}
-						else {
-						$msg = "Inventory NOT Created " . mysqli_error($mysqli);
-						echo $msg;
+					else $errmsg = "Hard Drive NOT found, Please consult $company staff for assistance.";
+				}
+				else $errmsg = "Hard Drive NOT Found " . mysqli_error($mysqli);
+			}
+			
+			//Find the memory ID
+			if ($errmsg == NULL)
+			{
+				if($memtype == NULL || $memqty == 0)
+				{
+					$memID = 1;
+				}
+				elseif ($memtype != NULL && ($memsize == NULL || $memqty == NULL))
+				{
+					$errmsg = "Invalid Memory Configuration";
+				}
+				else
+				{
+					$query = "SELECT MemoryID
+							  FROM Memory
+							  WHERE
+							  MemoryType = '$memtype'
+						      AND MemorySize = '$memsize'
+							  AND MemoryQty = '$memqty'";
+
+					$result = $mysqli->query($query);
+					if($result)
+					{
+						if($result->num_rows == 1)
+						{
+							list($memID) = $result->fetch_row();
 						}
+						else $errmsg = "Memory NOT found, Please consult $company staff for assistance.";
+					}
+					else $errmsg = "Memory NOT Found " . mysqli_error($mysqli);
+				}
+			}
+			//Find the processor ID
+			if ($errmsg == NULL)
+			{
+				if($proctype == NULL || $procqty == 0)
+				{	
+					$procID = 1;
+				}
+				elseif ($proctype != NULL && ($procspeed == NULL || $procqty == NULL))
+				{
+					$errmsg = "Invalid Processor Configuration";
+				}
+				else
+				{
+					$query = "SELECT ProcessorID
+							  FROM Processor
+							  WHERE
+							  ProcessorType = '$proctype'
+							  AND ProcessorSpeed = '$procspeed'
+							  AND ProcessorQty = '$procqty'";
+
+					$result = $mysqli->query($query);
+					if($result)
+					{
+						if($result->num_rows == 1)
+						{
+							list($procID) = $result->fetch_row();
+						}
+						else $errmsg = "Processor NOT found, Please consult $company staff for assistance.";
+					}
+					else $errmsg = "Processor NOT Found " . mysqli_error($mysqli);
+				}
+			}
+			//Find the Asset ID
+			if ($errmsg == NULL)
+			{
+				if($modname != NULL)
+				{
+					$query = "SELECT ModelID
+					FROM AssetModel
+					WHERE
+					ModelName = '$modname'";
+
+					$result = $mysqli->query($query);
+					if($result)
+					{
+						if($result->num_rows == 1)
+						{
+							list($modID) = $result->fetch_row();
+						}
+					}
+					else $errmsg = "Model NOT Found " . mysqli_error($mysqli);
+				}
+				else $errmsg = "Invalid Model, Please consult $company staff for assistance.";
+			}
 		}
 
-		$query = "UPDATE Asset SET
-				  InventoryID = '$invID'
-				  WHERE AssetID = '$assetID'";
-		$result = $mysqli->query($query);
-		if(!$result)
+		if ($errmsg == NULL)
 		{
-			$msg = "Asset NOT Updated " . mysqli_error($mysqli);
-			echo $msg;
+			//Create the the asset
+			$query = "INSERT INTO Asset SET
+				   ModelID = '$modID',
+				   InventoryID = '$invID',
+				   HardDriveID = '$hdID',
+				   ProcessorID = '$procID',
+				   MemoryID = '$memID'";
+			$result = $mysqli->query($query);
+			if ($result) 
+			{
+				$assetID = $mysqli->insert_id;
+				$msg = "Asset Added";
+			}
+			else
+			{
+				$errmsg = "Asset NOT Added" . mysqli_error($mysqli);
+			}
 		}
 	}
-
 }
+
+	$_SESSION['modelid'] = 		NULL;
+    $_SESSION['hdtype'] = 		NULL;
+    $_SESSION['hdsize'] =		NULL;
+    $_SESSION['hdqty'] = 		NULL;
+    $_SESSION['proctype'] = 	NULL;
+    $_SESSION['procspeed'] = 	NULL;
+    $_SESSION['procqty'] = 		NULL;
+    $_SESSION['memtype'] = 		NULL;
+    $_SESSION['memsize'] = 		NULL;
+    $_SESSION['memqty'] = 		NULL;
+    $_SESSION['condition'] = 	NULL;
 
 ?>
 <!DOCTYPE html>
@@ -574,6 +651,9 @@ echo"</table><br><br><form class='btn_asset content-area group section' action='
 	</div>
 	</form>
 ";
+
+if($errmsg == NULL) echo "<br>$msg<br>";
+else echo "<br>$errmsg<br>";
 
 ?>
 
