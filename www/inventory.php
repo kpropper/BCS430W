@@ -559,10 +559,7 @@ function getcondId(val){
               }
            ?>
       </select>
-      <?php 
-			//If Session var hdtype is null then select statement is hidden
-				if($_SESSION['hdtype'] != NULL){
-			?>
+
       <!-- Hard drive size Select option field-->
       <label>Hard drive size</label>
       <select name='hard_drive_size' id='hdsize' onchange='gethdsizeId(this.value);'>
@@ -579,11 +576,7 @@ function getcondId(val){
               }
            ?>
       </select>
-			<?php
-				}
-				//If Session var hdqty is null then select statement is hidden
-				if($_SESSION['hdqty'] != NULL){
-			?>
+
       <!-- Hard drive quantity Select option field-->
       <label>Hard drive quantity</label>
       <select name='hard_drive_quantity' id='hdqty' onchange='gethdqtyId(this.value);'>
@@ -601,10 +594,6 @@ function getcondId(val){
            ?>
       </select>
 			<!--End statement -->
-			<?php
-				}
-			?>
-
 
     </div>
 
