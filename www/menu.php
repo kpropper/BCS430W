@@ -36,7 +36,7 @@
 	}
 	else
 	{
-		echo"<li class='hs-menu-item hs-menu-depth-1'><a href='login.php' >LOGIN/SIGN UP</a></li>";
+		echo"<li class='hs-menu-item hs-menu-depth-1'><a href='login.php' >LOGIN</a></li>";
 	}
 ?>
   <li class="hs-menu-item hs-menu-depth-1 "><a href="#">SOLUTIONS</a></li>
@@ -51,7 +51,7 @@
 	}
 	else
 	{
-		echo"<li class='hs-menu-item hs-menu-depth-1'><a href='register.php' >GET A QUOTE</a></li>";
+		echo"<li class='hs-menu-item hs-menu-depth-1'><a href='register.php' >Register Here</a></li>";
 	}
 ?>
  </ul>
