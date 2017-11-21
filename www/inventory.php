@@ -35,7 +35,7 @@ if (isset($_POST['task']))
 		$memqty = $_SESSION['memqty'];
 		$condition = $_SESSION['condition'];
 		$assetValue = 0;
-
+		
 		if($invID != NULL)
 		{
 			$query = "SELECT Status.StatusName
@@ -53,11 +53,11 @@ if (isset($_POST['task']))
 					echo "This inventory is not available to be updated, please contact a $company representative.";
 				}
 			}
-
+				
 		}
 		if($errmsg == NULL)
 		{
-
+			
 			//If no inventory exists, create an inventory
 			if($invID == NULL)
 			{
@@ -235,7 +235,7 @@ if (isset($_POST['task']))
 					}
 				}
 				else $errmsg = "Item NOT added, no item condition specified.";
-
+			
 				if($errmsg == NULL)
 				{
 					//Create the the asset
@@ -261,7 +261,7 @@ if (isset($_POST['task']))
 			}
 		}
 	}
-
+	
 	if($errmsg == NULL)
 	{
 		if($task == "Submit")
@@ -282,7 +282,7 @@ if (isset($_POST['task']))
 					$initMax = ($invValue * .5);
 					$initMin = ($invValue * .35);
 				}
-
+				
 				$query = "INSERT INTO Status SET
 						  InventoryID = '$invID',
 						  StatusName = 'Submitted',
@@ -291,7 +291,7 @@ if (isset($_POST['task']))
 				$result = $mysqli->query($query);
 				if($result) $statID = $mysqli->insert_id;
 				else $errmsg = "Inventory Status NOT updated " . mysqli_error($mysqli);
-
+				
 				if($errmsg == NULL)
 				{
 					$query = "Update Inventory SET
@@ -311,7 +311,7 @@ if (isset($_POST['task']))
 	}
 }
 
-	 $_SESSION['modelid'] = 		NULL;
+	$_SESSION['modelid'] = 		NULL;
     $_SESSION['hdtype'] = 		NULL;
     $_SESSION['hdsize'] =		NULL;
     $_SESSION['hdqty'] = 		NULL;
@@ -594,7 +594,8 @@ function getcondId(val){
               }
            ?>
       </select>
-			<!--End statement -->
+
+
 
     </div>
 
