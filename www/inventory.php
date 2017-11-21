@@ -1,6 +1,7 @@
 <?php
 include("sqlConnect.php");
 include("siteInit.php");
+include("menu.php");
 
 //If a user is not logged in they shouldn't be here, kick them out
 if(!$loggedIn)
@@ -488,7 +489,7 @@ function getcondId(val){
 </head>
 <body>
 <header>
-  <a href="index.php" id="hs-link-logo" style="border-width:0px;border:0px;margin-left:20px;"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/i-t-a-m-g-main-logo-1.svg?t=1507222056603" class="hs-image-widget " style="width:122px;border-width:0px;border:0px;" width="122" alt="ITAMG" title="ITAMG"></a>
+  <!--<a href="index.php" id="hs-link-logo" style="border-width:0px;border:0px;margin-left:20px;"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/i-t-a-m-g-main-logo-1.svg?t=1507222056603" class="hs-image-widget " style="width:122px;border-width:0px;border:0px;" width="122" alt="ITAMG" title="ITAMG"></a> -->
   <h1 style="margin-left:20px;">
     Welcome
     <?php echo $fullName;
