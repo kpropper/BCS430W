@@ -19,15 +19,16 @@
 
 <?php include('menu.php'); ?>
 
-  <div>
+
   <h1 style="text-align: center">Update Your Information</h1>
+	<div class="formbox">
   <form class="container" action="manageaccount.php" method="post">
     <div class="names">
     <label>Name:</label>
 		<?php echo "<input type='text' name='firstname' value='$firstname'>" ?>
 		<?php echo "<input type='text' name='lastname' value='$lastname'>" ?>
     </div>
-    <div class="input_fields">
+    <div class="names">
     <label>E-Mail:</label>
 		<?php echo "<input type='email' name='email' value='$email'>" ?>
     <br>
@@ -37,7 +38,7 @@
     <label>Phone:</label>
 	<?php echo "<input type='phone' name='phone' value='$telephone'>" ?>
     <br>
-    <div class="update_submit">
+    <div class="reg_submit">
     <input type="submit" name="update" value="Update" style="cursor: pointer">
     </div>
     </div>
