@@ -1,6 +1,7 @@
 <?php
 include("sqlConnect.php");
 include("siteInit.php");
+include("menu.php");
 
 //If a user is not logged in they shouldn't be here, kick them out
 if(!$loggedIn)
@@ -34,7 +35,7 @@ if (isset($_POST['task']))
 		$memqty = $_SESSION['memqty'];
 		$condition = $_SESSION['condition'];
 		$assetValue = 0;
-
+		
 		if($invID != NULL)
 		{
 			$query = "SELECT Status.StatusName
@@ -52,11 +53,11 @@ if (isset($_POST['task']))
 					echo "This inventory is not available to be updated, please contact a $company representative.";
 				}
 			}
-
+				
 		}
 		if($errmsg == NULL)
 		{
-
+			
 			//If no inventory exists, create an inventory
 			if($invID == NULL)
 			{
@@ -234,7 +235,7 @@ if (isset($_POST['task']))
 					}
 				}
 				else $errmsg = "Item NOT added, no item condition specified.";
-
+			
 				if($errmsg == NULL)
 				{
 					//Create the the asset
@@ -260,7 +261,7 @@ if (isset($_POST['task']))
 			}
 		}
 	}
-
+	
 	if($errmsg == NULL)
 	{
 		if($task == "Submit")
@@ -281,7 +282,7 @@ if (isset($_POST['task']))
 					$initMax = ($invValue * .5);
 					$initMin = ($invValue * .35);
 				}
-
+				
 				$query = "INSERT INTO Status SET
 						  InventoryID = '$invID',
 						  StatusName = 'Submitted',
@@ -290,7 +291,7 @@ if (isset($_POST['task']))
 				$result = $mysqli->query($query);
 				if($result) $statID = $mysqli->insert_id;
 				else $errmsg = "Inventory Status NOT updated " . mysqli_error($mysqli);
-
+				
 				if($errmsg == NULL)
 				{
 					$query = "Update Inventory SET
@@ -310,7 +311,7 @@ if (isset($_POST['task']))
 	}
 }
 
-	 $_SESSION['modelid'] = 		NULL;
+	$_SESSION['modelid'] = 		NULL;
     $_SESSION['hdtype'] = 		NULL;
     $_SESSION['hdsize'] =		NULL;
     $_SESSION['hdqty'] = 		NULL;
@@ -488,7 +489,7 @@ function getcondId(val){
 </head>
 <body>
 <header>
-  <a href="index.php" id="hs-link-logo" style="border-width:0px;border:0px;margin-left:20px;"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/i-t-a-m-g-main-logo-1.svg?t=1507222056603" class="hs-image-widget " style="width:122px;border-width:0px;border:0px;" width="122" alt="ITAMG" title="ITAMG"></a>
+  <!--<a href="index.php" id="hs-link-logo" style="border-width:0px;border:0px;margin-left:20px;"><img src="http://www.itamg.com/hubfs/2017%20site%20implementation/i-t-a-m-g-main-logo-1.svg?t=1507222056603" class="hs-image-widget " style="width:122px;border-width:0px;border:0px;" width="122" alt="ITAMG" title="ITAMG"></a> -->
   <h1 style="margin-left:20px;">
     Welcome
     <?php echo $fullName;
@@ -559,10 +560,7 @@ function getcondId(val){
               }
            ?>
       </select>
-      <?php 
-			//If Session var hdtype is null then select statement is hidden
-				if($_SESSION['hdtype'] != NULL){
-			?>
+
       <!-- Hard drive size Select option field-->
       <label>Hard drive size</label>
       <select name='hard_drive_size' id='hdsize' onchange='gethdsizeId(this.value);'>
@@ -579,11 +577,7 @@ function getcondId(val){
               }
            ?>
       </select>
-			<?php
-				}
-				//If Session var hdqty is null then select statement is hidden
-				if($_SESSION['hdqty'] != NULL){
-			?>
+
       <!-- Hard drive quantity Select option field-->
       <label>Hard drive quantity</label>
       <select name='hard_drive_quantity' id='hdqty' onchange='gethdqtyId(this.value);'>
@@ -600,10 +594,7 @@ function getcondId(val){
               }
            ?>
       </select>
-			<!--End statement -->
-			<?php
-				}
-			?>
+
 
 
     </div>
