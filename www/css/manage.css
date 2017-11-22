@@ -47,7 +47,11 @@ body {
  font-weight: bold;
 }
 /* Buttons */
-
+.buttons{
+	position: absolute;
+	left:40%;
+	top:60%;
+}
 /* Input Fields */
 .input {
 	position: absolute;
