@@ -20,10 +20,8 @@ if (isset($_POST['inventoryID']))   $invID = $_POST['inventoryID'];	else $invID 
 if (isset($_POST['task']))
 {
 	$task = $_POST['task'];
-
-	if($task == "Add Item" || $task == "Submit")
-	{
-		$modname = $_SESSION['modelid'];
+	
+	$modname = $_SESSION['modelid'];
 		$hdtype = $_SESSION['hdtype'];
 		$hdsize = $_SESSION['hdsize'];
 		$hdqty = $_SESSION['hdqty'];
@@ -35,6 +33,23 @@ if (isset($_POST['task']))
 		$memqty = $_SESSION['memqty'];
 		$condition = $_SESSION['condition'];
 		$assetValue = 0;
+		
+		$allnull = true;
+		
+		if($modname != NULL) $allnull = false;
+		if($hdtype != NULL) $allnull = false;
+		if($hdsize != NULL) $allnull = false;
+		if($hdqty != NULL) $allnull = false;
+		if($proctype != NULL) $allnull = false;
+		if($procspeed != NULL) $allnull = false;
+		if($memtype != NULL) $allnull = false;
+		if($memsize != NULL) $allnull = false;
+		if($memqty  != NULL) $allnull = false;
+		if($condition != NULL) $allnull = false;
+		if($procqty != NULL) $allnull = false;
+
+	if($task == "Add Item" || ($task == "Submit" && !$allnull))
+	{
 		
 		if($invID != NULL)
 		{
@@ -266,47 +281,58 @@ if (isset($_POST['task']))
 	{
 		if($task == "Submit")
 		{
-			$invValue = 0;
-			//Get the value of all of the assets
-			$query = "SELECT AssetValue, CustomerConditionMod
+			$query = "SELECT AssetID
+					  FROM Asset
+					  WHERE InventoryID = '$invID'";
+			$result = $mysqli->query($query);
+			if($result)
+			{
+				if($result->num_rows >=1)
+				{
+					$invValue = 0;
+					//Get the value of all of the assets
+					$query = "SELECT AssetValue, CustomerConditionMod
 				      FROM Asset
 				      WHERE
 			          InventoryID = '$invID'";
 
-			$result = $mysqli->query($query);
-			if($result)
-			{
-				while(list($assetValue) = $result->fetch_row())
-				{
-					$invValue += ($assetValue * $valuemultiplier);
-					$initMax = ($invValue * .5);
-					$initMin = ($invValue * .35);
-				}
+					$result = $mysqli->query($query);
+					if($result)
+					{
+						while(list($assetValue, $valuemultiplier) = $result->fetch_row())
+						{
+							$invValue += ($assetValue * $valuemultiplier);
+							$initMax = ($invValue * .5);
+							$initMin = ($invValue * .35);
+						}
 				
-				$query = "INSERT INTO Status SET
+						$query = "INSERT INTO Status SET
 						  InventoryID = '$invID',
 						  StatusName = 'Submitted',
 						  StatusMessage = 'Inventory Submitted by $userFName $userLName'";
 
-				$result = $mysqli->query($query);
-				if($result) $statID = $mysqli->insert_id;
-				else $errmsg = "Inventory Status NOT updated " . mysqli_error($mysqli);
+						$result = $mysqli->query($query);
+						if($result) $statID = $mysqli->insert_id;
+						else $errmsg = "Inventory Status NOT updated " . mysqli_error($mysqli);
 				
-				if($errmsg == NULL)
-				{
-					$query = "Update Inventory SET
-							 StatusID = '$statID',
-							 Inventory_Value = '$invValue',
-							 InitQuoteMin = '$initMin',
-							 InitQuoteMax = '$initMax'
-							 WHERE
-							 InventoryID = '$invID'";
-					$result = $mysqli->query($query);
-					if($result) $msg = "Inventory Submitted Sucessfully.";
-					else $errmsg = "Unable to submit inventory $invID " . mysqli_error($mysqli);
+						if($errmsg == NULL)
+						{
+							$query = "Update Inventory SET
+								StatusID = '$statID',
+								Inventory_Value = '$invValue',
+								InitQuoteMin = '$initMin',
+								InitQuoteMax = '$initMax'
+								WHERE
+								InventoryID = '$invID'";
+							$result = $mysqli->query($query);
+							if($result) $msg = "Inventory Submitted Sucessfully.";
+							else $errmsg = "Unable to submit inventory $invID " . mysqli_error($mysqli);
+						}
+					}
+					else $errmsg = "Unable to submit inventory, asset values not identified " . mysqli_error($mysqli);
 				}
+				else $errmsg = "Inventory NOT created, not assets in Inventory";
 			}
-			else $errmsg = "Unable to submit inventory, asset values not identified " . mysqli_error($mysqli);
 		}
 	}
 }
