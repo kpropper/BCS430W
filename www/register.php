@@ -19,15 +19,14 @@
 
 <?php include('menu.php'); ?>
 
-  <div>
-  <h1 style="text-align: center">Register Here!</h1>
+
+  <h1 style="text-align:center;">Register Here!</h1>
+	<div class="formbox" style="margin-top:35px;">
   <form class="container" action="register.php" method="post">
     <div class="names">
     <label>Name:</label>
       <input type="text" name="firstname" value="" placeholder="First">
       <input type="text" name="lastname" value="" placeholder="Last">
-    </div>
-    <div class="input_fields">
     <label>E-Mail:</label>
     <input type="email" name="email" value="" placeholder="E-Mail">
     <br>
