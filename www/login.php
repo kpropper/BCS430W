@@ -43,7 +43,7 @@
         <?php echo $msg;?>
         <a href="register.php">Don't Have an Account?</a>
         <br></br>
-        <a href="forgotpassword.php">Forgot Password</a>
+        <a href="recover.php">Forgot Password</a>
 		</form>
 		<br></br>
 		</div>
