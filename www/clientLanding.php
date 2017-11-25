@@ -1,6 +1,13 @@
 <?php
 	include('siteInit.php');
 	include('menu.php');
+	
+	//functions
+	//Function to format a number as dollars
+	function asDollars($value) 
+	{
+		return '$' . number_format($value, 2);
+	}
 
 	echo "You made it to the Client Landing Page";
 
@@ -55,9 +62,9 @@
 					
 				if($thisStatusName = "Started" || $thisStatusName = "Open")
 				{
-					echo "<form action='updateInventory.php' method='post'>
+					echo "<form action='inventory.php' method='post'>
 					<input type='hidden' name='inventoryID' value='$thisInvID'>
-					<input type='submit' name='updateInventory' value='Update Inventory'>
+					<input type='submit' name='updateinventory' value='Update Inventory'>
 					</form>";
 				}
 			}
@@ -86,7 +93,7 @@
 						</tr>";
 					while(list($thisInvID, $thisStatusName, $thisStatusDate, $thisStatusValue) = $result->fetch_row())
 					{
-						$lowValue = asDollars(($thisStatusValue * ($userMult -.2)));
+						$lowValue = asDollars(($thisStatusValue * ($userMult - .2)));
 						$highValue = asDollars(($thisStatusValue * ($userMult)));
 						$thisStatusValue = $lowValue . " - " . $highValue;
 						

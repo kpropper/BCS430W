@@ -16,10 +16,4 @@ set_include_path('.;C:/wamp64/bin/php/php5.6.31/pear');
 	if(isset($_SESSION['value_multiplier']))	$userMult = $_SESSION['value_multiplier'];	else $userMult = NULL;
 
 	$fullName = $userFName . " " . $userLName;
-	
-	//Function to format a number as dollars
-	function asDollars($value) 
-	{
-		return '$' . number_format($value, 2);
-	}
 ?>

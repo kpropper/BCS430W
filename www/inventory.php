@@ -308,6 +308,7 @@ if (isset($_POST['task']))
 				
 						$query = "INSERT INTO Status SET
 						  InventoryID = '$invID',
+						  QuoteValue = '$invValue',
 						  StatusName = 'Submitted',
 						  StatusMessage = 'Inventory Submitted by $userFName $userLName'";
 
