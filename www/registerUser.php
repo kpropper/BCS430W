@@ -31,6 +31,7 @@
 					  Password = '$password',
 					  Company_Name = '$companyname',
 					  Telephone = '$phone',
+					  Value_Multiplier = '.5',
 					  UserType = 'Client'";
 			$result = $mysqli->query($query);
 			if($result)

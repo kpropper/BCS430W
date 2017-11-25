@@ -35,7 +35,7 @@ if (isset($_POST['message'])) 			$msg = $_POST['message'];
 				$_SESSION['first_name'] = $user['FName'];
 				$_SESSION['last_name'] = $user['LName'];
 				$_SESSION['user_type'] = $user['UserType'];
-				$_SESSION['value_multiplier'] = $user['value_multiplier'];
+				$_SESSION['value_multiplier'] = $user['Value_Multiplier'];
 
 
 				$msg = "Logged in";
