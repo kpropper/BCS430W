@@ -1,5 +1,8 @@
 <?php
 
+//set include_path
+set_include_path('.;C:/wamp64/bin/php/php5.6.31/pear');
+
 	//Start the session
 	session_start();
 //	$loggedIn = false;
