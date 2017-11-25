@@ -56,7 +56,7 @@
 				if($thisStatusName = "Started" || $thisStatusName = "Open")
 				{
 					echo "<form action='updateInventory.php' method='post'>
-					<input type='hidden' name='invID' value='$thisInvID'>
+					<input type='hidden' name='inventoryID' value='$thisInvID'>
 					<input type='submit' name='updateInventory' value='Update Inventory'>
 					</form>";
 				}
