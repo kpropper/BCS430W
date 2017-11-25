@@ -82,10 +82,13 @@
 
 						$mail = $smtp->send($to, $headers, $body);
 
-				if (PEAR::isError($mail)) {
-					echo("<p>" . $mail->getMessage() . "</p>");
-				} else {
-				echo("<p>Message successfully sent!</p>");
+				if (PEAR::isError($mail)) 
+				{
+				 //do something here to indicate an error echo("<p>" . $mail->getMessage() . "</p>");
+				} 
+				else 
+				{
+				  //do something here (maybe) echo("<p>Message successfully sent!</p>");
 				}
 			}
 			
