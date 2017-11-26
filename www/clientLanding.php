@@ -9,6 +9,11 @@
 		return '$' . number_format($value, 2);
 	}
 
+	if(!$loggedIn || $userType != 'Client')
+	{
+		echo "<script> location.href='selectLanding.php'; </script>";
+	}
+	
 	echo "You made it to the Client Landing Page";
 
 	//Temporary Form/Button to go to inventory page
