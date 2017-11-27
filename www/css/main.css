@@ -176,6 +176,21 @@ Inventory Page
 	font-size: 20px;
 	margin-right: .1%;
 }
+.inv_box select:disabled{
+opacity: 0.25;
+}
+#hdsize{
+  margin-top:15px;
+  margin-bottom: 15px;
+}
+#procspeed{
+  margin-top:15px;
+  margin-bottom: 15px;
+}
+#memsize{
+  margin-top:15px;
+  margin-bottom: 15px;
+}
 #assets {
   margin:20px auto 20px 20px;
     border-collapse: collapse;
