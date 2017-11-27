@@ -20,7 +20,7 @@ if (isset($_POST['inventoryID']))   $invID = $_POST['inventoryID'];	else $invID 
 if (isset($_POST['task']))
 {
 	$task = $_POST['task'];
-	
+
 	$modname = $_SESSION['modelid'];
 		$hdtype = $_SESSION['hdtype'];
 		$hdsize = $_SESSION['hdsize'];
@@ -33,9 +33,9 @@ if (isset($_POST['task']))
 		$memqty = $_SESSION['memqty'];
 		$condition = $_SESSION['condition'];
 		$assetValue = 0;
-		
+
 		$allnull = true;
-		
+
 		if($modname != NULL) $allnull = false;
 		if($hdtype != NULL) $allnull = false;
 		if($hdsize != NULL) $allnull = false;
@@ -50,7 +50,7 @@ if (isset($_POST['task']))
 
 	if($task == "Add Item" || ($task == "Submit" && !$allnull))
 	{
-		
+
 		if($invID != NULL)
 		{
 			$query = "SELECT Status.StatusName
@@ -68,11 +68,11 @@ if (isset($_POST['task']))
 					echo "This inventory is not available to be updated, please contact a $company representative.";
 				}
 			}
-				
+
 		}
 		if($errmsg == NULL)
 		{
-			
+
 			//If no inventory exists, create an inventory
 			if($invID == NULL)
 			{
@@ -250,7 +250,7 @@ if (isset($_POST['task']))
 					}
 				}
 				else $errmsg = "Item NOT added, no item condition specified.";
-			
+
 				if($errmsg == NULL)
 				{
 					//Create the the asset
@@ -276,7 +276,7 @@ if (isset($_POST['task']))
 			}
 		}
 	}
-	
+
 	if($errmsg == NULL)
 	{
 		if($task == "Submit")
@@ -305,7 +305,7 @@ if (isset($_POST['task']))
 							$initMax = ($invValue * .5);
 							$initMin = ($invValue * .35);
 						}
-				
+
 						$query = "INSERT INTO Status SET
 						  InventoryID = '$invID',
 						  QuoteValue = '$invValue',
@@ -315,7 +315,7 @@ if (isset($_POST['task']))
 						$result = $mysqli->query($query);
 						if($result) $statID = $mysqli->insert_id;
 						else $errmsg = "Inventory Status NOT updated " . mysqli_error($mysqli);
-				
+
 						if($errmsg == NULL)
 						{
 							$query = "Update Inventory SET
@@ -359,6 +359,28 @@ if (isset($_POST['task']))
   <title>Inventory Page</title>
   <script>
       function getCId(val){
+				if((val != 1)&&(val != 2)&&(val != 3)&&(val != 5)&&(val != 6)){
+					document.getElementById("hdtype").disabled=true;
+					document.getElementById("hdsize").disabled=true;
+					document.getElementById("hdqty").disabled=true;
+					document.getElementById("memqty").disabled=true;
+					document.getElementById("memsize").disabled=true;
+					document.getElementById("memtype").disabled=true;
+					document.getElementById("procqty").disabled=true;
+					document.getElementById("proctype").disabled=true;
+					document.getElementById("procspeed").disabled=true;
+				}
+				else{
+					document.getElementById("hdtype").disabled=false;
+					document.getElementById("hdsize").disabled=false;
+					document.getElementById("hdqty").disabled=false;
+					document.getElementById("memqty").disabled=false;
+					document.getElementById("memsize").disabled=false;
+					document.getElementById("memtype").disabled=false;
+					document.getElementById("procqty").disabled=false;
+					document.getElementById("proctype").disabled=false;
+					document.getElementById("procspeed").disabled=false;
+				}
         //alert(val);
         $.ajax({
           type: "POST",
@@ -396,6 +418,14 @@ if (isset($_POST['task']))
         });
       }
        function gethdtypeId(val){
+				 if(val == ""){
+					 document.getElementById("hdsize").style.display = "none";
+					 document.getElementById("hdqty").style.display = "none";
+				 }
+				 else{
+					 document.getElementById("hdsize").style.display = "block";
+					 document.getElementById("hdqty").style.display = "block";
+				 }
         //alert(val);
         $.ajax({
           type: "POST",
@@ -432,6 +462,14 @@ if (isset($_POST['task']))
       });
     }
     function getproctypeId(val){
+			if(val == ""){
+				document.getElementById("procqty").style.display = "none";
+				document.getElementById("procspeed").style.display = "none";
+			}
+			else{
+				document.getElementById("procqty").style.display = "block";
+				document.getElementById("procspeed").style.display = "block";
+			}
      //alert(val);
      $.ajax({
        type: "POST",
@@ -468,7 +506,15 @@ if (isset($_POST['task']))
    });
  }
  function getmemtypeId(val){
-  //alert(val);
+	 if(val == ""){
+		 document.getElementById("memqty").style.display = "none";
+		 document.getElementById("memsize").style.display = "none";
+	 }
+	 else{
+		 document.getElementById("memqty").style.display = "block";
+		 document.getElementById("memsize").style.display = "block";
+	 }
+	//alert(val);
   $.ajax({
     type: "POST",
     url: "getstagdata.php",
@@ -512,6 +558,8 @@ function getcondId(val){
    }
  });
 }
+//Function to disable unless category id is set to 1,2,3,5 and 6
+
     </script>
 </head>
 <body>
@@ -528,7 +576,7 @@ function getcondId(val){
 <div class="inv_box content-area group section">
   <div class= "row">
 
-    <div class="category col col-sm-3 col-md-2" style="width:225px;">
+    <div class="category col col-sm-3 col-md-2" style="width:250px;">
       <label>Category</label>
       <select name="category" onchange="getCId(this.value);" >
           <option value="">Select Category</option>
@@ -547,14 +595,14 @@ function getcondId(val){
 
     </div>
 
-    <div class="manufacturer col col-sm-3 col-md-2" style="width:225px;">
+    <div class="manufacturer col col-sm-3 col-md-2" style="width:250px;">
       <label>Manufacturer</label>
       <select name="manufacturer" id="mList" onchange="getManId(this.value);" >
           <option value="">Select Manufacturer</option>
       </select>
     </div>
 
-    <div class="model col col-sm-3 col-md-2" style="width:225px;">
+    <div class="model col col-sm-3 col-md-2" style="width:250px;">
       <label>Model</label>
       <select name="model" id="modList" onchange="getModId(this.value);">
           <option value="">Select Model</option>
@@ -563,14 +611,9 @@ function getcondId(val){
 
     </div>
 
-    <div class="service_tag col col-sm-3 col-md-2 " style="width:225px;">
-      <label>Service Tag</label>
-      <input class="service_tag_txt" type="text" style="width:85%; height:35px;	color:white;background-color: black;	opacity: 0.8; 	line-height: 40px;	font-size: 20px;margin-right: .1%;">
-     </input>
-    </div>
 
 
-    <div class="hard_drives col col-sm-3 col-md-2 " style="width:225px;">
+    <div class="hard_drives col col-sm-3 col-md-2 " style="width:250px;">
       <!-- Hard drive Type Select option field-->
       <label>Hard Drive Type</label>
       <select  name="hard_drive_type" id="hdtype" onchange="gethdtypeId(this.value);">
@@ -589,9 +632,9 @@ function getcondId(val){
       </select>
 
       <!-- Hard drive size Select option field-->
-      <label>Hard drive size</label>
-      <select name='hard_drive_size' id='hdsize' onchange='gethdsizeId(this.value);'>
-          <option value="">Select HD Size</option>
+
+      <select name='hard_drive_size' id='hdsize' onchange='gethdsizeId(this.value);' style="display:none;">
+          <option value="">HD Size</option>
           <!-- populate dropdownlist using php -->
           <?php
           $query = "SELECT DISTINCT HardDriveSize from harddrive where HardDriveSize != 'None' and HardDriveSize != 'N/A'";
@@ -606,9 +649,9 @@ function getcondId(val){
       </select>
 
       <!-- Hard drive quantity Select option field-->
-      <label>Hard drive quantity</label>
-      <select name='hard_drive_quantity' id='hdqty' onchange='gethdqtyId(this.value);'>
-          <option value="">Select HD Quantity</option>
+
+      <select name='hard_drive_quantity' id='hdqty' onchange='gethdqtyId(this.value);' style="display:none;">
+          <option value="">HD Quantity</option>
           <!-- populate dropdownlist using php -->
           <?php
           $query = "SELECT DISTINCT HardDriveQty from harddrive ORDER BY HardDriveQty;";
@@ -626,7 +669,7 @@ function getcondId(val){
 
     </div>
 
-    <div class="processors col col-sm-3 col-md-2 " style="width:225px;">
+    <div class="processors col col-sm-3 col-md-2 " style="width:250px;">
       <!-- Processor Type Select option field-->
       <label>Processor Type</label>
       <select name="ProcessorType" id="proctype" onchange='getproctypeId(this.value);'>
@@ -645,9 +688,9 @@ function getcondId(val){
       </select>
 
       <!-- Processor Speed Select option field--->
-      <label>Processor Speed</label>
-      <select name='processor_speed' id='procspeed' onchange='getprocspeedId(this.value);'>
-        <option value="">Select Processor Type</option>
+
+      <select name='processor_speed' id='procspeed' onchange='getprocspeedId(this.value);' style="display:none;">
+        <option value="">Processor Speed</option>
         <!-- populate dropdownlist using php -->
         <?php
           $query = "SELECT DISTINCT ProcessorSpeed from Processor where ProcessorSpeed != 0";
@@ -662,9 +705,9 @@ function getcondId(val){
       </select>
 
       <!-- Processor Quantity Select option field--->
-      <label>Processor Quantity</label>
-      <select name='processor_quantity' id='procqty' onchange='getprocqtyId(this.value);'>
-        <option value="">Select Processor Quantity</option>
+
+      <select name='processor_quantity' id='procqty' onchange='getprocqtyId(this.value);' style="display:none;">
+        <option value="">Processor Quantity</option>
         <!-- populate dropdownlist using php -->
         <?php
           $query = "SELECT DISTINCT ProcessorQty from Processor where ProcessorQty != 0 ORDER BY ProcessorQty";
@@ -679,7 +722,7 @@ function getcondId(val){
       </select>
     </div>
 
-    <div class="memory col col-sm-3 col-md-2 " style="width:225px;">
+    <div class="memory col col-sm-3 col-md-2 " style="width:250px;">
       <!-- Memory Type Select option field--->
       <label>Memory Type</label>
       <select name="MemoryType" id="memtype" onchange='getmemtypeId(this.value);'>
@@ -698,9 +741,8 @@ function getcondId(val){
       </select>
 
       <!-- Memory Size Select option field--->
-      <label>Memory Size</label>
-      <select name='memory_size' id='memsize' onchange='getmemsizeId(this.value);'>
-      <option value=''>Select Memory Size</option>
+      <select name='memory_size' id='memsize' onchange='getmemsizeId(this.value);' style="display:none;">
+      <option value=''>Memory Size</option>
       <!-- populate dropdownlist using php -->
       <?php
         $query = "SELECT DISTINCT MemorySize from Memory where MemorySize != 'N/A'";
@@ -715,9 +757,9 @@ function getcondId(val){
       </select>
 
       <!-- Memory Quantity Select option field--->
-      <label>Memory Quantity</label>
-      <select name='memory_quantity' id='memqty' onchange='getmemqtyId(this.value);'>
-        <option value=''>Select Memory Quantity</option>
+
+      <select name='memory_quantity' id='memqty' onchange='getmemqtyId(this.value);' style="display:none;">
+        <option value=''>Memory Quantity</option>
         <!-- populate dropdownlist using php -->
         <?php
           $query = "SELECT DISTINCT MemoryQty from Memory ORDER BY MemoryQty";
@@ -732,7 +774,7 @@ function getcondId(val){
       </select>
     </div>
 
-    <div class="condition col col-sm-3 col-md-2 " style="width:225px;">
+    <div class="condition col col-sm-3 col-md-2 " style="width:250px;">
       <label>Condition</label>
       <select name="condition" onchange='getcondId(this.value);' id="condid">
           <option value="">Select Condition</option>
