@@ -2,11 +2,10 @@
 	include('siteInit.php');
 
 	//If a user is logged in they shouldn't be here, kick them out
-	if($loggedIn)
+	if($loggedIn && !(isset($_POST['fromuser'])))
 	{
-		echo "<script> location.href='index.php'; </script>";
+//		echo "<script> location.href='index.php'; </script>";
 	}
-	
 	/**
 	* Generate a random string, using a cryptographically secure 
 	* pseudorandom number generator (random_int)
@@ -36,7 +35,9 @@
 	if (isset($_POST['message'])) 			$msg = $_POST['message'];
 	if (isset($_POST['resetpassword']))
 	{
+		
 		if (isset($_POST['email'])) 		$email = $_POST['email']; 	else	$email = NULL;
+		if (isset($_POST['fromuser'])) $userID = $_POST['fromuser'];
 		
 		include("sqlConnect.php");
 		$result = $mysqli->query("SELECT UserID FROM user WHERE Email='$email'");
@@ -91,6 +92,19 @@
 				  //do something here (maybe) echo("<p>Message successfully sent!</p>");
 				}
 			}
+			
+		if(isset($_POST['fromuser']))
+		{
+			echo "<form id='passwordhasbeenreset' action='employeemanageaccount.php' method='post'>
+					  <input type='hidden' name='userUserID' value='$userID'>
+					  <input type='hidden' name='message' value='$msg'>
+					  <input type='hidden' name='fromuser' value='I Dont Care'>
+  				  </form>
+					  
+					  <script type='text/javascript'>
+						document.getElementById('passwordhasbeenreset').submit();
+					  </script>";
+		}
 			
 		}
 		else $msg = mysqli_error($mysqli);

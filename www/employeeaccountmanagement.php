@@ -17,6 +17,7 @@ $userUserType = NULL;
 
 // Get Form Input
 if ($_POST['userUserID'] == NULL) 			    $msg = "User ID is empty";				   else $useruserID = $_POST['userUserID'];
+if (isset($_POST['message'])) 			    	$msg = $_POST['message'];
 
 if(isset($_POST['update'])) {
 	if ($_POST['userEmail'] == NULL) 			    $msg = "Email field is empty";			   else $useremail = $_POST['userEmail'];

@@ -5,6 +5,7 @@
 	if(!$loggedIn || $userType != 'Employee')
 	{
 		echo "<script> location.href='index.php'; </script>";
+		echo "<script type='text/javascript'>alert('you got booted from emp management');</script>";
 	}
 ?>
 <html>
@@ -62,7 +63,15 @@
     <input type="submit" name="update" value="Update" style="cursor: pointer">
     </div>
     </div>
-	<a href="changepassword.php">Reset Password</a>
+	</form>
+	<?php 
+	
+	echo "<form action='forgotpassword.php' method='post'>
+		<input type='hidden' name='resetpassword' value='Reset Password'>
+		<input type='hidden' name='fromuser' value='$useruserID'>
+		<input type='hidden' name='email' value='$useremail'>
+		<input type='submit' name='passwordreset' value='Reset Password'></form>"; ?>
+
 	<br>
   <?php echo $msg; ?>
   </form>
