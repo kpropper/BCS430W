@@ -20,6 +20,7 @@
 	
 	if(isset($_POST['category']))		$searchcat = ($_POST['category']); else $searchcat  = NULL;
 	if(isset($_POST['searchitem']))		$searchitem = ($_POST['searchitem']); else $searchitem  = NULL;
+	$searchitem = trim($searchitem);
 	
 	echo "You made it to the Employee Landing Page <br>";
 
