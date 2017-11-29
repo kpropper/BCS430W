@@ -9,6 +9,24 @@ if(!$loggedIn)
 	echo "<script> location.href='index.php'; </script>";
 }
 
+function getStatus($invID)
+{
+	include("sqlConnect.php");
+	$query = "SELECT Status.StatusName
+				      FROM Inventory JOIN Status ON Inventory.StatusID = Status.StatusID
+				      WHERE
+			          Inventory.InventoryID = '$invID'";
+			$result = $mysqli->query($query);
+			if($result)
+			{
+				list($statusName) = $result->fetch_row();
+				$thisStatus = $statusName;
+			}
+			else $thisStatus = NULL;
+			
+			return $thisStatus;
+}
+
 //Variables
 $pgm = 'inventory.php';
 $msg = NULL;
@@ -53,20 +71,10 @@ if (isset($_POST['task']))
 
 		if($invID != NULL)
 		{
-			$query = "SELECT Status.StatusName
-				      FROM Inventory JOIN Status ON Inventory.StatusID = Status.StatusID
-				      WHERE
-			          Inventory.InventoryID = '$invID'";
-			$result = $mysqli->query($query);
-			if($result)
+			$statusName = getStatus($invID);
+			if(!($statusName == 'Started' || $statusName == 'Open'))
 			{
-				list($statusName) = $result->fetch_row();
-				echo "$statusName";
-				if(!($statusName == 'Started' || $statusName == 'Open'))
-				{
-					$errmsg = "This inventory is not available to be updated, please contact a $company representative.";
-					echo "This inventory is not available to be updated, please contact a $company representative.";
-				}
+				$errmsg = "This inventory is not available to be updated, please contact a $company representative.";
 			}
 
 		}
@@ -275,6 +283,12 @@ if (isset($_POST['task']))
 				}
 			}
 		}
+	}
+	
+	$statusName = getStatus($invID);
+	if(!($statusName == 'Started' || $statusName == 'Open'))
+	{
+		$errmsg = "This inventory is not available to be updated, please contact a $company representative.";
 	}
 
 	if($errmsg == NULL)

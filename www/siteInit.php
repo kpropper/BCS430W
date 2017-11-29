@@ -13,6 +13,7 @@ set_include_path('.;C:/wamp64/bin/php/php5.6.31/pear');
 	if(isset($_SESSION['first_name']))			$userFName = $_SESSION['first_name'];		else $userFName = NULL;
 	if(isset($_SESSION['last_name']))			$userLName = $_SESSION['last_name'];		else $userLName = NULL;
 	if(isset($_SESSION['user_type']))			$userType = $_SESSION['user_type'];			else $userType = NULL;
+	if(isset($_SESSION['company_name']))		$userCompanyName = $_SESSION['company_name'];	else $userCompanyName = NULL;
 	if(isset($_SESSION['value_multiplier']))	$userMult = $_SESSION['value_multiplier'];	else $userMult = NULL;
 
 	$fullName = $userFName . " " . $userLName;

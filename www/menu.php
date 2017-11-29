@@ -43,10 +43,11 @@
   <li class="hs-menu-item hs-menu-depth-1"><a href="#">CREDENTIALS</a></li>
   <li class="hs-menu-item hs-menu-depth-1"><a href="#">RESOURCES</a></li>
   <li class="hs-menu-item hs-menu-depth-1"><a href="#">CONTACT</a></li>
-  <li class="hs-menu-item hs-menu-depth-1"><a href="inventory.php">GET A QUOTE</a></li>
  <?php
 	if($loggedIn)
 	{
+		if($userType == 'Client') echo "<li class='hs-menu-item hs-menu-depth-1'><a href='inventory.php'>GET A QUOTE</a></li>";
+		else echo "<li class='hs-menu-item hs-menu-depth-1'><a href='manageaccount.php'>MY PROFILE</a></li>";
 		echo"<li class='hs-menu-item hs-menu-depth-1'><a href='logout.php' >Logout</a></li>";
 	}
 	else

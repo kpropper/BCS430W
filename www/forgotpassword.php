@@ -66,7 +66,7 @@
 				$from = "accounts@itamg.tk";
 				$to = "$email";
 				$subject = "ITAMG Reset Request";
-				$body = "Your password has been reset to $password" . ", Please login immediatly and change it. \n Thank You, \n ITAMG Staff.";
+				$body = "Your password has been reset to $password" . " Please login immediatly and change it. \n Thank You, \n ITAMG Staff.";
 
 				$host = "mail.itamg.tk";
 				$username = "accounts";

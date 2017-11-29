@@ -14,7 +14,7 @@
 		echo "<script> location.href='selectLanding.php'; </script>";
 	}
 	
-	echo "You made it to the Client Landing Page";
+	echo "<b>$userCompanyName</b><br>Welcome $userFName $userLName";
 
 	//Temporary Form/Button to go to inventory page
 	echo"
@@ -28,7 +28,6 @@
 				<div class='container1'>
 
 				<a href='inventory.php' class='inventory-button'>Get a Quote</a>
-				<a href='#' class='inventory-button'>View Quotes</a>
 				<a href='manageaccount.php' class='manage-account'>Manage Account</a>
 
 		</div>";
@@ -57,7 +56,8 @@
 				list($thisInvID, $thisStatusName, $thisStatusDate, $thisStatusValue) = $result->fetch_row();
 				$lowValue = asDollars(($thisStatusValue * ($userMult -.2)));
 				$highValue = asDollars(($thisStatusValue * ($userMult)));
-				$thisStatusValue = $lowValue . " - " . $highValue;
+				if($thisStatusName == "Quoted-Pending") $thisStatusValue = asDollars(($thisStatusValue * $userMult));
+				else $thisStatusValue = $lowValue . " - " . $highValue;
 						
 				echo"<tr><td>$thisInvID</td>
 					<td>$thisStatusName</td>
@@ -81,7 +81,9 @@
 	$query = "SELECT Inventory.InventoryID, Status.StatusName, Status.StatusDate, Status.QuoteValue
 				      FROM Inventory JOIN Status ON Inventory.StatusID = Status.StatusID
 				      WHERE
-			          Inventory.UserID = '$userID'";
+			          Inventory.UserID = '$userID'
+					  ORDER BY FIELD(STATUS.StatusName, 'Quoted-Pending','Open','Started','Submitted'), Status.StatusDate ASC
+					  LIMIT 25";
 			$result = $mysqli->query($query);
 			if($result)
 			{
@@ -100,7 +102,8 @@
 					{
 						$lowValue = asDollars(($thisStatusValue * ($userMult - .2)));
 						$highValue = asDollars(($thisStatusValue * ($userMult)));
-						$thisStatusValue = $lowValue . " - " . $highValue;
+						if($thisStatusName == "Quoted-Pending") $thisStatusValue = asDollars(($thisStatusValue * $userMult));
+						else $thisStatusValue = $lowValue . " - " . $highValue;
 						
 						echo"<tr><td>$thisInvID</td>
 							<td>$thisStatusName</td>
