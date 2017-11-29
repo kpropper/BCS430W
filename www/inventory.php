@@ -23,7 +23,7 @@ function getStatus($invID)
 				$thisStatus = $statusName;
 			}
 			else $thisStatus = NULL;
-			
+
 			return $thisStatus;
 }
 
@@ -284,7 +284,7 @@ if (isset($_POST['task']))
 			}
 		}
 	}
-	
+
 	$statusName = getStatus($invID);
 	if(!($statusName == 'Started' || $statusName == 'Open'))
 	{
@@ -590,7 +590,7 @@ function getcondId(val){
 <div class="inv_box content-area group section">
   <div class= "row">
 
-    <div class="category col col-sm-3 col-md-2" style="width:250px;">
+    <div class="category col col-sm-3 col-md-2" style="width:200px;">
       <label>Category</label>
       <select name="category" onchange="getCId(this.value);" >
           <option value="">Select Category</option>
@@ -609,25 +609,28 @@ function getcondId(val){
 
     </div>
 
-    <div class="manufacturer col col-sm-3 col-md-2" style="width:250px;">
+    <div class="manufacturer col col-sm-3 col-md-2" style="width:200px;">
       <label>Manufacturer</label>
       <select name="manufacturer" id="mList" onchange="getManId(this.value);" >
           <option value="">Select Manufacturer</option>
       </select>
     </div>
 
-    <div class="model col col-sm-3 col-md-2" style="width:250px;">
+    <div class="model col col-sm-3 col-md-2" style="width:200px;">
       <label>Model</label>
       <select name="model" id="modList" onchange="getModId(this.value);">
-          <option value="">Select Model</option>
-
+         <option value="">Select Model</option>
       </select>
+  	</div>
 
-    </div>
+	  <div class="service_tag col col-sm-3 col-md-2 " style="width:200px;">
+	     <label>Serial Number</label>
+	     <input class="serial_tag_txt" type="text" style="width:85%; height:40px;	color:white;background-color: black;	opacity: 0.8; 	line-height: 40px;	font-size: 20px;margin-right: .1%;">
+	     </input>
+	  </div>
 
 
-
-    <div class="hard_drives col col-sm-3 col-md-2 " style="width:250px;">
+    <div class="hard_drives col col-sm-3 col-md-2 " style="width:220px;">
       <!-- Hard drive Type Select option field-->
       <label>Hard Drive Type</label>
       <select  name="hard_drive_type" id="hdtype" onchange="gethdtypeId(this.value);">
@@ -683,7 +686,7 @@ function getcondId(val){
 
     </div>
 
-    <div class="processors col col-sm-3 col-md-2 " style="width:250px;">
+    <div class="processors col col-sm-3 col-md-2 " style="width:200px;">
       <!-- Processor Type Select option field-->
       <label>Processor Type</label>
       <select name="ProcessorType" id="proctype" onchange='getproctypeId(this.value);'>
@@ -736,7 +739,7 @@ function getcondId(val){
       </select>
     </div>
 
-    <div class="memory col col-sm-3 col-md-2 " style="width:250px;">
+    <div class="memory col col-sm-3 col-md-2 " style="width:200px;">
       <!-- Memory Type Select option field--->
       <label>Memory Type</label>
       <select name="MemoryType" id="memtype" onchange='getmemtypeId(this.value);'>
@@ -788,16 +791,19 @@ function getcondId(val){
       </select>
     </div>
 
-    <div class="condition col col-sm-3 col-md-2 " style="width:250px;">
+    <div class="condition col col-sm-3 col-md-2 " style="width:200px;">
       <label>Condition</label>
       <select name="condition" onchange='getcondId(this.value);' id="condid">
           <option value="">Select Condition</option>
           <option value="Excellent">Excellent</option>
           <option value="Good">Good</option>
           <option value="Fair">Fair</option>
-
       </select>
     </div>
+		<div class="asset_qty col col-sm-2 col-md-1 " style="width:100px;">
+			 <label>Quantity</label>
+			 <input class="qty_txt" type="number" min="1" max="999" style="width:85%; height:40px;	color:white;background-color: black;	opacity: 0.8; 	line-height: 40px;	font-size: 20px;margin-right: .1%;"></input>
+	 </div>
 
   </div>
 </div>
@@ -813,6 +819,7 @@ echo"<table width='1024' id='assets'>
 <th>Hard Drive</th>
 <th>Processor</th>
 <th>Memory</th>
+<th>Asset Quantity</th>
 </tr>";
 if($invID != NULL)
 {
