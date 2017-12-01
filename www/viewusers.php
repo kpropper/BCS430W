@@ -2,13 +2,17 @@
 	include('siteInit.php');
 	include('menu.php');
 	include('sqlconnect.php');
-	
+
 
 	if(!$loggedIn || $userType != 'Employee')
 	{
 		echo "<script> location.href='selectLanding.php'; </script>";
 	}
-	
+echo "	<head>
+				<meta charset='utf-8'>
+				<title>User Management Page</title>
+				<link rel='stylesheet' href='css/landing_style.css'>
+			</head>";
 	$query = "SELECT UserID, FName, LName, Email, Company_Name, Telephone, UserType, Value_Multiplier
 				FROM User";
 
@@ -18,6 +22,7 @@
 				if($result->num_rows >=1)
 				{
 					echo"
+					<h1 style='text-align:center;'>User Management Page</h1>
 						<table width='1024' id='assets'>
 						<tr>
 						<th>User ID</th>
@@ -42,7 +47,7 @@
 							<td>$thisUserMult</td>
 							<td><form action='employeemanageaccount.php' method='post'>
 							<input type='hidden' name='userUserID' value='$thisUserID'>
-							<input type='submit' name='updateuser' value='Update User'>
+							<input type='submit' class='inventory-button' name='updateuser' value='Update User'>
 							</form>
 							</td></tr>";
 					}
@@ -50,7 +55,7 @@
 				else echo "<b>No Results Found<b>";
 			}
 			else echo"Inventory Lookup Error " . mysqli_error($mysqli);
-			
+
 	echo "</body>
 
 </html>";

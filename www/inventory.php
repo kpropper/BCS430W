@@ -802,7 +802,7 @@ function getcondId(val){
     </div>
 		<div class="asset_qty col col-sm-2 col-md-1 " style="width:100px;">
 			 <label>Quantity</label>
-			 <input class="qty_txt" type="number" min="1" max="999" style="width:85%; height:40px;	color:white;background-color: black;	opacity: 0.8; 	line-height: 40px;	font-size: 20px;margin-right: .1%;"></input>
+			 <input onchange='getqty(this.value);' name="qty" type="number" min="1" max="999" style="width:85%; height:40px;	color:white;background-color: black;	opacity: 0.8; 	line-height: 40px;	font-size: 20px;margin-right: .1%;"></input>
 	 </div>
 
   </div>
@@ -849,7 +849,8 @@ if($invID != NULL)
 		  <td>$model</td>
 		  <td>$harddrive</td>
 		  <td>$processor</td>
-		  <td>$memory</td></tr>";
+		  <td>$memory</td>
+			</tr>";
 	}
 }
 

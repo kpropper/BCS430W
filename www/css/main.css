@@ -156,6 +156,9 @@ Manage account
 .container{
   width:500px;
 }
+.names form input{
+  font-family:'proxima-nova';
+}
 /***********************************
 End Manage account
 ************************************/
@@ -1556,7 +1559,7 @@ select::-ms-expand {
 }
 
 
-.row-fluid  form select,
+
 .row-fluid  form textarea{
     height: 46.8px;
     border: solid 1px #d7d7d7;

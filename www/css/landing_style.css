@@ -14,12 +14,32 @@
 	color: #ffffff;
 	border-radius: 5px;
 }
+.client_stats{
+
+}
+.client_stats table{
+	width:95%;
+}
+.client_stats input{
+	margin-right:50px;
+	cursor:pointer;
+}
 
 .new-quote{
 	padding: 7px 4px;
 	background-color: #00757b;
 	color: #ffffff;
 	border-radius: 5px;
+}
+b{
+	text-align: center;
+}
+.search_drop{
+	height: 40px;
+	font-size: 16px;
+	padding-left: 20px;
+	box-sizing:border-box;
+	margin-top:10px;
 }
 
 .inventory-lookup{

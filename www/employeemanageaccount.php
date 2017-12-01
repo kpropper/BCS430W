@@ -12,7 +12,7 @@
 <head>
 <link rel="stylesheet" href="css/main.css" />
 
-<title></title>
+<title>Employee Account Management</title>
 </head>
 <body class="   hs-content-id-4908310180 hs-site-page page hs-content-path- hs-content-name-home  " style="">
   <div class="header-container-wrapper">
@@ -21,9 +21,9 @@
 <?php include('menu.php'); ?>
 
 
-  <h1 style="text-align: center">Update Your Information</h1>
-	<div class="formbox">
-  <form class="container" action="employeemanageaccount.php" method="post">
+  <h1 style="text-align: center">Update <?php echo $userfirstname.' ' . $userlastname; ?>'s Information</h1>
+	<div class="formbox" style="margin-top:105px;">
+  <form class="container"  action="employeemanageaccount.php" method="post">
 	<div class="names">
 		<select name='userUserType'>
 		<?php
@@ -41,21 +41,21 @@
 		</select>
 	</div>
     <div class="names">
-    <label>Name:</label>
+    <b>Name:
 		<?php echo "<input type='text' name='userFirstName' value='$userfirstname'>" ?>
 		<?php echo "<input type='text' name='userLastName' value='$userlastname'>" ?>
     </div>
     <div class="names">
-    <label>E-Mail:</label>
-		<?php echo "<input type='email' name='userEmail' value='$useremail'>" ?>
+    E-Mail:
+		<?php echo "<input tpe='email' name='userEmail' value='$useremail'>" ?>
     <br>
-    <label>Company Name:</label>
+    Company Name:
 		<?php echo "<input type='text' name='userCompanyName' value='$usercompanyname'>" ?>
     <br>
-    <label>Phone:</label>
+    Phone:
 	<?php echo "<input type='phone' name='userTelephone' value='$usertelephone'>" ?>
     <br>
-	<label>Value Multiplier:</label>
+	Value Multiplier:
 	<?php echo "<input type='phone' name='userUserMult' value='$userValueMult'>" ?>
 	<?php echo "<input type='hidden' name='userUserID' value='$useruserID'>" ?>
     <br>
@@ -64,15 +64,15 @@
     </div>
     </div>
 	</form>
-	<?php 
-	
+	<?php
+
 	echo "<form action='forgotpassword.php' method='post'>
 		<input type='hidden' name='resetpassword' value='Reset Password'>
 		<input type='hidden' name='fromuser' value='$useruserID'>
 		<input type='hidden' name='email' value='$useremail'>
 		<input type='submit' name='passwordreset' value='Reset Password'></form>"; ?>
 
-	<br>
+	<br />
   <?php echo $msg; ?>
   </form>
 </div>

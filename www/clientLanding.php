@@ -1,10 +1,10 @@
 <?php
 	include('siteInit.php');
 	include('menu.php');
-	
+
 	//functions
 	//Function to format a number as dollars
-	function asDollars($value) 
+	function asDollars($value)
 	{
 		return '$' . number_format($value, 2);
 	}
@@ -13,31 +13,36 @@
 	{
 		echo "<script> location.href='selectLanding.php'; </script>";
 	}
-	
-	echo "<b>$userCompanyName</b><br>Welcome $userFName $userLName";
 
-	//Temporary Form/Button to go to inventory page
-	echo"
+	echo "<b>Comany Name: $userCompanyName</b><br>Welcome $userFName $userLName";
+		//Temporary Form/Button to go to inventory page
+?>
+<!DOCTYPE html>
 		<html>
 			<head>
 				<meta charset='utf-8'>
 				<title>Landing Page</title>
 				<link rel='stylesheet' href='css/landing_style.css'>
+
+
 			</head>
 			<body>
-				<div class='container1'>
+			<div class='container1'>
 
 				<a href='inventory.php' class='inventory-button'>Get a Quote</a>
 				<a href='manageaccount.php' class='manage-account'>Manage Account</a>
 
-		</div>";
-		
+		  </div>
+		<?php
 
 	if(isset($_POST['takeaction']))
 	{
+
 		if(isset($_POST['invID'])) 	$invID = ($_POST['invID']); else $invID = NULL;
-		
+
 		include('sqlconnect.php');
+		echo"<div class='content-area group section'>
+		<div class='client_stats row'>";
 		$query = "SELECT Inventory.InventoryID, Status.StatusName, Status.StatusDate, Status.QuoteValue
 				      FROM Inventory JOIN Status ON Inventory.StatusID = Status.StatusID
 				      WHERE
@@ -45,8 +50,10 @@
 			$result = $mysqli->query($query);
 			if($result)
 			{
+
 				echo"
-						<table width='1024' id='assets'>
+				<div class='col col-md-6'>
+						<table id='assets'>
 						<tr>
 						<th>Inventory ID</th>
 						<th>Status</th>
@@ -58,24 +65,27 @@
 				$highValue = asDollars(($thisStatusValue * ($userMult)));
 				if($thisStatusName == "Quoted-Pending") $thisStatusValue = asDollars(($thisStatusValue * $userMult));
 				else $thisStatusValue = $lowValue . " - " . $highValue;
-						
+
 				echo"<tr><td>$thisInvID</td>
 					<td>$thisStatusName</td>
 					<td>$thisStatusDate</td>
 					<td>$thisStatusValue</td>
-					</td></tr>";
-					
+					</td></tr></table>";
+
 				if($thisStatusName = "Started" || $thisStatusName = "Open")
 				{
 					echo "<form action='inventory.php' method='post'>
 					<input type='hidden' name='inventoryID' value='$thisInvID'>
-					<input type='submit' name='updateinventory' value='Update Inventory'>
-					</form>";
+					<input type='submit' style='margin-left:70px;' class='inventory-button' name='updateinventory' value='Update Inventory'>
+					<input type='submit' class='inventory-button' name='acceptquote' value='Accept Quote'>
+					<input type='submit' class='inventory-button' name='declinequote' value='Decline Quote'>
+
+					</form></div>";
 				}
 			}
 			else echo "Inventory NOT found " . mysqli_error($mysqli);
 	}
-	
+
 	//Display all of the clients inventories
 	include('sqlconnect.php');
 	$query = "SELECT Inventory.InventoryID, Status.StatusName, Status.StatusDate, Status.QuoteValue
@@ -89,7 +99,9 @@
 			{
 				if($result->num_rows >=1)
 				{
-					echo"
+					//Column Split
+					if(isset($_POST['takeaction'])){
+					echo"<div id='client_inv' class='col col-md-6'>
 						<table width='1024' id='assets'>
 						<tr>
 						<th>Inventory ID</th>
@@ -104,21 +116,51 @@
 						$highValue = asDollars(($thisStatusValue * ($userMult)));
 						if($thisStatusName == "Quoted-Pending") $thisStatusValue = asDollars(($thisStatusValue * $userMult));
 						else $thisStatusValue = $lowValue . " - " . $highValue;
-						
+
 						echo"<tr><td>$thisInvID</td>
 							<td>$thisStatusName</td>
 							<td>$thisStatusDate</td>
 							<td>$thisStatusValue</td>
 							<td><form action='clientLanding.php' method='post'>
 							<input type='hidden' name='invID' value='$thisInvID'>
-							<input type='submit' name='takeaction' value='Take Action'>
+							<input type='submit' onClick='changeClass()' class='inventory-button'name='takeaction' value='Take Action'>
 							</form>
-							</td></tr>";
+							</td></tr></div></div></div>";
+					}
+				}
+				else{
+					//Column full
+					echo"<div id='client_inv' class='col col-md-12'>
+						<table width='1024' id='assets'>
+						<tr>
+						<th>Inventory ID</th>
+						<th>Status</th>
+						<th>Status Date</th>
+						<th>Estimated Value</th>
+						<th>Take Action</th>
+						</tr>";
+					while(list($thisInvID, $thisStatusName, $thisStatusDate, $thisStatusValue) = $result->fetch_row())
+					{
+						$lowValue = asDollars(($thisStatusValue * ($userMult - .2)));
+						$highValue = asDollars(($thisStatusValue * ($userMult)));
+						if($thisStatusName == "Quoted-Pending") $thisStatusValue = asDollars(($thisStatusValue * $userMult));
+						else $thisStatusValue = $lowValue . " - " . $highValue;
+
+						echo"<tr><td>$thisInvID</td>
+							<td>$thisStatusName</td>
+							<td>$thisStatusDate</td>
+							<td>$thisStatusValue</td>
+							<td><form action='clientLanding.php' method='post'>
+							<input type='hidden' name='invID' value='$thisInvID'>
+							<input type='submit' onClick='changeClass()' class='inventory-button'name='takeaction' value='Take Action'>
+							</form>
+							</td></tr></div></div></div>";
 					}
 				}
 			}
+		}
 			else echo"Inventory Lookup Error " . mysqli_error($mysqli);
-	
+
 	echo"</body>
 
 </html>";
