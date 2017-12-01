@@ -25,6 +25,7 @@
 	<div class="formbox" style="margin-top:105px;">
   <form class="container"  action="employeemanageaccount.php" method="post">
 	<div class="names">
+		<b>User Type:
 		<select name='userUserType'>
 		<?php
 			if($userUserType == "Employee")
@@ -41,7 +42,7 @@
 		</select>
 	</div>
     <div class="names">
-    <b>Name:
+    Name:
 		<?php echo "<input type='text' name='userFirstName' value='$userfirstname'>" ?>
 		<?php echo "<input type='text' name='userLastName' value='$userlastname'>" ?>
     </div>
@@ -66,11 +67,12 @@
 	</form>
 	<?php
 
-	echo "<form action='forgotpassword.php' method='post'>
+	echo "<form class='btn_submit_manage' style='text-align:center;'action='forgotpassword.php' method='post'>
 		<input type='hidden' name='resetpassword' value='Reset Password'>
 		<input type='hidden' name='fromuser' value='$useruserID'>
 		<input type='hidden' name='email' value='$useremail'>
-		<input type='submit' name='passwordreset' value='Reset Password'></form>"; ?>
+		<input type='submit' name='passwordreset' value='Reset Password'>
+		<input type='submit' name='deleteuser' value='Delete User'></form>"; ?>
 
 	<br />
   <?php echo $msg; ?>

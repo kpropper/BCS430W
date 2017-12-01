@@ -309,6 +309,15 @@ Registration Page
   width:100%;
 }
 
+.btn_submit_manage input{
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  position: center;
+}
+
 /****************************
 Login Page
 ************************************/
