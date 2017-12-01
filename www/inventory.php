@@ -50,10 +50,11 @@ if (isset($_POST['task']))
 		$memsize = $_SESSION['memsize'];
 		$memqty = $_SESSION['memqty'];
 		$condition = $_SESSION['condition'];
+		$assetqty = $_SESSION['assetqty'];
 		$assetValue = 0;
 
-		$allnull = true;
-
+		if(is_numeric($assetqty)) $assetqty = intval($assetqty);
+		
 		if($modname != NULL) $allnull = false;
 		if($hdtype != NULL) $allnull = false;
 		if($hdsize != NULL) $allnull = false;
@@ -65,6 +66,7 @@ if (isset($_POST['task']))
 		if($memqty  != NULL) $allnull = false;
 		if($condition != NULL) $allnull = false;
 		if($procqty != NULL) $allnull = false;
+		if($assetqty != NULL) $allnull = false;
 
 	if($task == "Add Item" || ($task == "Submit" && !$allnull))
 	{
@@ -110,6 +112,22 @@ if (isset($_POST['task']))
 				}
 				else $errmsg = "Inventory NOT created " . mysqli_error($mysqli);
 
+			}
+			
+			//Get the qty
+			if ($errmsg == NULL)
+			{
+				if(is_int($assetqty))
+				{
+					if($assetqty >= 1 && $assetqty <= 999)
+					{
+						//You're good... I thought I may want to do something here but I probably don't
+						//I could eliminate this by reversing the condition and just use the else value...
+					}
+					else $errmsg = "Invalid Quantity";
+						
+				}
+				else $errmsg = "Invalid Quantity " . $assetqty . " " . gettype($assetqty);
 			}
 
 			if ($errmsg == NULL)
@@ -263,6 +281,7 @@ if (isset($_POST['task']))
 				{
 					//Create the the asset
 					$query = "INSERT INTO Asset SET
+						  Quantity = '$assetqty',
 						  ModelID = '$modID',
 						  InventoryID = '$invID',
 						  HardDriveID = '$hdID',
@@ -305,7 +324,7 @@ if (isset($_POST['task']))
 				{
 					$invValue = 0;
 					//Get the value of all of the assets
-					$query = "SELECT AssetValue, CustomerConditionMod
+					$query = "SELECT AssetValue, CustomerConditionMod, Quantity
 				      FROM Asset
 				      WHERE
 			          InventoryID = '$invID'";
@@ -313,9 +332,10 @@ if (isset($_POST['task']))
 					$result = $mysqli->query($query);
 					if($result)
 					{
-						while(list($assetValue, $valuemultiplier) = $result->fetch_row())
+						while(list($assetValue, $valuemultiplier, $quantity) = $result->fetch_row())
 						{
-							$invValue += ($assetValue * $valuemultiplier);
+							$invValue += (($assetValue * $quantity) * $valuemultiplier);
+							//TODO: Get the custmorers valu here, not this fake value
 							$initMax = ($invValue * .5);
 							$initMin = ($invValue * .35);
 						}
@@ -363,6 +383,7 @@ if (isset($_POST['task']))
     $_SESSION['memsize'] = 		NULL;
     $_SESSION['memqty'] = 		NULL;
     $_SESSION['condition'] = 	NULL;
+	$_SESSION['assetqty'] = 	NULL;
 
 ?>
 <!DOCTYPE html>
@@ -572,6 +593,18 @@ function getcondId(val){
    }
  });
 }
+
+function getassetqty(val){
+ //alert(val);
+ $.ajax({
+   type: "POST",
+   url: "getstagdata.php",
+   data: "AssetQty="+val,
+   success: function(data){
+       //alert(data);
+   }
+ });
+}
 //Function to disable unless category id is set to 1,2,3,5 and 6
 
     </script>
@@ -590,6 +623,10 @@ function getcondId(val){
 <div class="inv_box content-area group section">
   <div class= "row">
 
+  	<div class="asset_qty col col-sm-2 col-md-1 " style="width:100px;">
+		<label>Quantity</label>
+		<input onchange='getassetqty(this.value);' name="qty" type="number" min="1" max="999" style="width:85%; height:40px;	color:white;background-color: black;	opacity: 0.8; 	line-height: 40px;	font-size: 20px;margin-right: .1%;"></input>
+	 </div>
     <div class="category col col-sm-3 col-md-2" style="width:200px;">
       <label>Category</label>
       <select name="category" onchange="getCId(this.value);" >
@@ -800,10 +837,7 @@ function getcondId(val){
           <option value="Fair">Fair</option>
       </select>
     </div>
-		<div class="asset_qty col col-sm-2 col-md-1 " style="width:100px;">
-			 <label>Quantity</label>
-			 <input onchange='getqty(this.value);' name="qty" type="number" min="1" max="999" style="width:85%; height:40px;	color:white;background-color: black;	opacity: 0.8; 	line-height: 40px;	font-size: 20px;margin-right: .1%;"></input>
-	 </div>
+
 
   </div>
 </div>
@@ -813,19 +847,19 @@ function getcondId(val){
 <?php
 echo"<table width='1024' id='assets'>
 <tr>
+<th>Asset Quantity</th>
 <th>Category</th>
 <th>Manufacturer</th>
 <th>Model</th>
 <th>Hard Drive</th>
 <th>Processor</th>
 <th>Memory</th>
-<th>Asset Quantity</th>
 </tr>";
 if($invID != NULL)
 {
 	$query = "SELECT AssetCategory.CategoryName, Manufacturer.ManufacturerName, AssetModel.ModelName, HardDrive.HardDriveType,
                     HardDrive.HardDriveSize, HardDrive.HardDriveQty, Processor.ProcessorType, Processor.ProcessorSpeed, Processor.ProcessorQty,
-                    Memory.MemoryType, Memory.MemorySize, Memory.MemoryQty
+                    Memory.MemoryType, Memory.MemorySize, Memory.MemoryQty, Asset.Quantity
 					FROM Asset JOIN AssetModel ON Asset.ModelID = AssetModel.ModelID
 					JOIN AssetCategory ON AssetModel.CategoryID = AssetCategory.CategoryID
 					JOIN Manufacturer ON AssetModel.ManufacturerID = Manufacturer.ManufacturerID
@@ -838,13 +872,14 @@ if($invID != NULL)
 	$result = $mysqli->query($query);
 	if (!$result) echo mysqli_error($mysqli);
 	//echo"<table width='1024' align='center'>";
-	while(list($category, $manufacturer, $model, $hdtype, $hdsize, $hdqty, $proctype, $procspeed, $procqty, $memtype, $memsize, $memqty) = $result->fetch_row())
+	while(list($category, $manufacturer, $model, $hdtype, $hdsize, $hdqty, $proctype, $procspeed, $procqty, $memtype, $memsize, $memqty, $assqty) = $result->fetch_row())
 	{
 		$harddrive = "$hdqty - $hdtype $hdsize";
 		$processor = "$procqty - $proctype $procspeed";
 		$memory = "$memqty - $memsize $memtype";
 
-		echo"<tr><td>$category</td>
+		echo"<tr><td>$assqty</td>
+		  <td>$category</td>
 		  <td>$manufacturer</td>
 		  <td>$model</td>
 		  <td>$harddrive</td>
