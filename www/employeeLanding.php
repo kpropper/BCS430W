@@ -215,8 +215,7 @@
 	//Display all inventories
 	if(isset($_POST['searchinventory']) && ($searchcat != "Show All"))
 	{
-    $message = "search answer";
-  echo "<script type='text/javascript'>alert('$message');</script>";
+
 		switch($searchcat)
 		{
 			case 'Inventory ID':
@@ -234,8 +233,7 @@
 			default:
 				$querycat = NULL;
 		}
-    $message = "show  answer";
-echo "<script type='text/javascript'>alert('$message');</script>";
+
 		$query = "SELECT Inventory.InventoryID, Status.StatusName, Status.StatusDate, Inventory.Inventory_Value, Status.QuoteValue, User.Value_Multiplier, User.FName, User.LName, User.Company_Name
 				      FROM Inventory JOIN Status ON Inventory.StatusID = Status.StatusID
 					  JOIN User ON Inventory.UserID = User.UserID
@@ -245,8 +243,7 @@ echo "<script type='text/javascript'>alert('$message');</script>";
 	}
 	else
 	{
-    $message = "show all answer";
-    echo "<script type='text/javascript'>alert('$message');</script>";
+
 	$query = "SELECT Inventory.InventoryID, Status.StatusName, Status.StatusDate, Inventory.Inventory_Value, Status.QuoteValue, User.Value_Multiplier, User.FName, User.LName, User.Company_Name
 				FROM Inventory JOIN Status ON Inventory.StatusID = Status.StatusID
 				JOIN User ON Inventory.UserID = User.UserID
