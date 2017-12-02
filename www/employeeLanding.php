@@ -68,18 +68,21 @@
 				else echo "Unable to submit inventory $invID " . mysqli_error($mysqli);
 				break;
 			case 'Quote':
-			$invID = $_POST['inventoryID'];
+			  $invID = $_POST['inventoryID'];
 				$invValue = $_POST['statusValue'];
 
 				$query = "INSERT INTO Status SET
 						  InventoryID = '$invID',
 						  QuoteValue = '$invValue',
-						  StatusName = 'Quoted-Pending',
+						  StatusName = 'Quote-Pending',
 						  StatusMessage = 'Inventory quoted opened by $userFName $userLName'";
 				$result = $mysqli->query($query);
 				if($result) $statID = $mysqli->insert_id;
-				else echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
-
+				else {
+          $statID = NULL;
+          echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
+          break;
+        }
 				$query = "Update Inventory SET
 							StatusID = '$statID'
 							WHERE
@@ -119,6 +122,7 @@
 
       while(list($thisstatID, $thisstatname, $thisstatdate, $thisquotevalue, $thisstatmessage) = $result->fetch_row())
       {
+
         $statusValue = asDollars($thisquotevalue);
         echo"
         <tr><td>$thisstatdate</td>
@@ -171,23 +175,21 @@
           </div>";
 
 
-				if($thisStatusName = "Started" || $thisStatusName = "Open")
+				if(($thisStatusName = "Started") || ($thisStatusName = "Open"))
 				{
-          ?>
-        <form action='inventory.php' method='post'>
-					<input type='hidden' name='inventoryID' value='<?php$thisInvID?>'></input>
-        </form>
-				  <form action='employeeLanding.php' method='post'>
-  					<input type='hidden' name='inventoryID' value='<?php$thisInvID?>'>
-  					<input type='hidden' name='statusValue' value='<?php$thisStatusValue?>'>
-            <input type='submit'class='inventory-button' style="margin-left:20px;" name='updateinventory' value='Update Inventory'>
-            <input type='submit'class='inventory-button' style="margin-left:5px;" name='task' value='Open'>
-            <input type='submit'class='inventory-button' style="margin-left:5px;" name='task' value='Quote'>
-            <input type='submit'class='inventory-button' style="margin-left:5px;" name='task' value='Accept Quote'>
-            <input type='submit'class='inventory-button' style="margin-left:5px;" name='task' value='Decline Quote'>
-            <input type='submit'class='inventory-button' style="margin-left:5px;" name='task' value='Override Quote'>
-        </form>
-          <?php
+          echo "<form action='inventory.php' style='display:inline;' method='post'>
+          <input type='hidden' name='inventoryID' value='$thisInvID'>
+		       <input type='submit'class='inventory-button' style='margin-left:20px;' name='updateinventory' value='Update Inventory'>
+					</form>
+				  <form action='employeeLanding.php'  style='display:inline;' method='post'>
+				  <input type='hidden' name='inventoryID' value='$thisInvID'>
+					<input type='hidden' name='statusValue' value='$thisStatusValue'>
+          <input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Open'>
+          <input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Quote'>
+          <input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Accept Quote'>
+          <input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Decline Quote'>
+          <input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Override Quote'>
+				  </form>";
 				}
 			}
 			else echo "Inventory NOT found " . mysqli_error($mysqli);
@@ -243,7 +245,7 @@
 	$query = "SELECT Inventory.InventoryID, Status.StatusName, Status.StatusDate, Inventory.Inventory_Value, Status.QuoteValue, User.Value_Multiplier, User.FName, User.LName, User.Company_Name
 				FROM Inventory JOIN Status ON Inventory.StatusID = Status.StatusID
 				JOIN User ON Inventory.UserID = User.UserID
-				ORDER BY FIELD(STATUS.StatusName, 'Submitted','Open','Started', 'Quoted-Pending'), Status.StatusDate ASC
+				ORDER BY FIELD(STATUS.StatusName, 'Submitted','Open','Started', 'Quote-Pending'), Status.StatusDate ASC
 				LIMIT 25";
 	}
 

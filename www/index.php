@@ -53,7 +53,7 @@
 
 </head>
 <body class="   hs-content-id-4908310180 hs-site-page page hs-content-path- hs-content-name-home  " style="">
-    
+
 
 <?php include('menu.php'); ?>
 
@@ -1192,34 +1192,12 @@ $('.testimonial-slider').css("opacity", "1");
 <div class="row-fluid ">
 <div class="span6 widget-span widget-type-rich_text left-col" style="" data-widget-type="rich_text" data-x="0" data-w="6">
 <div class="cell-wrapper layout-widget-wrapper">
-<span id="hs_cos_wrapper_module_14889589182361161" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><h4>FREE WORKSHEET</h4>
-<h2>Get the Highest Return on your Surplus IT Equipment</h2>
-<p>The first step to maximizing the value of IT asset disposal is taking an accurate inventory of your excess IT equipment. This free template will ensure you capture the most important data for generating accurate quotes. <br><br>The template will help you to:</p>
-<ul>
-<li>Collect model and part numbers</li>
-<li>Catalogue specifications</li>
-<li>Note conditions and missing components</li>
-<li>Address important logistics and service requirements</li>
-<li>Submit the inventory for accurate quotation</li>
-</ul></span>
+
 </div><!--end layout-widget-wrapper -->
 </div><!--end widget-span -->
 <div class="span6 widget-span widget-type-form right-col" style="" data-widget-type="form" data-x="6" data-w="6">
 <div class="cell-wrapper layout-widget-wrapper">
-<span id="hs_cos_wrapper_module_14889589188351163" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_form" style="" data-hs-cos-general-type="widget" data-hs-cos-type="form"><h3 id="hs_cos_wrapper_module_14889589188351163_title" class="hs_cos_wrapper form-title" data-hs-cos-general-type="widget_field" data-hs-cos-type="text">Get the Free Inventory Workbook</h3>
 
-<div id="hs_form_target_module_14889589188351163"></div>
-
-
-
-
-
-
-
-
-
-
-</span>
 </div><!--end layout-widget-wrapper -->
 </div><!--end widget-span -->
 </div><!--end row-->
