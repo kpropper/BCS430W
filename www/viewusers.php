@@ -37,6 +37,9 @@ echo "	<head>
 						</tr>";
 					while(list($thisUserID, $thisFirstName, $thisLastName, $thisEmail, $thisCompanyName, $thisTelephone, $thisUserType, $thisUserMult) = $result->fetch_row())
 					{
+						$regex = "/^deleted-.*-deleted$/";
+						if(!preg_match("$regex",$thisEmail))
+						{
 						echo"<tr><td>$thisUserID</td>
 							<td>$thisFirstName</td>
 							<td>$thisLastName</td>
@@ -50,6 +53,7 @@ echo "	<head>
 							<input type='submit' class='inventory-button' name='updateuser' value='Update User'>
 							</form>
 							</td></tr>";
+						}
 					}
 				}
 				else echo "<b>No Results Found<b>";

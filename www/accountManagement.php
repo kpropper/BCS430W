@@ -21,23 +21,36 @@ if(isset($_POST['update'])) {
 
 	if ($msg == NULL) 
 	{
-		
-		$query = "UPDATE user SET
-			FName			= '$firstname',
-			LName			= '$lastname',
-			Email			= '$email',
-			Company_Name 	= '$companyname',
-			Telephone 		= '$telephone'
-				WHERE UserID 	= '$userID'";
-									  
-		$result = $mysqli->query($query);
-		if ($result) {
-			$msg = "User $firstname $lastname Updated";
-		}
-		else
+		$continue = true;
+		$result = $mysqli->query("SELECT Email FROM user WHERE UserID='$userID'");
+		list($oldemail) = $result->fetch_row();
+		if($email != $oldemail)
 		{
-			$msg = "$$firstname $lastname NOT Updated" . mysqli_error($mysqli); 
+			$result = $mysqli->query("SELECT * FROM user WHERE Email='$email'");
+			if ($result->num_rows >= 1 ) $continue = false;
+			
 		}
+
+		if($continue)
+		{	
+			$query = "UPDATE user SET
+				FName			= '$firstname',
+				LName			= '$lastname',
+				Email			= '$email',
+				Company_Name 	= '$companyname',
+				Telephone 		= '$telephone'
+					WHERE UserID 	= '$userID'";
+									  
+			$result = $mysqli->query($query);
+			if ($result) {
+				$msg = "User $firstname $lastname Updated";
+			}
+			else
+			{
+				$msg = "$$firstname $lastname NOT Updated" . mysqli_error($mysqli); 
+			}
+		}
+		else $msg = "$email already exists.";
 	}
 }
 else

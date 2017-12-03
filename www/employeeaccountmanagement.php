@@ -1,6 +1,29 @@
 <?PHP
 include("sqlConnect.php");
 
+	/**
+	* Generate a random string, using a cryptographically secure 
+	* pseudorandom number generator (random_int)
+	* 
+	* For PHP 7, random_int is a PHP core function
+	* For PHP 5.x, depends on https://github.com/paragonie/random_compat
+	* 
+	* @param int $length      How many characters do we want?
+	* @param string $keyspace A string of all possible characters
+	*                         to select from
+	* @return string
+	*/
+	function random_str($length, $keyspace = '0123456789!@#$%&abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')	
+	{
+		require_once "/random_compat-master/lib/random.php";
+		$str = '';
+		$max = mb_strlen($keyspace, '8bit') - 1;
+		for ($i = 0; $i < $length; ++$i) {
+			$str .= $keyspace[random_int(0, $max)];
+		}	
+		return $str;
+	}
+	
 // Variables
 $msg = NULL;			// Error Message
 
@@ -30,27 +53,61 @@ if(isset($_POST['update'])) {
 
 	if ($msg == NULL) 
 	{
-		
-		$query = "UPDATE User SET
-			FName			= '$userfirstname',
-			LName			= '$userlastname',
-			Email			= '$useremail',
-			Company_Name 	= '$usercompanyname',
-			Telephone 		= '$usertelephone',
-			UserType		= '$userUserType',
-			Value_Multiplier = '$userValueMult'
+		$continue = true;
+		$result = $mysqli->query("SELECT Email FROM user WHERE UserID='$useruserID'");
+		list($email) = $result->fetch_row();
+		if($email != $useremail)
+		{
+			$result = $mysqli->query("SELECT * FROM user WHERE Email='$useremail'");
+			if ($result->num_rows >= 1 ) $continue = false;
+			
+		}
+
+		if($continue)
+		{			
+			$query = "UPDATE User SET
+				FName			= '$userfirstname',
+				LName			= '$userlastname',
+				Email			= '$useremail',
+				Company_Name 	= '$usercompanyname',
+				Telephone 		= '$usertelephone',
+				UserType		= '$userUserType',
+				Value_Multiplier = '$userValueMult'
+					WHERE UserID 	= '$useruserID'";
+									  
+			$result = $mysqli->query($query);
+			if ($result) {
+				$rows = mysqli_affected_rows($mysqli);
+				$msg = "User $userfirstname $userlastname Updated";
+			}
+			else
+			{
+				$msg = "$userfirstname $userlastname NOT Updated" . mysqli_error($mysqli); 
+			}
+		}
+		else $msg = "$useremail already exists.";
+	}
+}
+elseif (isset($_POST['deleteuser'])) 
+{
+	if ($_POST['email'] == NULL) 			    $msg = "Email field is empty";			   else $oldemail = $_POST['email'];
+	$newemail = "deleted-" . $oldemail . "-deleted";
+	$password = random_str(150);
+	$query = "UPDATE User SET
+			Email			= '$newemail',
+			Password 		= '$password'
 				WHERE UserID 	= '$useruserID'";
 									  
 		$result = $mysqli->query($query);
 		if ($result) {
 			$rows = mysqli_affected_rows($mysqli);
-			$msg = "User $userfirstname $userlastname Updated";
+			$msg = "User $userfirstname $userlastname Deleted";
 		}
 		else
 		{
-			$msg = "$userfirstname $userlastname NOT Updated" . mysqli_error($mysqli); 
+			$msg = "$userfirstname $userlastname NOT Deleted" . mysqli_error($mysqli); 
 		}
-	}
+	
 }
 else
 {
