@@ -38,6 +38,7 @@ if (isset($_POST['inventoryID']))   $invID = $_POST['inventoryID'];	else $invID 
 if (isset($_POST['task']))
 {
 	$task = $_POST['task'];
+	
 
 	$modname = $_SESSION['modelid'];
 		$hdtype = $_SESSION['hdtype'];
@@ -51,6 +52,7 @@ if (isset($_POST['task']))
 		$memqty = $_SESSION['memqty'];
 		$condition = $_SESSION['condition'];
 		$assetqty = $_SESSION['assetqty'];
+		$uniqueid  =$_SESSION['uniqueid'];
 		$assetValue = 0;
 
 		if(is_numeric($assetqty)) $assetqty = intval($assetqty);
@@ -67,6 +69,8 @@ if (isset($_POST['task']))
 		if($condition != NULL) $allnull = false;
 		if($procqty != NULL) $allnull = false;
 		if($assetqty != NULL) $allnull = false;
+		if($uniqueid != NULL) $allnull = false;
+
 
 	if($task == "Add Item" || ($task == "Submit" && !$allnull))
 	{
@@ -279,6 +283,8 @@ if (isset($_POST['task']))
 
 				if($errmsg == NULL)
 				{
+					if($assetqty > 1) $uniqueid = "Multipule";
+					
 					//Create the the asset
 					$query = "INSERT INTO Asset SET
 						  Quantity = '$assetqty',
@@ -288,6 +294,7 @@ if (isset($_POST['task']))
 						  ProcessorID = '$procID',
 						  MemoryID = '$memID',
 						  AssetValue = '$assetValue',
+						  SerialNumber = '$uniqueid',
 						  CustomerConditionMod = '$valuemultiplier'";
 					$result = $mysqli->query($query);
 					if ($result)
@@ -312,7 +319,16 @@ if (isset($_POST['task']))
 
 	if($errmsg == NULL)
 	{
-		if($task == "Submit")
+		if($task == "Delete")
+		{
+			$assetID = $_POST['assetID'];
+			$query = "DELETE FROM Asset WHERE AssetID = '$assetID'";
+			$result = $mysqli->query($query);
+			if($result) $msg = "Item $assetID Deleted.";
+			else $errmsg = "Item $assetID NOT Deleted" . mysqli_error($mysqli);
+		}
+	
+		elseif($task == "Submit")
 		{
 			$query = "SELECT AssetID
 					  FROM Asset
@@ -384,6 +400,7 @@ if (isset($_POST['task']))
     $_SESSION['memqty'] = 		NULL;
     $_SESSION['condition'] = 	NULL;
 	$_SESSION['assetqty'] = 	NULL;
+	$_SESSION['uniqueid'] =     NULL;
 
 ?>
 <!DOCTYPE html>
@@ -605,6 +622,18 @@ function getassetqty(val){
    }
  });
 }
+
+function getuniqueId(val){
+ //alert(val);
+ $.ajax({
+   type: "POST",
+   url: "getstagdata.php",
+   data: "UniqueId="+val,
+   success: function(data){
+       //alert(data);
+   }
+ });
+}
 //Function to disable unless category id is set to 1,2,3,5 and 6
 
     </script>
@@ -662,7 +691,7 @@ function getassetqty(val){
 
 	  <div class="service_tag col col-sm-3 col-md-2 " style="width:200px;">
 	     <label>Serial Number</label>
-	     <input class="serial_tag_txt" type="text" style="width:85%; height:40px;	color:white;background-color: black;	opacity: 0.8; 	line-height: 40px;	font-size: 20px;margin-right: .1%;">
+	     <input class="serial_tag_txt" type="text" onchange="getuniqueId(this.value);" style="width:85%; height:40px;	color:white;background-color: black;	opacity: 0.8; 	line-height: 40px;	font-size: 20px;margin-right: .1%;">
 	     </input>
 	  </div>
 
@@ -851,15 +880,17 @@ echo"<table width='1024' id='assets'>
 <th>Category</th>
 <th>Manufacturer</th>
 <th>Model</th>
+<th>Serial Number</th>
 <th>Hard Drive</th>
 <th>Processor</th>
 <th>Memory</th>
+<th>Delete Item</th>
 </tr>";
 if($invID != NULL)
 {
 	$query = "SELECT AssetCategory.CategoryName, Manufacturer.ManufacturerName, AssetModel.ModelName, HardDrive.HardDriveType,
                     HardDrive.HardDriveSize, HardDrive.HardDriveQty, Processor.ProcessorType, Processor.ProcessorSpeed, Processor.ProcessorQty,
-                    Memory.MemoryType, Memory.MemorySize, Memory.MemoryQty, Asset.Quantity
+                    Memory.MemoryType, Memory.MemorySize, Memory.MemoryQty, Asset.Quantity, Asset.SerialNumber, Asset.AssetID
 					FROM Asset JOIN AssetModel ON Asset.ModelID = AssetModel.ModelID
 					JOIN AssetCategory ON AssetModel.CategoryID = AssetCategory.CategoryID
 					JOIN Manufacturer ON AssetModel.ManufacturerID = Manufacturer.ManufacturerID
@@ -872,7 +903,7 @@ if($invID != NULL)
 	$result = $mysqli->query($query);
 	if (!$result) echo mysqli_error($mysqli);
 	//echo"<table width='1024' align='center'>";
-	while(list($category, $manufacturer, $model, $hdtype, $hdsize, $hdqty, $proctype, $procspeed, $procqty, $memtype, $memsize, $memqty, $assqty) = $result->fetch_row())
+	while(list($category, $manufacturer, $model, $hdtype, $hdsize, $hdqty, $proctype, $procspeed, $procqty, $memtype, $memsize, $memqty, $assqty, $assserial, $assetid) = $result->fetch_row())
 	{
 		$harddrive = "$hdqty - $hdtype $hdsize";
 		$processor = "$procqty - $proctype $procspeed";
@@ -882,9 +913,17 @@ if($invID != NULL)
 		  <td>$category</td>
 		  <td>$manufacturer</td>
 		  <td>$model</td>
+		  <td>$assserial</td>
 		  <td>$harddrive</td>
 		  <td>$processor</td>
 		  <td>$memory</td>
+		  <td><form action='inventory.php' method='post'>
+			<input type='hidden' name='inventoryID' value='$invID'></input>
+			<input type='hidden' name='assetID' value='$assetid'>
+			<input type='submit' class='inventory-button' name='task' value='Delete'>
+			</form>
+		  </td>
+		  
 			</tr>";
 	}
 }
