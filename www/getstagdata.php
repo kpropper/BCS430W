@@ -16,7 +16,7 @@ include("siteInit.php");
   if(isset($_POST["MemoryQty"]))  		$_SESSION['memqty'] = $_POST["MemoryQty"];
   if(isset($_POST["ConditionID"]))  	$_SESSION['condition'] = $_POST["ConditionID"];
   if(isset($_POST["AssetQty"]))  	    $_SESSION['assetqty'] = $_POST["AssetQty"];
-
+  if(isset($_POST["UniqueId"]))  	    $_SESSION['uniqueid'] = $_POST["UniqueId"];
 
 //if($_POST['HardDriveType'] != NULL){
 //  echo
