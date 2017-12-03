@@ -671,10 +671,10 @@ function getassetqty(val){
       <!-- Hard drive Type Select option field-->
       <label>Hard Drive Type</label>
       <select  name="hard_drive_type" id="hdtype" onchange="gethdtypeId(this.value);">
-          <option value="">Select HD Type</option>
+          <option value="">Select HDD Type</option>
           <!-- populate dropdownlist using php -->
           <?php
-            $query = "SELECT DISTINCT HardDriveType from harddrive where HardDriveType != 'None' and HardDriveType != 'N/A' ORDER BY HardDriveType";
+            $query = "SELECT DISTINCT HardDriveType from harddrive ORDER BY HardDriveType";
             $result = mysqli_query($mysqli, $query);
               //loop
             foreach ($result as $hd) {
@@ -688,10 +688,10 @@ function getassetqty(val){
       <!-- Hard drive size Select option field-->
 
       <select name='hard_drive_size' id='hdsize' onchange='gethdsizeId(this.value);' style="display:none;">
-          <option value="">HD Size</option>
+          <option value="">HDD Size</option>
           <!-- populate dropdownlist using php -->
           <?php
-          $query = "SELECT DISTINCT HardDriveSize from harddrive where HardDriveSize != 'None' and HardDriveSize != 'N/A'";
+          $query = "SELECT DISTINCT HardDriveSize from harddrive";
           $result = mysqli_query($mysqli, $query);
               //loop
             foreach ($result as $hd) {
@@ -705,7 +705,7 @@ function getassetqty(val){
       <!-- Hard drive quantity Select option field-->
 
       <select name='hard_drive_quantity' id='hdqty' onchange='gethdqtyId(this.value);' style="display:none;">
-          <option value="">HD Quantity</option>
+          <option value="">HDD Quantity</option>
           <!-- populate dropdownlist using php -->
           <?php
           $query = "SELECT DISTINCT HardDriveQty from harddrive ORDER BY HardDriveQty;";
@@ -783,7 +783,7 @@ function getassetqty(val){
           <option value="">Select Memory Type</option>
           <!-- populate dropdownlist using php -->
           <?php
-            $query = "SELECT DISTINCT MemoryType FROM Memory WHERE MemoryType != 'None' and MemoryType != 'N/A'";
+            $query = "SELECT DISTINCT MemoryType FROM Memory";
             $result = mysqli_query($mysqli, $query);
               //loop
             foreach ($result as $memory) {
@@ -799,7 +799,7 @@ function getassetqty(val){
       <option value=''>Memory Size</option>
       <!-- populate dropdownlist using php -->
       <?php
-        $query = "SELECT DISTINCT MemorySize from Memory where MemorySize != 'N/A'";
+        $query = "SELECT DISTINCT MemorySize from Memory";
         $result = mysqli_query($mysqli, $query);
           //loop
         foreach ($result as $memory) {

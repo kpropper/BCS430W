@@ -1,5 +1,5 @@
 HardDriveID,HardDriveType,HardDriveSize,HardDriveQty,HardDriveValue
-1,None,0 GB,0,0
+1,None,N/A,0,0
 2,SATA,250 GB ,1,0
 3,SATA,250 GB ,2,0
 4,SATA,250 GB ,3,0
@@ -448,5 +448,3 @@ HardDriveID,HardDriveType,HardDriveSize,HardDriveQty,HardDriveValue
 447,SCSI,3 TB ,14,0
 448,SCSI,3 TB ,15,0
 449,SCSI,3 TB ,16,0
-450,None,N/A,0,0
-451,N/A,,0,0
