@@ -56,6 +56,8 @@ if (isset($_POST['task']))
 		$assetValue = 0;
 
 		if(is_numeric($assetqty)) $assetqty = intval($assetqty);
+		
+		$allnull = true;
 
 		if($modname != NULL) $allnull = false;
 		if($hdtype != NULL) $allnull = false;
@@ -664,7 +666,7 @@ function getuniqueId(val){
 
   	<div class="asset_qty col col-sm-2 col-md-1 " style="width:100px;">
 		<label>Quantity</label>
-		<input value="1" onchange='getassetqty(this.value);' name="qty" type="number" min="1" max="999" style="width:85%; height:40px;	color:white;background-color: black;	opacity: 0.8; 	line-height: 40px;	font-size: 20px;margin-right: .1%;"></input>
+		<input onchange='getassetqty(this.value);' name="qty" type="number" min="1" max="999" style="width:85%; height:40px;	color:white;background-color: black;	opacity: 0.8; 	line-height: 40px;	font-size: 20px;margin-right: .1%;"></input>
 	 </div>
     <div class="category col col-sm-3 col-md-2" style="width:200px;">
       <label>Category</label>
