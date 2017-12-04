@@ -134,10 +134,21 @@
 		
 		if($task != NULL && $task !="Override Quote Display")
 		{
-		$query = "Update Inventory SET
+		if ($task == 'Accept Quote')
+		{
+			$query = "Update Inventory SET
+              StatusID = '$statID',
+			  FinalQuote = '$invValue'
+              WHERE
+              InventoryID = '$invID'";
+		}
+		else
+		{
+			$query = "Update Inventory SET
               StatusID = '$statID'
               WHERE
               InventoryID = '$invID'";
+		}	
         $result = $mysqli->query($query);
         if($result);
         else echo "Unable to submit inventory $invID " . mysqli_error($mysqli);
