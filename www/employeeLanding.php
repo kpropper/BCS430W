@@ -25,12 +25,24 @@
 	echo "<b>$userFName $userLName<b>";
 
 	//Temporary Form/Button to go to inventory page
+  //Added a js function to add an input field for override
 	echo"
 		<html>
 			<head>
 				<meta charset='utf-8'>
 				<title>Landing Page</title>
 				<link rel='stylesheet' href='css/landing_style.css'>
+        <script>
+          function addNewQuote() {
+          var element = document.createElement('input');
+
+          element.setAttribute('type', 'number');
+          element.setAttribute('value', '');
+          element.setAttribute('name', 'new_quote');
+          element.setAttribute('placeholder', 'Enter New Quote');
+          document.body.appendChild(element);
+          }
+        </script>
 			</head>
 			<body>
       <div class='content-area group section'>
@@ -75,7 +87,7 @@
 						  InventoryID = '$invID',
 						  QuoteValue = '$invValue',
 						  StatusName = 'Quote-Pending',
-						  StatusMessage = 'Inventory quoted opened by $userFName $userLName'";
+						  StatusMessage = 'Inventory quote opened by $userFName $userLName'";
 				$result = $mysqli->query($query);
 				if($result) $statID = $mysqli->insert_id;
 				else {
@@ -91,6 +103,79 @@
 				if($result);
 				else echo "Unable to submit inventory $invID " . mysqli_error($mysqli);
 				break;
+      case 'Accept Quote':
+        $invID = $_POST['inventoryID'];
+        $invValue = $_POST['statusValue'];
+
+        $query = "INSERT INTO Status SET
+              InventoryID = '$invID',
+              QuoteValue = '$invValue',
+              StatusName = 'Quote-Accepted',
+              StatusMessage = 'Inventory quote accepted by $userFName $userLName'";
+        $result = $mysqli->query($query);
+        if($result) $statID = $mysqli->insert_id;
+        else {
+          $statID = NULL;
+          echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
+          break;
+        }
+        $query = "Update Inventory SET
+              StatusID = '$statID'
+              WHERE
+              InventoryID = '$invID'";
+        $result = $mysqli->query($query);
+        if($result);
+        else echo "Unable to submit inventory $invID " . mysqli_error($mysqli);
+        break;
+        case 'Decline Quote':
+          $invID = $_POST['inventoryID'];
+          $invValue = $_POST['statusValue'];
+
+          $query = "INSERT INTO Status SET
+                InventoryID = '$invID',
+                QuoteValue = '$invValue',
+                StatusName = 'Quote-Declined',
+                StatusMessage = 'Inventory quote declined by $userFName $userLName'";
+          $result = $mysqli->query($query);
+          if($result) $statID = $mysqli->insert_id;
+          else {
+            $statID = NULL;
+            echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
+            break;
+          }
+          $query = "Update Inventory SET
+                StatusID = '$statID'
+                WHERE
+                InventoryID = '$invID'";
+          $result = $mysqli->query($query);
+          if($result);
+          else echo "Unable to submit inventory $invID " . mysqli_error($mysqli);
+          break;
+        case 'Override Quote':
+
+            $invID = $_POST['inventoryID'];
+            $invValue = $_POST['new_quote'];
+
+            $query = "INSERT INTO Status SET
+                  InventoryID = '$invID',
+                  QuoteValue = '$invValue',
+                  StatusName = 'Quote-Overrided,
+                  StatusMessage = 'Inventory quote was overrided by $userFName $userLName'";
+            $result = $mysqli->query($query);
+            if($result) $statID = $mysqli->insert_id;
+            else {
+              $statID = NULL;
+              echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
+              break;
+            }
+            $query = "Update Inventory SET
+                  StatusID = '$statID'
+                  WHERE
+                  InventoryID = '$invID'";
+            $result = $mysqli->query($query);
+            if($result);
+            else echo "Unable to submit inventory $invID " . mysqli_error($mysqli);
+            break;
 			default:
 		}
 	}
@@ -188,8 +273,10 @@
           <input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Quote'>
           <input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Accept Quote'>
           <input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Decline Quote'>
-          <input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Override Quote'>
+          <input type='submit'class='inventory-button' onClick='addNewQuote();' style='margin-left:5px;' name='task' value='Override Quote'>
 				  </form>";
+          echo "<input placeholder='Enter Quote' type='number' name='new-quote'>";
+
 				}
 			}
 			else echo "Inventory NOT found " . mysqli_error($mysqli);
