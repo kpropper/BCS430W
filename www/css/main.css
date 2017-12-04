@@ -156,6 +156,10 @@ Manage account
 .container{
   width:500px;
 }
+.reg_submit a:link{
+  margin-left: 195px;
+}
+
 .names form input{
   font-family:'proxima-nova';
 }
@@ -593,7 +597,7 @@ body{
 
 .row-fluid [class*="span"].wrapper{
     width: 100%;
-    max-width: 1200px;
+    max-width: 1500px;
     margin-left:auto;
     margin-right:auto;
     float: none;
