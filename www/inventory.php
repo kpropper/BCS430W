@@ -38,7 +38,7 @@ if (isset($_POST['inventoryID']))   $invID = $_POST['inventoryID'];	else $invID 
 if (isset($_POST['task']))
 {
 	$task = $_POST['task'];
-	
+
 
 	$modname = $_SESSION['modelid'];
 		$hdtype = $_SESSION['hdtype'];
@@ -56,7 +56,7 @@ if (isset($_POST['task']))
 		$assetValue = 0;
 
 		if(is_numeric($assetqty)) $assetqty = intval($assetqty);
-		
+
 		if($modname != NULL) $allnull = false;
 		if($hdtype != NULL) $allnull = false;
 		if($hdsize != NULL) $allnull = false;
@@ -117,7 +117,7 @@ if (isset($_POST['task']))
 				else $errmsg = "Inventory NOT created " . mysqli_error($mysqli);
 
 			}
-			
+
 			//Get the qty
 			if ($errmsg == NULL)
 			{
@@ -129,7 +129,7 @@ if (isset($_POST['task']))
 						//I could eliminate this by reversing the condition and just use the else value...
 					}
 					else $errmsg = "Invalid Quantity";
-						
+
 				}
 				else $errmsg = "Invalid Quantity " . $assetqty . " " . gettype($assetqty);
 			}
@@ -284,7 +284,7 @@ if (isset($_POST['task']))
 				if($errmsg == NULL)
 				{
 					if($assetqty > 1) $uniqueid = "Multipule";
-					
+
 					//Create the the asset
 					$query = "INSERT INTO Asset SET
 						  Quantity = '$assetqty',
@@ -327,7 +327,7 @@ if (isset($_POST['task']))
 			if($result) $msg = "Item $assetID Deleted.";
 			else $errmsg = "Item $assetID NOT Deleted" . mysqli_error($mysqli);
 		}
-	
+
 		elseif($task == "Submit")
 		{
 			$query = "SELECT AssetID
@@ -411,6 +411,17 @@ if (isset($_POST['task']))
   <title>Inventory Page</title>
   <script>
       function getCId(val){
+
+        //alert(val);
+        $.ajax({
+          type: "POST",
+          url: "getdata.php",
+          data: "CategoryID="+val,
+          success: function(data){
+            $("#mList").html(data);
+              //alert(data);
+          }
+        });
 				if((val != 1)&&(val != 2)&&(val != 3)&&(val != 5)&&(val != 6)){
 					document.getElementById("hdtype").disabled=true;
 					document.getElementById("hdsize").disabled=true;
@@ -421,6 +432,15 @@ if (isset($_POST['task']))
 					document.getElementById("procqty").disabled=true;
 					document.getElementById("proctype").disabled=true;
 					document.getElementById("procspeed").disabled=true;
+					document.getElementById("hdtype").value('');
+					document.getElementById("hdsize").value('');
+					document.getElementById("hdqty").value('');
+					document.getElementById("memqty").value('');
+					document.getElementById("memsize").value('');
+					document.getElementById("memtype").value('');
+					document.getElementById("procqty").value('');
+					document.getElementById("proctype").value('');
+					document.getElementById("procspeed").value('');
 				}
 				else{
 					document.getElementById("hdtype").disabled=false;
@@ -433,16 +453,6 @@ if (isset($_POST['task']))
 					document.getElementById("proctype").disabled=false;
 					document.getElementById("procspeed").disabled=false;
 				}
-        //alert(val);
-        $.ajax({
-          type: "POST",
-          url: "getdata.php",
-          data: "CategoryID="+val,
-          success: function(data){
-            $("#mList").html(data);
-              //alert(data);
-          }
-        });
       }
 
       function getManId(val){
@@ -654,7 +664,7 @@ function getuniqueId(val){
 
   	<div class="asset_qty col col-sm-2 col-md-1 " style="width:100px;">
 		<label>Quantity</label>
-		<input onchange='getassetqty(this.value);' name="qty" type="number" min="1" max="999" style="width:85%; height:40px;	color:white;background-color: black;	opacity: 0.8; 	line-height: 40px;	font-size: 20px;margin-right: .1%;"></input>
+		<input value="1" onchange='getassetqty(this.value);' name="qty" type="number" min="1" max="999" style="width:85%; height:40px;	color:white;background-color: black;	opacity: 0.8; 	line-height: 40px;	font-size: 20px;margin-right: .1%;"></input>
 	 </div>
     <div class="category col col-sm-3 col-md-2" style="width:200px;">
       <label>Category</label>
@@ -923,7 +933,7 @@ if($invID != NULL)
 			<input type='submit' class='inventory-button' name='task' value='Delete'>
 			</form>
 		  </td>
-		  
+
 			</tr>";
 	}
 }
