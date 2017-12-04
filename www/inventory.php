@@ -351,9 +351,9 @@ if (isset($_POST['task']))
 						while(list($assetValue, $valuemultiplier, $quantity) = $result->fetch_row())
 						{
 							$invValue += (($assetValue * $quantity) * $valuemultiplier);
-							//TODO: Get the custmorers valu here, not this fake value
-							$initMax = ($invValue * .5);
-							$initMin = ($invValue * .35);
+							if($userMult >= .2) $lowMult = $userMult - .2; else $lowMult = 0;
+							$initMax = ($invValue * $userMult);
+							$initMin = ($invValue * $lowMult);
 						}
 
 						$query = "INSERT INTO Status SET

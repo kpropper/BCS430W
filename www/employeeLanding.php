@@ -17,6 +17,7 @@
 
 	$categories	= array("Inventory ID", "Customer Last Name", "Customer Email", "Company Name", "Show All");
 	$se = NULL;
+	$task = NULL;
 
 	if(isset($_POST['category']))		$searchcat = ($_POST['category']); else $searchcat  = NULL;
 	if(isset($_POST['searchitem']))		$searchitem = ($_POST['searchitem']); else $searchitem  = NULL;
@@ -108,16 +109,18 @@
           }
 
           break;
-        case 'Override Quote':
+        case 'Override Quote Process':
 
             $invID = $_POST['invID'];
-            $invValue = $_POST['new_quote'];
+            $invValue = $_POST['statusValue'];
+			$newValue = $_POST['overridevalue'];
+			$oldStatusName = $_POST['oldstatusname'];
 
             $query = "INSERT INTO Status SET
                   InventoryID = '$invID',
-                  QuoteValue = '$invValue',
-                  StatusName = 'Quote-Overrided,
-                  StatusMessage = 'Inventory quote was overrided by $userFName $userLName'";
+                  QuoteValue = '$newValue',
+                  StatusName = '$oldStatusName',
+                  StatusMessage = 'Inventory quote was overridden by $userFName $userLName'";
             $result = $mysqli->query($query);
             if($result) $statID = $mysqli->insert_id;
             else {
@@ -129,6 +132,8 @@
 			default:
 		}
 		
+		if($task != NULL && $task !="Override Quote Display")
+		{
 		$query = "Update Inventory SET
               StatusID = '$statID'
               WHERE
@@ -136,6 +141,7 @@
         $result = $mysqli->query($query);
         if($result);
         else echo "Unable to submit inventory $invID " . mysqli_error($mysqli);
+		}
 	}
 	//Show Selected Inventory
 	if(isset($_POST['takeaction']))
@@ -229,7 +235,8 @@
 					echo"<form action='employeeLanding.php'  style='display:inline;' method='post'>
 							<input type='hidden' name='invID' value='$thisInvID'>
 							<input type='hidden' name='statusValue' value='$thisStatusValue'>
-							<input type='hidden name='takeaction' value='Take Action'>
+							<input type='hidden' name='oldstatusname' value='$thisStatusName'>
+							<input type='hidden' name='takeaction' value='Take Action'>
 							<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Open'>";
 							if($thisStatusName == "Submitted")
 							{
@@ -242,7 +249,13 @@
 							if(!($thisStatusName == 'Accepted' || preg_match("/^.*Declined.*$/",$thisStatusName)))
 							{
 								echo "<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Decline Quote'>
-									<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Override Quote'>";
+									<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Override Quote Display'>";
+									if($task == "Override Quote Display")
+									{
+										echo "<label for='OverrideQuote'>Process Override</label>
+											  <input type='number' step='any' name='overridevalue'>
+											  <input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Override Quote Process'>";
+									}
 							}
 					echo "</form>";
 				}	
