@@ -230,6 +230,7 @@
 					echo"<form action='employeeLanding.php'  style='display:inline;' method='post'>
 							<input type='hidden' name='inventoryID' value='$thisInvID'>
 							<input type='hidden' name='statusValue' value='$thisStatusValue'>
+							<input type='hidden name='takeaction' value='Take Action'>
 							<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Open'>";
 							if($thisStatusName == "Submitted")
 							{
