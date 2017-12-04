@@ -47,7 +47,7 @@
 		switch($task)
 		{
 			case 'Open':
-				$invID = $_POST['inventoryID'];
+				$invID = $_POST['invID'];
 				$invValue = $_POST['statusValue'];
 
 				$query = "INSERT INTO Status SET
@@ -60,7 +60,7 @@
 				else echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
 				break;
 			case 'Quote':
-			  $invID = $_POST['inventoryID'];
+			  $invID = $_POST['invID'];
 				$invValue = $_POST['statusValue'];
 
 				$query = "INSERT INTO Status SET
@@ -76,7 +76,7 @@
 				}
 				break;
 			case 'Accept Quote':
-				$invID = $_POST['inventoryID'];
+				$invID = $_POST['invID'];
 				$invValue = $_POST['statusValue'];
 
 				$query = "INSERT INTO Status SET
@@ -92,7 +92,7 @@
 				}	     
         break;
         case 'Decline Quote':
-          $invID = $_POST['inventoryID'];
+          $invID = $_POST['invID'];
           $invValue = $_POST['statusValue'];
 
           $query = "INSERT INTO Status SET
@@ -110,7 +110,7 @@
           break;
         case 'Override Quote':
 
-            $invID = $_POST['inventoryID'];
+            $invID = $_POST['invID'];
             $invValue = $_POST['new_quote'];
 
             $query = "INSERT INTO Status SET
@@ -142,7 +142,6 @@
 	{
 		//Variables
 		$value = NULL;
-
 		if(isset($_POST['invID'])) 	$invID = ($_POST['invID']); else $invID = NULL;
     $query = "SELECT StatusID, StatusName, StatusDate, QuoteValue, StatusMessage
           FROM Status
@@ -228,7 +227,7 @@
 				else
 				{
 					echo"<form action='employeeLanding.php'  style='display:inline;' method='post'>
-							<input type='hidden' name='inventoryID' value='$thisInvID'>
+							<input type='hidden' name='invID' value='$thisInvID'>
 							<input type='hidden' name='statusValue' value='$thisStatusValue'>
 							<input type='hidden name='takeaction' value='Take Action'>
 							<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Open'>";
@@ -341,6 +340,7 @@
 							<td>$thisStatusValue</td>
 							<td><form action='employeeLanding.php' method='post'>
 							<input type='hidden' name='invID' value='$thisInvID'>
+							<input type='hidden' name='statusValue' value='$thisStatusValue'>
 							<input type='submit' class='inventory-button' name='takeaction' value='Take Action'>
 							</form>
 							</td></tr>";
