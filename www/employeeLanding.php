@@ -259,13 +259,16 @@
 							}
 							if(!($thisStatusName == 'Accepted' || preg_match("/^.*Declined.*$/",$thisStatusName)))
 							{
-								echo "<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Decline Quote'>
-									<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Override Quote Display'>";
-									if($task == "Override Quote Display")
+								echo "<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Decline Quote'>";
+									if(!(preg_match("/^.*Accepted.*$/",$thisStatusName)))
 									{
-										echo "<label for='OverrideQuote'>Process Override</label>
-											  <input type='number' step='any' name='overridevalue'>
-											  <input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Override Quote Process'>";
+										echo "<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Override Quote Display'>";
+										if($task == "Override Quote Display")
+										{
+											echo "<label for='OverrideQuote'>Process Override</label>
+												<input type='number' step='any' name='overridevalue'>
+												<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Override Quote Process'>";
+										}
 									}
 							}
 					echo "</form>";
