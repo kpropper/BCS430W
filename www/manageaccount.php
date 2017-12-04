@@ -11,7 +11,7 @@
 <head>
 <link rel="stylesheet" href="css/main.css" />
 
-<title></title>
+<title>Manage Account</title>
 </head>
 <body class=" hs-content-id-4908310180 hs-site-page page hs-content-path- hs-content-name-home  " style="">
   <div class="header-container-wrapper">
@@ -40,9 +40,10 @@
     <br />
     <div class="reg_submit">
     <input type="submit" name="update" value="Update" style="cursor: pointer">
+    <a href="changepassword.php">Reset Password</a>
     </div>
     </div>
-	<a href="changepassword.php">Reset Password</a>
+
 </b>
 
 	<br />
