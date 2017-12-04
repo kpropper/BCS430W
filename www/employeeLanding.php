@@ -306,7 +306,7 @@
 				      FROM Inventory JOIN Status ON Inventory.StatusID = Status.StatusID
 					  JOIN User ON Inventory.UserID = User.UserID
 					  WHERE $querycat = '$searchitem'
-					  ORDER BY FIELD(STATUS.StatusName,'Accepted-Client','Submitted','Open','Started','Declined-Client','Accepted','Declined'), Status.StatusDate ASC
+					  ORDER BY FIELD(STATUS.StatusName,'Accepted-Client','Submitted','Open','Started', 'Quote-Pending','Accepted', 'Declined'), Status.StatusDate ASC
 					  LIMIT 25";
 	}
 	else
@@ -315,7 +315,7 @@
 	$query = "SELECT Inventory.InventoryID, Status.StatusName, Status.StatusDate, Inventory.Inventory_Value, Status.QuoteValue, User.Value_Multiplier, User.FName, User.LName, User.Company_Name
 				FROM Inventory JOIN Status ON Inventory.StatusID = Status.StatusID
 				JOIN User ON Inventory.UserID = User.UserID
-				ORDER BY FIELD(STATUS.StatusName, 'Submitted','Open','Started', 'Quote-Pending'), Status.StatusDate ASC
+				ORDER BY FIELD(STATUS.StatusName, 'Accepted-Client','Submitted','Open','Started', 'Quote-Pending','Accepted', 'Declined'), Status.StatusDate ASC
 				LIMIT 25";
 	}
 
