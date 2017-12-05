@@ -285,7 +285,7 @@ if (isset($_POST['task']))
 
 				if($errmsg == NULL)
 				{
-					if($assetqty > 1) $uniqueid = "Multipule";
+					if($assetqty > 1) $uniqueid = "Multiple";
 
 					//Create the the asset
 					$query = "INSERT INTO Asset SET
