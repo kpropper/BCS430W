@@ -44,13 +44,31 @@
 	if(isset($_POST['task']))
 	{
 		$task = $_POST['task'];
+		
+		$invID = $_POST['invID'];
+		$invValue = $_POST['statusValue'];
+		
+		$query = "SELECT UserID FROM Inventory WHERE InventoryID = '$invID'";
+			$result = $mysqli->query($query);
+			if($result)
+			{
+				list($usersID) = $result->fetch_row();
+				$query = "SELECT FName,
+								 LName,
+								 Company_Name,
+								 Email
+								 FROM User WHERE 
+								 UserID = '$usersID'";
+				$result = $mysqli->query($query);
+				if($result)
+				{
+					list($usersFName, $usersLName, $usersCompany_Name, $usersEMail)= $result->fetch_row();
+				}
+			}
 
 		switch($task)
-		{
+		{				  
 			case 'Open':
-				$invID = $_POST['invID'];
-				$invValue = $_POST['statusValue'];
-
 				$query = "INSERT INTO Status SET
 						  InventoryID = '$invID',
 						  QuoteValue = '$invValue',
@@ -59,11 +77,12 @@
 				$result = $mysqli->query($query);
 				if($result) $statID = $mysqli->insert_id;
 				else echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
+				
+				
+				$subject = "ITAMG Status Update";
+				$body = "Hello $usersFName $usersLName. Your inventory $invID has been opened. Please feel free to edit the inventory.";		
 				break;
 			case 'Quote':
-			  $invID = $_POST['invID'];
-				$invValue = $_POST['statusValue'];
-
 				$query = "INSERT INTO Status SET
 						  InventoryID = '$invID',
 						  QuoteValue = '$invValue',
@@ -75,11 +94,11 @@
 					$statID = NULL;
 					echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
 				}
+				
+				$subject = "ITAMG Status Update";
+				$body = "Hello $usersFName $usersLName. Your inventory $invID has been Quoted. Please review the quote and proceed appropriatly.";
 				break;
 			case 'Accept Quote':
-				$invID = $_POST['invID'];
-				$invValue = $_POST['statusValue'];
-
 				$query = "INSERT INTO Status SET
 					InventoryID = '$invID',
 					QuoteValue = '$invValue',
@@ -90,45 +109,47 @@
 				else {
 					$statID = NULL;
 					echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
-				}	     
-        break;
-        case 'Decline Quote':
-          $invID = $_POST['invID'];
-          $invValue = $_POST['statusValue'];
+				}	 
 
-          $query = "INSERT INTO Status SET
-                InventoryID = '$invID',
-                QuoteValue = '$invValue',
-                StatusName = 'Declined',
-                StatusMessage = 'Inventory quote declined by $userFName $userLName'";
-          $result = $mysqli->query($query);
-          if($result) $statID = $mysqli->insert_id;
-          else {
-            $statID = NULL;
-            echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
-          }
+				$subject = "ITAMG Status Update";
+				$body = "Hello $usersFName $usersLName. Your inventory $invID has been Accepted. Thank You for doing bussiness with us.";
+				break;
+			case 'Decline Quote':
+				$query = "INSERT INTO Status SET
+							InventoryID = '$invID',
+							QuoteValue = '$invValue',
+							StatusName = 'Declined',
+							StatusMessage = 'Inventory quote declined by $userFName $userLName'";
+				$result = $mysqli->query($query);
+				if($result) $statID = $mysqli->insert_id;
+				else 
+				{
+					$statID = NULL;
+					echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
+				}
+				$subject = "ITAMG Status Update";
+				$body = "Hello $usersFName $usersLName. Your inventory $invID has been Declined. We are unable to purchase your equipment at this time. Thank You for doing bussiness with us.";
+				break;
+			case 'Override Quote Process':
 
-          break;
-        case 'Override Quote Process':
+				$newValue = $_POST['overridevalue'];
+				$oldStatusName = $_POST['oldstatusname'];
 
-            $invID = $_POST['invID'];
-            $invValue = $_POST['statusValue'];
-			$newValue = $_POST['overridevalue'];
-			$oldStatusName = $_POST['oldstatusname'];
-
-            $query = "INSERT INTO Status SET
-                  InventoryID = '$invID',
-                  QuoteValue = '$newValue',
-                  StatusName = '$oldStatusName',
-                  StatusMessage = 'Inventory quote was overridden by $userFName $userLName'";
-            $result = $mysqli->query($query);
-            if($result) $statID = $mysqli->insert_id;
-            else {
-              $statID = NULL;
-              echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
-              break;
-            }
-            break;	
+				$query = "INSERT INTO Status SET
+						InventoryID = '$invID',
+						QuoteValue = '$newValue',
+						StatusName = '$oldStatusName',
+						StatusMessage = 'Inventory quote was overridden by $userFName $userLName'";
+				$result = $mysqli->query($query);
+				if($result) $statID = $mysqli->insert_id;
+				else 
+				{
+					$statID = NULL;
+					echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
+				}
+				$subject = "ITAMG Status Update";
+				$body = "Hello $usersFName $usersLName. Your inventory $invID has been updated. Please review the updated information.";
+				break;	
 			default:
 		}
 		
@@ -150,7 +171,11 @@
               InventoryID = '$invID'";
 		}	
         $result = $mysqli->query($query);
-        if($result);
+        if($result)
+		{
+			include('sendmail.php');
+			sendmail($usersEMail,$subject,$body);
+		}
         else echo "Unable to submit inventory $invID " . mysqli_error($mysqli);
 		}
 	}
