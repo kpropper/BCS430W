@@ -22,7 +22,7 @@
 
 
   <h1 style="text-align: center">Update <?php echo $userfirstname.' ' . $userlastname; ?>'s Information</h1>
-	<div class="formbox" style="margin-top:105px;">
+	<div class="formbox" style="margin-top:145px;">
   <form class="container"  action="employeemanageaccount.php" method="post">
 	<div class="names">
 		<b>User Type:
@@ -71,11 +71,7 @@
 		<input type='hidden' name='resetpassword' value='Reset Password'>
 		<input type='hidden' name='fromuser' value='$useruserID'>
 		<input type='hidden' name='email' value='$useremail'>
-		<input type='submit' name='passwordreset' value='Reset Password'></form>
-		<form class='btn_submit_manage' style='text-align:center;'action='employeemanageaccount.php' method='post'>
-		<input type='hidden' name='resetpassword' value='Reset Password'>
-		<input type='hidden' name='userUserID' value='$useruserID'>
-		<input type='hidden' name='email' value='$useremail'>
+		<input type='submit' name='passwordreset' value='Reset Password'>
 		<input type='submit' name='deleteuser' value='Delete User'></form>"; ?>
 
 	<br />
