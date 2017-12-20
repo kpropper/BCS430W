@@ -44,10 +44,10 @@
 	if(isset($_POST['task']))
 	{
 		$task = $_POST['task'];
-		
+
 		$invID = $_POST['invID'];
 		$invValue = $_POST['statusValue'];
-		
+
 		$query = "SELECT UserID FROM Inventory WHERE InventoryID = '$invID'";
 			$result = $mysqli->query($query);
 			if($result)
@@ -57,7 +57,7 @@
 								 LName,
 								 Company_Name,
 								 Email
-								 FROM User WHERE 
+								 FROM User WHERE
 								 UserID = '$usersID'";
 				$result = $mysqli->query($query);
 				if($result)
@@ -67,7 +67,7 @@
 			}
 
 		switch($task)
-		{				  
+		{
 			case 'Open':
 				$query = "INSERT INTO Status SET
 						  InventoryID = '$invID',
@@ -77,10 +77,10 @@
 				$result = $mysqli->query($query);
 				if($result) $statID = $mysqli->insert_id;
 				else echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
-				
-				
+
+
 				$subject = "ITAMG Status Update";
-				$body = "Hello $usersFName $usersLName. Your inventory $invID has been opened. Please feel free to edit the inventory.";		
+				$body = "Hello $usersFName $usersLName. Your inventory $invID has been opened. Please feel free to edit the inventory.";
 				break;
 			case 'Quote':
 				$query = "INSERT INTO Status SET
@@ -94,7 +94,7 @@
 					$statID = NULL;
 					echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
 				}
-				
+
 				$subject = "ITAMG Status Update";
 				$body = "Hello $usersFName $usersLName. Your inventory $invID has been Quoted. Please review the quote and proceed appropriatly.";
 				break;
@@ -109,7 +109,7 @@
 				else {
 					$statID = NULL;
 					echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
-				}	 
+				}
 
 				$subject = "ITAMG Status Update";
 				$body = "Hello $usersFName $usersLName. Your inventory $invID has been Accepted. Thank You for doing bussiness with us.";
@@ -122,7 +122,7 @@
 							StatusMessage = 'Inventory quote declined by $userFName $userLName'";
 				$result = $mysqli->query($query);
 				if($result) $statID = $mysqli->insert_id;
-				else 
+				else
 				{
 					$statID = NULL;
 					echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
@@ -142,17 +142,17 @@
 						StatusMessage = 'Inventory quote was overridden by $userFName $userLName'";
 				$result = $mysqli->query($query);
 				if($result) $statID = $mysqli->insert_id;
-				else 
+				else
 				{
 					$statID = NULL;
 					echo "[$invValue] Inventory Status NOT updated " . mysqli_error($mysqli);
 				}
 				$subject = "ITAMG Status Update";
 				$body = "Hello $usersFName $usersLName. Your inventory $invID has been updated. Please review the updated information.";
-				break;	
+				break;
 			default:
 		}
-		
+
 		if($task != NULL && $task !="Override Quote Display")
 		{
 		if ($task == 'Accept Quote')
@@ -169,7 +169,7 @@
               StatusID = '$statID'
               WHERE
               InventoryID = '$invID'";
-		}	
+		}
         $result = $mysqli->query($query);
         if($result)
 		{
@@ -273,18 +273,26 @@
 							<input type='hidden' name='statusValue' value='$thisStatusValue'>
 							<input type='hidden' name='oldstatusname' value='$thisStatusName'>
 							<input type='hidden' name='takeaction' value='Take Action'>
-							<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Open'>";
+							<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Open'>
+              </form>";
+              echo "<form action='inventory.php' style='display:inline;' method='post'>
+                <input type='hidden' name='inventoryID' value='$thisInvID'>
+                <input type='submit'class='inventory-button' style='margin-left:20px;' name='updateinventory' value='View Inventory'>
+                </form>";
 							if($thisStatusName == "Submitted")
 							{
-								echo"<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Quote'>";
+								echo"<form action='employeeLanding.php'  style='display:inline;' method='post'>
+                <input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Quote'>";
 							}
 							elseif($thisStatusName == "Accepted-Client")
 							{
-								echo "<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Accept Quote'>";
+								echo "<form action='employeeLanding.php'  style='display:inline;' method='post'>
+                <input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Accept Quote'>";
 							}
 							if(!($thisStatusName == 'Accepted' || preg_match("/^.*Declined.*$/",$thisStatusName)))
 							{
-								echo "<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Decline Quote'>";
+								echo "<form action='employeeLanding.php'  style='display:inline;' method='post'>
+                <input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Decline Quote'>";
 									if(!(preg_match("/^.*Accepted.*$/",$thisStatusName)))
 									{
 										echo "<input type='submit'class='inventory-button' style='margin-left:5px;' name='task' value='Override Quote Display'>";
@@ -297,7 +305,7 @@
 									}
 							}
 					echo "</form>";
-				}	
+				}
 			}
 			else echo "Inventory NOT found " . mysqli_error($mysqli);
 	}
